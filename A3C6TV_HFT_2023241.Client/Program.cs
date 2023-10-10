@@ -6,7 +6,7 @@ namespace A3C6TV_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello github!");
         }
     }
 }
