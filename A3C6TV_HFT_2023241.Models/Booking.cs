@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace A3C6TV_HFT_2023241.Models
 {
@@ -18,5 +14,11 @@ namespace A3C6TV_HFT_2023241.Models
         public DateTime StartDate { get; set; }
         public int Duration { get; set; }
 
+        public int Table_ID { get; set; }
+
+        public int Customer_ID { get; set; }
+
+        public int[] Consumed { get; set; }
+        //lehetne string is contat *, és fűzögetthetném egymáshoz a fogyaztott dolgokat
     }
 }
