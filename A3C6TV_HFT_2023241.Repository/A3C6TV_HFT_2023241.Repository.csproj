@@ -8,4 +8,15 @@
     <ProjectReference Include="..\A3C6TV_HFT_2023241.Models\A3C6TV_HFT_2023241.Models.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	
 </Project>
