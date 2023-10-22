@@ -17,5 +17,19 @@ namespace A3C6TV_HFT_2023241.Models
         [Required]
         [Range(0, 20000)]
         public int Price { get; set; }
+
+
+        public Consumable()
+        {
+            
+        }
+
+        public Consumable(string line)
+        {
+            string[] data = line.Split('#');
+            Consumable_ID = int.Parse(data[0]);
+            Name = data[1];
+            Price = int.Parse(data[2]);
+        }
     }
 }

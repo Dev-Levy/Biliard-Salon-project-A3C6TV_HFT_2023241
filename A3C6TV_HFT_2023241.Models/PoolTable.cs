@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace A3C6TV_HFT_2023241.Models
@@ -13,5 +14,16 @@ namespace A3C6TV_HFT_2023241.Models
         [Required]
         public TableKind T_kind { get; set; }
 
+        public PoolTable()
+        {
+            
+        }
+
+        public PoolTable(string line)
+        {
+            string[] data = line.Split('#');
+            Table_ID = int.Parse(data[0]);
+            T_kind = (TableKind)Enum.Parse(typeof(string), data[1]); //idk if this is okey, the internet told me so
+        }
     }
 }
