@@ -25,7 +25,7 @@ namespace A3C6TV_HFT_2023241.Repository
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) // I have no idea if this works or not
         {
             modelBuilder.Entity<Booking>(Bookings => Bookings
                         .HasOne<Customer>()
@@ -38,6 +38,8 @@ namespace A3C6TV_HFT_2023241.Repository
                         .WithMany()
                         .HasForeignKey(Booking => Booking.Table_ID)
                         .OnDelete(DeleteBehavior.SetNull));
+
+                                                                          // Ide kell DBSeed majd
         }
     }
 }
