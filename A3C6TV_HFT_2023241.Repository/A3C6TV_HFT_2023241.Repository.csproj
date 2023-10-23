@@ -5,6 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Tajfun.mdf" />
+    <None Remove="Tajfun_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Tajfun.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tajfun_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\A3C6TV_HFT_2023241.Models\A3C6TV_HFT_2023241.Models.csproj" />
   </ItemGroup>
 

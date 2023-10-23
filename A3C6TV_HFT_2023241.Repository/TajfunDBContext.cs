@@ -1,6 +1,5 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace A3C6TV_HFT_2023241.Repository
 {
@@ -20,7 +19,7 @@ namespace A3C6TV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Biliard.mdf;Integrated Security=True;MultipleActiveResultSets=true";
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|Tajfun.mdf;Integrated Security=True;MultipleActiveResultSets=true";
 
                 optionsBuilder.UseSqlServer(conn);
             }
@@ -41,7 +40,7 @@ namespace A3C6TV_HFT_2023241.Repository
                         .OnDelete(DeleteBehavior.SetNull));
 
             // Ide kell DBSeed majd
-          
+
 
             modelBuilder.Entity<Booking>().HasData(new Booking[]
             {

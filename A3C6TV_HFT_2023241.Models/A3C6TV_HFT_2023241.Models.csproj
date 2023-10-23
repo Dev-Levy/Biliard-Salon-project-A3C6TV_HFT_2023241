@@ -4,18 +4,4 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Biliard.mdf" />
-    <None Remove="Biliard_log.ldf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Biliard.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biliard_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>
