@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\A3C6TV_HFT_2023241.Models\A3C6TV_HFT_2023241.Models.csproj" />
+    <ProjectReference Include="..\A3C6TV_HFT_2023241.Repository\A3C6TV_HFT_2023241.Repository.csproj" />
   </ItemGroup>
 
 </Project>

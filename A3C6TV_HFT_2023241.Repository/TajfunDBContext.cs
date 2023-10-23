@@ -19,24 +19,23 @@ namespace A3C6TV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|Tajfun.mdf;Integrated Security=True;MultipleActiveResultSets=true";
-
-                optionsBuilder.UseSqlServer(conn);
+                optionsBuilder.UseLazyLoadingProxies()
+                              .UseInMemoryDatabase("MyDB");
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) // I have no idea if this works or not
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Booking>(Bookings => Bookings
                         .HasOne<Customer>()
                         .WithMany()
-                        .HasForeignKey(Booking => Booking.Customer_ID)
+                        .HasForeignKey(Booking => Booking.CustomerId)
                         .OnDelete(DeleteBehavior.SetNull));
 
             modelBuilder.Entity<Booking>(Bookings => Bookings
                         .HasOne<PoolTable>()
                         .WithMany()
-                        .HasForeignKey(Booking => Booking.Table_ID)
+                        .HasForeignKey(Booking => Booking.TableId)
                         .OnDelete(DeleteBehavior.SetNull));
 
             // Ide kell DBSeed majd

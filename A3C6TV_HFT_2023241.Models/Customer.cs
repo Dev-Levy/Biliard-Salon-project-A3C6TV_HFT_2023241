@@ -7,7 +7,7 @@ namespace A3C6TV_HFT_2023241.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Customer_ID { get; set; }
+        public int CustomerId { get; set; }
 
         [Required]
         [StringLength(25)]
@@ -17,13 +17,13 @@ namespace A3C6TV_HFT_2023241.Models
 
         public Customer()
         {
-            
+
         }
 
         public Customer(string line)
         {
             string[] data = line.Split(',');
-            Customer_ID = int.Parse(data[0]);
+            CustomerId = int.Parse(data[0]);
             Name = data[1];
             Phone = int.Parse(data[2]);
             Email = data[3];

@@ -8,7 +8,7 @@ namespace A3C6TV_HFT_2023241.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Consumable_ID { get; set; }
+        public int ConsumableId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -21,13 +21,13 @@ namespace A3C6TV_HFT_2023241.Models
 
         public Consumable()
         {
-            
+
         }
 
         public Consumable(string line)
         {
             string[] data = line.Split('#');
-            Consumable_ID = int.Parse(data[0]);
+            ConsumableId = int.Parse(data[0]);
             Name = data[1];
             Price = int.Parse(data[2]);
         }

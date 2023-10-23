@@ -9,20 +9,20 @@ namespace A3C6TV_HFT_2023241.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Table_ID { get; set; }
+        public int TableId { get; set; }
 
         [Required]
         public TableKind T_kind { get; set; }
 
         public PoolTable()
         {
-            
+
         }
 
         public PoolTable(string line)
         {
             string[] data = line.Split('#');
-            Table_ID = int.Parse(data[0]);
+            TableId = int.Parse(data[0]);
             T_kind = (TableKind)Enum.Parse(typeof(string), data[1]); //idk if this is okey, the internet told me so
         }
     }
