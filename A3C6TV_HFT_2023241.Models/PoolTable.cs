@@ -23,7 +23,7 @@ namespace A3C6TV_HFT_2023241.Models
         {
             string[] data = line.Split('#');
             TableId = int.Parse(data[0]);
-            T_kind = (TableKind)Enum.Parse(typeof(string), data[1]); //idk if this is okey, the internet told me so
+            T_kind = (TableKind)Enum.Parse(typeof(TableKind), data[1]); //idk if this is okey, the internet told me so
         }
     }
 }

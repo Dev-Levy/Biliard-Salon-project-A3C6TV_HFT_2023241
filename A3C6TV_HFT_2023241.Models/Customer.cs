@@ -12,7 +12,7 @@ namespace A3C6TV_HFT_2023241.Models
         [Required]
         [StringLength(25)]
         public string Name { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
 
         public Customer()
@@ -22,10 +22,10 @@ namespace A3C6TV_HFT_2023241.Models
 
         public Customer(string line)
         {
-            string[] data = line.Split(',');
+            string[] data = line.Split('#');
             CustomerId = int.Parse(data[0]);
             Name = data[1];
-            Phone = int.Parse(data[2]);
+            Phone = data[2];
             Email = data[3];
         }
     }

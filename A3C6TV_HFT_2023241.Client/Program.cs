@@ -1,5 +1,4 @@
-﻿using A3C6TV_HFT_2023241.Models;
-using A3C6TV_HFT_2023241.Repository;
+﻿using A3C6TV_HFT_2023241.Repository;
 using System;
 using System.Linq;
 
@@ -11,11 +10,10 @@ namespace A3C6TV_HFT_2023241.Client
         {
             Console.WriteLine("Hello github!");
 
-            IRepository<Booking> repository = new BookingRepository(new TajfunDBContext());
+            TajfunDBContext ctx = new TajfunDBContext();
 
-            var items = repository.ReadAll().ToArray();
 
-            Console.ReadKey();
+            var bookings = ctx.Bookings.ToArray();
         }
     }
 }
