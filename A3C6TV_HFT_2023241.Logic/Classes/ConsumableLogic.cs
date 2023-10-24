@@ -4,17 +4,16 @@ using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Logic
 {
-    public class CustomerLogic : ICustomerLogic
+    public class ConsumableLogic : IConsumableLogic
     {
+        IRepository<Consumable> repo;
 
-        IRepository<Customer> repo;
-
-        public CustomerLogic(IRepository<Customer> inrepo)
+        public ConsumableLogic(IRepository<Consumable> inrepo)
         {
             repo = inrepo;
         }
 
-        public void Create(Customer item)
+        public void Create(Consumable item)
         {
             repo.Create(item);
         }
@@ -24,17 +23,17 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Delete(id);
         }
 
-        public Customer Read(int id)
+        public Consumable Read(int id)
         {
             return repo.Read(id);
         }
 
-        public IQueryable<Customer> ReadAll()
+        public IQueryable<Consumable> ReadAll()
         {
             return repo.ReadAll();
         }
 
-        public void Update(Customer item)
+        public void Update(Consumable item)
         {
             repo.Update(item);
         }
