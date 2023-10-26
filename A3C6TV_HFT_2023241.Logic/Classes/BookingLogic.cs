@@ -17,25 +17,23 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             repo.Create(item);
         }
-
         public void Delete(int id)
         {
             repo.Delete(id);
         }
-
         public Booking Read(int id)
         {
             return repo.Read(id);
         }
-
         public IQueryable<Booking> ReadAll()
         {
             return repo.ReadAll();
         }
-
         public void Update(Booking item)
         {
             repo.Update(item);
         }
+
+        //személy szerint mikor foglalt asztal
     }
 }

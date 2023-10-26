@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Repository
 {
@@ -14,7 +14,7 @@ namespace A3C6TV_HFT_2023241.Repository
             ctx.Set<T>().Add(item);
             ctx.SaveChanges();
         }
-        public IEnumerable<T> ReadAll()
+        public IQueryable<T> ReadAll()
         {
             return ctx.Set<T>();
         }

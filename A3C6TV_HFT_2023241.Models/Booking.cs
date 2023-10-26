@@ -18,8 +18,9 @@ namespace A3C6TV_HFT_2023241.Models
 
         public int? CustomerId { get; set; }
 
-        public string Consumed { get; set; }
+        public int[] Consumed { get; set; }
         //lehetne string is contat *, és fűzögetthetném egymáshoz a fogyasztott dolgokat
+        //kell még egy tábla ha egy kaját többször rendel
 
         public Booking()
         {
