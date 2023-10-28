@@ -20,13 +20,12 @@ namespace A3C6TV_HFT_2023241.Models
 
         }
 
-        public Customer(string line)
+        public Customer(int id, string name, string phone, string email)
         {
-            string[] data = line.Split('#');
-            CustomerId = int.Parse(data[0]);
-            Name = data[1];
-            Phone = data[2];
-            Email = data[3];
+            CustomerId = id;
+            Name = name;
+            Phone = phone;
+            Email = email;
         }
     }
 }
