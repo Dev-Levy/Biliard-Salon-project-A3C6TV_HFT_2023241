@@ -34,6 +34,8 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        //személy szerint mikor foglalt asztal
+        //Személyek mikor foglaltak
+
+        //Személyenként hányszor foglaltak sorba rakva
     }
 }

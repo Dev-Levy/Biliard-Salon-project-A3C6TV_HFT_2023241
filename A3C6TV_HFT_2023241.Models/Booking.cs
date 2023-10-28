@@ -18,24 +18,18 @@ namespace A3C6TV_HFT_2023241.Models
 
         public int? CustomerId { get; set; }
 
-        public int[] Consumed { get; set; }
-        //lehetne string is contat *, és fűzögetthetném egymáshoz a fogyasztott dolgokat
-        //kell még egy tábla ha egy kaját többször rendel
-
         public Booking()
         {
 
         }
 
-        public Booking(string line)
+        public Booking(int id, string startDate, string endDate, int t_id, int cust_id)
         {
-            string[] data = line.Split('#');
-            BookingId = int.Parse(data[0]);
-            StartDate = data[1];
-            EndDate = data[2];
-            TableId = int.Parse(data[3]);
-            CustomerId = int.Parse(data[4]);
-            Consumed = data[5];
+            BookingId = id;
+            StartDate = startDate;
+            EndDate = endDate;
+            TableId = t_id;
+            CustomerId = cust_id;
         }
     }
 }

@@ -2,12 +2,31 @@
 using A3C6TV_HFT_2023241.Repository;
 using ConsoleTools;
 using System;
-using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Client
 {
     internal class Program
     {
+
+
+        static void List(string entity)
+        {
+
+        }
+        static void Create(string entity)
+        {
+
+        }
+        static void Delete(string entity)
+        {
+            Console.WriteLine(entity + " delete");
+            Console.ReadLine();
+        }
+        static void Update(string entity)
+        {
+            Console.WriteLine(entity + " update");
+            Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             var ctx = new TajfunDBContext();
@@ -21,52 +40,6 @@ namespace A3C6TV_HFT_2023241.Client
             var consumableLogic = new ConsumableLogic(consumableRepo);
             var customerLogic = new CustomerLogic(customerRepo);
             var pooltableLogic = new PoolTableLogic(pooltableRepo);
-
-            static void List(string entity)
-            {
-                //szeretném generikusan megoldani, hogy először létrehozom, aztán switchben kiolvasom, majd kiírom
-                IQueryable queryable = null; //ezt nem szabad így hagyni
-                switch (entity)
-                {
-                    case "Booking":
-                        var queryable = bookingLogic.ReadAll();              //Mé nem jó???
-                        break;
-                    case "Customer":
-                        var queryable = customerLogic.ReadAll();
-                        break;
-                    case "Consumable":
-                        var queryable = consumableLogic.ReadAll();
-                        break;
-                    case "PoolTable":
-                        var queryable = pooltableLogic.ReadAll();
-                        break;
-                }
-
-                foreach (var item in queryable)
-                {
-                    Console.WriteLine(item.ToString());
-                }
-                Console.ReadLine();
-            }
-            static void Create(string entity)
-            {
-                switch (entity)
-                {
-                    case "Booking":
-                        bookingLogic.Create(new Models.Booking("asdasd#valami#valami"));             //Mé nem jó???
-                        break;
-                }
-            }
-            static void Delete(string entity)
-            {
-                Console.WriteLine(entity + " delete");
-                Console.ReadLine();
-            }
-            static void Update(string entity)
-            {
-                Console.WriteLine(entity + " update");
-                Console.ReadLine();
-            }
 
             var bookingsSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Booking"))
