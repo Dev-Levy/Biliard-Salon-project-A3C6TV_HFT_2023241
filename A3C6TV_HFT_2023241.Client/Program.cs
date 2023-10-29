@@ -5,6 +5,26 @@ namespace A3C6TV_HFT_2023241.Client
 {
     internal class Program
     {
+
+
+        static void List(string entity)
+        {
+
+        }
+        static void Create(string entity)
+        {
+
+        }
+        static void Delete(string entity)
+        {
+            Console.WriteLine(entity + " delete");
+            Console.ReadLine();
+        }
+        static void Update(string entity)
+        {
+            Console.WriteLine(entity + " update");
+            Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             var ctx = new TajfunDBContext();
