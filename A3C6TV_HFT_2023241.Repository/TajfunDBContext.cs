@@ -26,14 +26,14 @@ namespace A3C6TV_HFT_2023241.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Booking>(Bookings => Bookings
-                        .HasOne<Customer>()
-                        .WithMany()
+                        .HasOne(b => b.Customer)
+                        .WithMany(c => c.Bookings)
                         .HasForeignKey(Booking => Booking.CustomerId)
                         .OnDelete(DeleteBehavior.SetNull));
 
             modelBuilder.Entity<Booking>(Bookings => Bookings
-                        .HasOne<PoolTable>()
-                        .WithMany()
+                        .HasOne(b => b.PoolTable)
+                        .WithMany(c => c.Bookings)
                         .HasForeignKey(Booking => Booking.TableId)
                         .OnDelete(DeleteBehavior.SetNull));
 

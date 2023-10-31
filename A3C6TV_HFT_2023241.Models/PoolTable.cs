@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace A3C6TV_HFT_2023241.Models
@@ -11,6 +12,7 @@ namespace A3C6TV_HFT_2023241.Models
 
         [Required]
         public string T_kind { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; }
 
         public PoolTable()
         {
@@ -21,6 +23,7 @@ namespace A3C6TV_HFT_2023241.Models
         {
             TableId = id;
             T_kind = tableType;
+            Bookings = new HashSet<Booking>();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace A3C6TV_HFT_2023241.Client
 
 
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

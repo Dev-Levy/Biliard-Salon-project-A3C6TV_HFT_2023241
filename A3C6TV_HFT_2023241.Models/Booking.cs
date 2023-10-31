@@ -14,9 +14,18 @@ namespace A3C6TV_HFT_2023241.Models
 
         [Required]
         public string EndDate { get; set; }
+
+
+
         public int? TableId { get; set; }
+        public virtual PoolTable PoolTable { get; set; }
+
+
 
         public int? CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
+
+
 
         public Booking()
         {

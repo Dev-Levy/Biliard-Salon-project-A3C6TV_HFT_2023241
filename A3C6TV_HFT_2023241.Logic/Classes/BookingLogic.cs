@@ -50,7 +50,11 @@ namespace A3C6TV_HFT_2023241.Logic
         }
 
         //5-nél többször foglaló vendég - Törzsvedégek
-
+        //public IEnumerable<Customer> Frequenters()
+        //{
+        //    var people = repo.ReadAll().GroupBy(b => b.Customer.Name).Count();
+        //    return people;
+        //}
 
         //Legtöbbet használt asztal
 
