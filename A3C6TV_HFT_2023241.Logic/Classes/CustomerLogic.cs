@@ -15,7 +15,7 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Create(Customer item)
         {
-            if (!item.Name.Replace(" ", "").Any(ch => char.IsLetter(ch))) // Oláh Levente, vajon benthagyja a space-t if után? Tesztelni kell
+            if (!item.Name.Replace(" ", "").Any(ch => char.IsLetter(ch)))
                 throw new ArgumentException("Name can't contain anything but letters and space!");
 
             repo.Create(item);
@@ -37,7 +37,9 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public IQueryable<Customer> ReadAll()
         {
-            //kell a 0 esete?
+            if (repo.ReadAll().Count() == 0) //should I check for empty repo? 
+                throw new ArgumentException("There are no customers is the repository!");
+
             return repo.ReadAll();
         }
         public void Update(Customer item)

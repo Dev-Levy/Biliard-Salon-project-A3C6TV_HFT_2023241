@@ -35,7 +35,9 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public IQueryable<Booking> ReadAll()
         {
-            //kell a 0 eset?
+            if (repo.ReadAll().Count() == 0) //should I check for empty repo? 
+                throw new ArgumentException("There are no bookings is the repository!");
+
             return repo.ReadAll();
         }
         public void Update(Booking item)
@@ -47,8 +49,18 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        //Személyek mikor foglaltak
+        //5-nél többször foglaló vendég - Törzsvedégek
 
-        //Személyenként hányszor foglaltak sorba rakva
+
+        //Legtöbbet használt asztal
+
+
+        //longest time customer
+
+
+        //bookings between two dates
+
+
+        // még egy non-crud method XD
     }
 }

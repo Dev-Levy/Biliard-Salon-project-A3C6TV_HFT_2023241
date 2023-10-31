@@ -39,9 +39,8 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public IQueryable<PoolTable> ReadAll()
         {
-            if (repo.ReadAll().Count() == 0)
+            if (repo.ReadAll().Count() == 0) //should I check for empty repo? 
                 throw new ArgumentException("There are no pool tables is the repository!");
-            //ezt nem tudom ki kell-e írni
 
             return repo.ReadAll();
         }
