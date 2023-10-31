@@ -10,7 +10,7 @@ namespace A3C6TV_HFT_2023241.Models
         public int CustomerId { get; set; }
 
         [Required]
-        [StringLength(25)]
+        [StringLength(40)]
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

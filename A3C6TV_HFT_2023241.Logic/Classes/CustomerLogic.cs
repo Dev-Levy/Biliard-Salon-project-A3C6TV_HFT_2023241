@@ -1,5 +1,6 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using A3C6TV_HFT_2023241.Repository;
+using System;
 using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Logic
@@ -14,22 +15,37 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Create(Customer item)
         {
+            if (!item.Name.Replace(" ", "").Any(ch => char.IsLetter(ch))) // Oláh Levente, vajon benthagyja a space-t if után? Tesztelni kell
+                throw new ArgumentException("Name can't contain anything but letters and space!");
+
             repo.Create(item);
         }
         public void Delete(int id)
         {
+            if (repo.Read(id) == null)
+            {
+                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot delete it!");
+            }
             repo.Delete(id);
         }
         public Customer Read(int id)
         {
+            if (repo.Read(id) == null)
+                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot read it!");
+
             return repo.Read(id);
         }
         public IQueryable<Customer> ReadAll()
         {
+            //kell a 0 esete?
             return repo.ReadAll();
         }
         public void Update(Customer item)
         {
+            if (repo.Read(item.CustomerId) == null)
+            {
+                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot update it!");
+            }
             repo.Update(item);
         }
     }
