@@ -36,9 +36,6 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public IQueryable<Booking> ReadAll()
         {
-            if (repo.ReadAll().Count() == 0) //should I check for empty repo? 
-                throw new ArgumentException("There are no bookings is the repository!");
-
             return repo.ReadAll();
         }
         public void Update(Booking item)
@@ -51,16 +48,16 @@ namespace A3C6TV_HFT_2023241.Logic
         }
 
         //5-nél többször foglaló vendég - Törzsvedégek
-        public IEnumerable<Customer> Frequenters()
-        {
-            var people = repo.ReadAll()
-                        .GroupBy(b => b.CustomerId)
-                        .Where(g => g.Count() > 5);   // i don't get how LINQ-s work
+        //public IEnumerable<Customer> Frequenters()
+        //{
+        //    var people = repo.ReadAll()
+        //                .GroupBy(b => b.CustomerId)
+        //                .Where(g => g.Count() > 5);   // i don't get how LINQ-s work
 
-            //hogyan szedek ki customer egyedeket booking egyedekből az ID segítségével
+        //    //hogyan szedek ki customer egyedeket booking egyedekből az ID segítségével
 
-            return people;
-        }
+        //    return people;
+        //}
 
         //Legtöbbet használt asztalok
         public IEnumerable<Booking> MostUsedTables()
