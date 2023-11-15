@@ -1,7 +1,7 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using A3C6TV_HFT_2023241.Repository;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Logic
@@ -47,36 +47,16 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        //5-nél többször foglaló vendég - Törzsvedégek
-        //public IEnumerable<Customer> Frequenters()
-        //{
-        //    var people = repo.ReadAll()
-        //                .GroupBy(b => b.CustomerId)
-        //                .Where(g => g.Count() > 5);   // i don't get how LINQ-s work
-
-        //    //hogyan szedek ki customer egyedeket booking egyedekből az ID segítségével
-
-        //    return people;
-        //}
-
-        //Legtöbbet használt asztalok
-        public IEnumerable<Booking> MostUsedTables()
+        public IEnumerable NumberOfBookings()
         {
-            var tables = from x in repo.ReadAll()
-                         group x by x.TableId into g
-                         orderby g.Count()
-                         select g.First(); //Take(3)
-
-            return tables;
-            //hogyan kéne IEnumerable-re kasztolni?
+            var countBookings = repo.ReadAll()
+                                    .GroupBy(t => t.Customer.Name)
+                                    .Select(t => new
+                                    {
+                                        name = t.Key,
+                                        count = t.Count()
+                                    }).ToList();
+            return countBookings;
         }
-
-        //longest time customer
-
-
-        //bookings between two dates
-
-
-        // még egy non-crud method XD
     }
 }

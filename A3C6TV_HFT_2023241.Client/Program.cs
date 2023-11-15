@@ -21,7 +21,7 @@ namespace A3C6TV_HFT_2023241.Client
                 var pooltableLogic = new PoolTableLogic(pooltableRepo);
 
 
-                var asd = bookingLogic.MostUsedTables();
+                var asd = bookingLogic.NumberOfBookings();
             }
             catch (Exception e)
             {
