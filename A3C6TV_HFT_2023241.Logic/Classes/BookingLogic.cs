@@ -1,7 +1,7 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using A3C6TV_HFT_2023241.Repository;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace A3C6TV_HFT_2023241.Logic
@@ -47,16 +47,19 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        public IEnumerable NumberOfBookings()
+        //Ki hányszor foglalt
+        public IEnumerable<BookingsByName> MostFrequentCustomers(int numOfPeople)
         {
-            var countBookings = repo.ReadAll()
+            var freqPeople = repo.ReadAll()
                                     .GroupBy(t => t.Customer.Name)
-                                    .Select(t => new
+                                    .Select(t => new BookingsByName()
                                     {
                                         name = t.Key,
                                         count = t.Count()
-                                    }).ToList();
-            return countBookings;
+                                    })
+                                    .OrderByDescending(t=>t.count)
+                                    .Take(numOfPeople);
+            return freqPeople;
         }
     }
 }
