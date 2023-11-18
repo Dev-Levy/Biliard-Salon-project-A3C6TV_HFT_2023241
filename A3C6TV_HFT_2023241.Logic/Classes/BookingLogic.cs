@@ -47,7 +47,6 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        //Ki hányszor foglalt
         public IEnumerable<BookingsByName> MostFrequentCustomers(int numOfPeople)
         {
             var freqPeople = repo.ReadAll()
@@ -57,9 +56,56 @@ namespace A3C6TV_HFT_2023241.Logic
                                         name = t.Key,
                                         count = t.Count()
                                     })
-                                    .OrderByDescending(t=>t.count)
+                                    .OrderByDescending(t => t.count)
                                     .Take(numOfPeople);
-            return freqPeople;
+            return freqPeople.ToList();
+        }
+
+        public int HowManyBookingsBetweenTwoDates(DateTime start, DateTime end)
+        {
+            var count = repo.ReadAll()
+                             .Where(t => t.StartDate >= start && t.EndDate <= end);
+
+            return count.Count();
+        }
+
+        public IEnumerable<BookingInfo> BookingsBetweenTwoDates(DateTime start, DateTime end)
+        {
+            var bookingList = repo.ReadAll()
+                             .Where(t => t.StartDate >= start && t.EndDate <= end)
+                             .Select(t => new BookingInfo
+                             {
+                                 name = t.Customer.Name,
+                                 start = t.StartDate,
+                                 end = t.EndDate,
+                                 table = t.PoolTable.T_kind
+                             });
+
+            return bookingList.ToList();
+        }
+
+        public IEnumerable<PoolTable> MostUsedTable()
+        {
+            //ez a Bookings repo, amiben van egy virtual PoolTable nav prop
+            var poolTable = repo.ReadAll()
+                                .GroupBy(t => t.TableId)
+                                .OrderByDescending(t => t.Count())
+                                .First()
+                                .Select(t => t.PoolTable);
+
+            return poolTable.ToList();
+        }
+
+        public TableRate TablekindsBooked()
+        {
+            var tableRate =  new TableRate()
+                             {
+                                 PoolsBookedNum = repo.ReadAll().Where(t=>t.PoolTable.T_kind == "pool").Count(),
+                                 SnookersBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "snooker").Count()
+                             };
+            
+            return tableRate;
         }
     }
+
 }

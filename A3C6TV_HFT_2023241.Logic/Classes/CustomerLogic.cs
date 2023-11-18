@@ -22,10 +22,6 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Delete(int id)
         {
-            if (repo.Read(id) == null)
-            {
-                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot delete it!");
-            }
             repo.Delete(id);
         }
         public Customer Read(int id)
