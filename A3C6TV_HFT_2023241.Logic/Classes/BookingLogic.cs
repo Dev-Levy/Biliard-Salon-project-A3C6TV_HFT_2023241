@@ -86,14 +86,14 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public IEnumerable<PoolTable> MostUsedTable()
         {
-            //ez a Bookings repo, amiben van egy virtual PoolTable navigaton property
-            var poolTable = repo.ReadAll()
+            //groupby nem mindig működik linq 
+            var poolTable = repo.ReadAll().ToList()
                                 .GroupBy(t => t.TableId)
                                 .OrderByDescending(t => t.Count())
                                 .First()
                                 .Select(t => t.PoolTable);
 
-            return poolTable.ToList();
+            return poolTable;
         }
 
         public TableRate TablekindsBooked()
