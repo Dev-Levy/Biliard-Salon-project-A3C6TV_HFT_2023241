@@ -16,7 +16,7 @@ namespace A3C6TV_HFT_2023241.Logic
         
         IEnumerable<BookingInfo> BookingsBetweenTwoDates(DateTime start, DateTime end);
         int HowManyBookingsBetweenTwoDates(DateTime start, DateTime end);
-        IEnumerable<BookingsByName> MostFrequentCustomers(int numOfPeople);
+        IEnumerable<Frequenter> MostFrequentCustomers(int numOfPeople);
         IEnumerable<PoolTable> MostUsedTable();
         TableRate TablekindsBooked();
     }

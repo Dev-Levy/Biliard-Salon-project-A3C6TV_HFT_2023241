@@ -47,16 +47,16 @@ namespace A3C6TV_HFT_2023241.Logic
             repo.Update(item);
         }
 
-        public IEnumerable<BookingsByName> MostFrequentCustomers(int numOfPeople)
+        public IEnumerable<Frequenter> MostFrequentCustomers(int numOfPeople)
         {
             var freqPeople = repo.ReadAll()
                                     .GroupBy(t => t.Customer.Name)
-                                    .Select(t => new BookingsByName()
+                                    .Select(t => new Frequenter()
                                     {
-                                        name = t.Key,
-                                        count = t.Count()
+                                        Name = t.Key,
+                                        Count = t.Count()
                                     })
-                                    .OrderByDescending(t => t.count)
+                                    .OrderByDescending(t => t.Count)
                                     .Take(numOfPeople);
             return freqPeople.ToList();
         }
@@ -75,10 +75,10 @@ namespace A3C6TV_HFT_2023241.Logic
                              .Where(t => t.StartDate >= start && t.EndDate <= end)
                              .Select(t => new BookingInfo
                              {
-                                 name = t.Customer.Name,
-                                 start = t.StartDate,
-                                 end = t.EndDate,
-                                 table = t.PoolTable.T_kind
+                                 Name = t.Customer.Name,
+                                 Start = t.StartDate,
+                                 End = t.EndDate,
+                                 Table = t.PoolTable.T_kind
                              });
 
             return bookingList.ToList();
