@@ -86,7 +86,7 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public IEnumerable<PoolTable> MostUsedTable()
         {
-            //ez a Bookings repo, amiben van egy virtual PoolTable nav prop
+            //ez a Bookings repo, amiben van egy virtual PoolTable navigaton property
             var poolTable = repo.ReadAll()
                                 .GroupBy(t => t.TableId)
                                 .OrderByDescending(t => t.Count())
@@ -98,12 +98,12 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public TableRate TablekindsBooked()
         {
-            var tableRate =  new TableRate()
-                             {
-                                 PoolsBookedNum = repo.ReadAll().Where(t=>t.PoolTable.T_kind == "pool").Count(),
-                                 SnookersBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "snooker").Count()
-                             };
-            
+            var tableRate = new TableRate()
+            {
+                PoolsBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "pool").Count(),
+                SnookersBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "snooker").Count()
+            };
+
             return tableRate;
         }
     }

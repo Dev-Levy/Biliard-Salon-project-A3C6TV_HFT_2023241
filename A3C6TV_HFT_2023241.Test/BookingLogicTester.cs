@@ -12,6 +12,7 @@ namespace A3C6TV_HFT_2023241.Test
     public class BookingLogicTester
     {
         BookingLogic bookingLogic;
+
         Mock<IRepository<Booking>> mockBookingRepo;
 
         [SetUp]
@@ -26,7 +27,13 @@ namespace A3C6TV_HFT_2023241.Test
                 new Booking(4,"2000.10.22 16:30","2000.10.22 19:00",2,4),
                 new Booking(5,"2000.10.22 11:00","2000.10.22 15:00",3,5),
             }.AsQueryable);
+
             bookingLogic = new BookingLogic(mockBookingRepo.Object);
+        }
+
+        [Test]
+        public void asd()
+        {
         }
     }
 }
