@@ -1,13 +1,11 @@
+using A3C6TV_HFT_2023241.Logic;
+using A3C6TV_HFT_2023241.Models;
 using A3C6TV_HFT_2023241.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 
 namespace A3C6TV_HFT_2023241.Endpoint
 {
@@ -17,25 +15,36 @@ namespace A3C6TV_HFT_2023241.Endpoint
         {
             services.AddTransient<TajfunDBContext>();
 
+            services.AddTransient<IRepository<Booking>, BookingRepository>();
+            services.AddTransient<IRepository<Customer>, CustomerRepository>();
+            services.AddTransient<IRepository<PoolTable>, PoolTableRepository>();
 
+            services.AddTransient<IBookingLogic, BookingLogic>();
+            services.AddTransient<ICustomerLogic, CustomerLogic>();
+            services.AddTransient<IPoolTableLogic, PoolTableLogic>();
 
-
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "A3C6TV_HFT_2023241.Endpoint", Version = "v1" });
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "A3C6TV_HFT_2023241.Endpoint v1"));
             }
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
