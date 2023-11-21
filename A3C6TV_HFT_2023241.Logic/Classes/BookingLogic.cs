@@ -96,12 +96,12 @@ namespace A3C6TV_HFT_2023241.Logic
             return poolTable;
         }
 
-        public TableRate TablekindsBooked()
+        public TableRate TablekindsBooked(DateTime start, DateTime end)
         {
             var tableRate = new TableRate()
             {
-                PoolsBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "pool").Count(),
-                SnookersBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "snooker").Count()
+                PoolsBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "pool" && t.StartDate >= start && t.EndDate <= end).Count(),
+                SnookersBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "snooker" && t.StartDate >= start && t.EndDate <= end).Count()
             };
 
             return tableRate;

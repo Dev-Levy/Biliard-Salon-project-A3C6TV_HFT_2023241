@@ -18,6 +18,6 @@ namespace A3C6TV_HFT_2023241.Logic
         int HowManyBookingsBetweenTwoDates(DateTime start, DateTime end);
         IEnumerable<Frequenter> MostFrequentCustomers(int numOfPeople);
         IEnumerable<PoolTable> MostUsedTable();
-        TableRate TablekindsBooked();
+        TableRate TablekindsBooked(DateTime start, DateTime end);
     }
 }

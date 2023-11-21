@@ -71,14 +71,14 @@ namespace A3C6TV_HFT_2023241.Test
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        //[Test]
-        //public void MostFrequentCustomersWithOneAsParameter()
-        //{
-        //    var expected = new List<Frequenter>() { new Frequenter() };
+        [Test]
+        public void TableKindsBookedWhereStartIsLaterThanEnd()
+        {
+            var expected = new TableRate();
 
-        //    var result = bookingLogic.MostFrequentCustomers(1);
+            var result = bookingLogic.TablekindsBooked(DateTime.Now, new DateTime(2010, 10, 10));
 
-        //    Assert.That(result, Is.EqualTo(expected));
-        //}
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace A3C6TV_HFT_2023241.Models
 {
     public class TableRate
     {
-        public int PoolsBookedNum { get; set; }
-        public int SnookersBookedNum { get; set; }
+        public int? PoolsBookedNum { get; set; }
+        public int? SnookersBookedNum { get; set; }
 
         public override bool Equals(object obj)
         {

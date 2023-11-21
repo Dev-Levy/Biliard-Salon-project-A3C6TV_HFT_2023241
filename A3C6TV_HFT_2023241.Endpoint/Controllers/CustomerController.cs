@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace A3C6TV_HFT_2023241.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
