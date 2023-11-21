@@ -91,7 +91,8 @@ namespace A3C6TV_HFT_2023241.Logic
                                 .GroupBy(t => t.TableId)
                                 .OrderByDescending(t => t.Count())
                                 .First()
-                                .Select(t => t.PoolTable);
+                                .Select(t => t.PoolTable)
+                                .Distinct();
 
             return poolTable;
         }

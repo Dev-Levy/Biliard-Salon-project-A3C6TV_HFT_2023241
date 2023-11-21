@@ -16,12 +16,10 @@ namespace A3C6TV_HFT_2023241.Test
 
         Mock<IRepository<Booking>> mockBookingRepo;
 
-        
         [SetUp]
         public void Init()
         {
-            mockBookingRepo = new Mock<IRepository<Booking>>();
-            mockBookingRepo.Setup(m => m.ReadAll()).Returns(new List<Booking>()
+            var inputdata = new List<Booking>()
             {
                 new Booking(7, "2023-11-20 19:00", "2023-11-20 20:30", 9, 6),
                 new Booking(8, "2023-11-21 07:30", "2023-11-21 13:30", 12, 6),
@@ -33,10 +31,14 @@ namespace A3C6TV_HFT_2023241.Test
                 new Booking(14, "2023-11-27 01:00", "2023-11-27 14:30", 2, 4),
                 new Booking(15, "2023-11-28 18:30", "2023-11-28 19:00", 16, 9),
                 new Booking(16, "2023-11-29 10:00", "2023-11-29 12:30", 14, 11),
-            }.AsQueryable);
+            }.AsQueryable();
+
+
+            mockBookingRepo = new Mock<IRepository<Booking>>();
+            mockBookingRepo.Setup(m => m.ReadAll()).Returns(inputdata);
+
 
             bookingLogic = new BookingLogic(mockBookingRepo.Object);
-                           
         }
 
         [Test]

@@ -29,7 +29,7 @@ namespace A3C6TV_HFT_2023241.Client
                 var number = bookingLogic.HowManyBookingsBetweenTwoDates(start, end);
                 var b_list = bookingLogic.BookingsBetweenTwoDates(start, end);
                 var table = bookingLogic.MostUsedTable();
-                //var rate = bookingLogic.TablekindsBooked();
+                var rate = bookingLogic.TablekindsBooked(start, end);
             }
             catch (Exception e)
             {
