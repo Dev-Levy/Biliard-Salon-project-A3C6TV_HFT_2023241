@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace A3C6TV_HFT_2023241.Models
 {
@@ -15,6 +16,7 @@ namespace A3C6TV_HFT_2023241.Models
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Booking> Bookings { get; set; }
 
         public Customer()

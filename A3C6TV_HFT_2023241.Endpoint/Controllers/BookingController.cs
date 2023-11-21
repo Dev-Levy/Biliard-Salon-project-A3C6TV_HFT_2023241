@@ -10,9 +10,9 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
     public class BookingController : ControllerBase
     {
 
-        BookingLogic logic;
+        IBookingLogic logic;
 
-        public BookingController(BookingLogic logic)
+        public BookingController(IBookingLogic logic)
         {
             this.logic = logic;
         }

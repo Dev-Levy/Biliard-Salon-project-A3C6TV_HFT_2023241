@@ -18,7 +18,7 @@
     },
     "A3C6TV_HFT_2023241.Endpoint": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
