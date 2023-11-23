@@ -1,7 +1,8 @@
-﻿using ConsoleTools;
+﻿using A3C6TV_HFT_2023241.Models;
+using ConsoleTools;
 using MovieDbApp.RestClient;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace A3C6TV_HFT_2023241.Client
 {
@@ -19,7 +20,7 @@ namespace A3C6TV_HFT_2023241.Client
             else if (entity == "Customers")
             {
             }
-            else if(entity == "PoolTables")
+            else if (entity == "PoolTables")
             {
             }
         }
@@ -27,12 +28,30 @@ namespace A3C6TV_HFT_2023241.Client
         {
             if (entity == "Bookings")
             {
+                Console.WriteLine("All Bookings: ");
+                List<Booking> all = rest.Get<Booking>("tajfun");
+                foreach (Booking booking in all)
+                {
+                    Console.WriteLine(booking.ToString());
+                }
             }
             else if (entity == "Customers")
             {
+                Console.WriteLine("All Customers: ");
+                List<Customer> all = rest.Get<Customer>("tajfun");
+                foreach (Customer cust in all)
+                {
+                    Console.WriteLine(cust.ToString());
+                }
             }
             else if (entity == "PoolTables")
             {
+                Console.WriteLine("All PoolTables: ");
+                List<PoolTable> all = rest.Get<PoolTable>("tajfun");
+                foreach (PoolTable table in all)
+                {
+                    Console.WriteLine(table.ToString());
+                }
             }
             Console.ReadLine();
         }
@@ -52,6 +71,7 @@ namespace A3C6TV_HFT_2023241.Client
         {
             if (entity == "Bookings")
             {
+
             }
             else if (entity == "Customers")
             {
@@ -62,7 +82,7 @@ namespace A3C6TV_HFT_2023241.Client
         }
         static void Main(string[] args)
         {
-            RestService rest = new RestService("http://localhost:7332/", "booking");
+            RestService rest = new RestService("http://localhost:7332/", "tajfun");
 
             var bookingSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Bookings"))

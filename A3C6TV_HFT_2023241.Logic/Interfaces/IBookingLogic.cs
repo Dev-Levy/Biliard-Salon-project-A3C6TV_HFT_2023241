@@ -12,9 +12,9 @@ namespace A3C6TV_HFT_2023241.Logic
         IQueryable<Booking> ReadAll();
         void Update(Booking item);
         void Delete(int id);
-        
-        
-        IEnumerable<BookingInfo> BookingsBetweenTwoDates(DateTime start, DateTime end);
+
+
+        IEnumerable<Booking> BookingsBetweenTwoDates(DateTime start, DateTime end);
         int HowManyBookingsBetweenTwoDates(DateTime start, DateTime end);
         IEnumerable<Frequenter> MostFrequentCustomers(int numOfPeople);
         IEnumerable<PoolTable> MostUsedTable();

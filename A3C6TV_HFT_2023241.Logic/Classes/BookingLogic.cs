@@ -49,6 +49,10 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public IEnumerable<Frequenter> MostFrequentCustomers(int numOfPeople)
         {
+            if (numOfPeople < 1)
+            {
+                throw new ArgumentException("The number of people you searched is less than 1, you won't have any results!");
+            }
             var freqPeople = repo.ReadAll()
                                     .GroupBy(t => t.Customer.Name)
                                     .Select(t => new Frequenter()
@@ -63,23 +67,25 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public int HowManyBookingsBetweenTwoDates(DateTime start, DateTime end)
         {
+            if (start >= end)
+            {
+                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+            }
             var count = repo.ReadAll()
                              .Where(t => t.StartDate >= start && t.EndDate <= end);
 
             return count.Count();
         }
 
-        public IEnumerable<BookingInfo> BookingsBetweenTwoDates(DateTime start, DateTime end)
+        public IEnumerable<Booking> BookingsBetweenTwoDates(DateTime start, DateTime end)
         {
+            if (start >= end)
+            {
+                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+            }
             var bookingList = repo.ReadAll()
-                             .Where(t => t.StartDate >= start && t.EndDate <= end)
-                             .Select(t => new BookingInfo
-                             {
-                                 Name = t.Customer.Name,
-                                 Start = t.StartDate,
-                                 End = t.EndDate,
-                                 Table = t.PoolTable.T_kind
-                             });
+                                  .Where(t => t.StartDate >= start
+                                           && t.EndDate <= end);
 
             return bookingList.ToList();
         }
@@ -99,6 +105,10 @@ namespace A3C6TV_HFT_2023241.Logic
 
         public TableRate TablekindsBooked(DateTime start, DateTime end)
         {
+            if (start >= end)
+            {
+                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+            }
             var tableRate = new TableRate()
             {
                 PoolsBookedNum = repo.ReadAll().Where(t => t.PoolTable.T_kind == "pool" && t.StartDate >= start && t.EndDate <= end).Count(),

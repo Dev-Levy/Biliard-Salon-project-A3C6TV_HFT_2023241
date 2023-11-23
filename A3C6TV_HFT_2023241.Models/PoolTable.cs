@@ -28,5 +28,10 @@ namespace A3C6TV_HFT_2023241.Models
             T_kind = tableType;
             Bookings = new HashSet<Booking>();
         }
+
+        public override string ToString()
+        {
+            return $"{TableId}\t{T_kind}";
+        }
     }
 }

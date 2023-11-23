@@ -32,5 +32,10 @@ namespace A3C6TV_HFT_2023241.Models
             Email = email;
             Bookings = new HashSet<Booking>();
         }
+
+        public override string ToString()
+        {
+            return $"{CustomerId}\t{Name} - {Phone} - {Email}";
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace A3C6TV_HFT_2023241.Test
         [SetUp]
         public void Init()
         {
-            var inputdata = new List<Booking>()
+            var inputBookings = new List<Booking>()
             {
                 new Booking(7, "2023-11-20 19:00", "2023-11-20 20:30", 9, 6),
                 new Booking(8, "2023-11-21 07:30", "2023-11-21 13:30", 12, 6),
@@ -35,40 +35,89 @@ namespace A3C6TV_HFT_2023241.Test
 
 
             mockBookingRepo = new Mock<IRepository<Booking>>();
-            mockBookingRepo.Setup(m => m.ReadAll()).Returns(inputdata);
+            mockBookingRepo.Setup(m => m.ReadAll()).Returns(inputBookings);
 
 
             bookingLogic = new BookingLogic(mockBookingRepo.Object);
         }
 
         [Test]
-        public void HowManyBookingsBetweenTwoDatesWhereStartIsLaterThanEnd()
+        public void HowManyBookingsBetweenTwoDatesWhereStartIsLaterThanEndThrowsException()
         {
-            int expected = 0;
+            Assert.That(() => bookingLogic
+            .HowManyBookingsBetweenTwoDates(new DateTime(2025, 01, 01),
+                                            new DateTime(2020, 01, 01)),
+                                            Throws.TypeOf<ArgumentException>());
+        }
 
-            var result = bookingLogic.HowManyBookingsBetweenTwoDates(DateTime.Now, new DateTime(2010, 10, 10));
+        [Test]
+        public void HowManyBookingsBetweenTwoDatesWhereDatesAreFarApartReturnsAll()
+        {
+            int expected = bookingLogic.ReadAll().Count();
+
+            var result = bookingLogic.HowManyBookingsBetweenTwoDates(new DateTime(2020, 11, 20), new DateTime(2025, 11, 20));
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
 
         [Test]
-        public void BookingsBetweenTwoDatesWhereStartIsLaterThanEnd()
+        public void BookingsBetweenTwoDatesWhereStartIsLaterThanEndThrowsException()
         {
-            var expected = new List<BookingInfo>() { };
+            Assert.That(() => bookingLogic
+            .BookingsBetweenTwoDates(new DateTime(2025, 01, 01),
+                                     new DateTime(2020, 01, 01)),
+                                     Throws.TypeOf<ArgumentException>());
+        }
 
-            var result = bookingLogic.BookingsBetweenTwoDates(DateTime.Now, new DateTime(2010, 10, 10));
+        [Test]
+        public void BookingsBetweenTwoDatesWhereStartIsEqualWithEndThrowsException()
+        {
+            Assert.That(() => bookingLogic
+            .BookingsBetweenTwoDates(new DateTime(2023, 11, 20, 19, 00, 00),
+                                     new DateTime(2023, 11, 20, 19, 00, 00)),
+                                     Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void BookingsBetweenTwoDatesWhereDatesAreFarApartReturnsAll()
+        {
+            var expected = bookingLogic.ReadAll();
+
+            var result = bookingLogic.BookingsBetweenTwoDates(new DateTime(2020, 11, 20), new DateTime(2025, 11, 20));
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void MostFrequentCustomersWithZeroAsParameter()
+        public void MostFrequentCustomersWithZeroParameterThrowsException()
         {
-            var expected = new List<Frequenter>() { };
+            var parameter = 0;
+            Assert.That(() => bookingLogic.MostFrequentCustomers(parameter),
+                                        Throws.TypeOf<ArgumentException>());
+        }
 
+        [Test]
+        public void MostFrequentCustomersWithNegativeParameterThrowsException()
+        {
+            var parameter = -2;
+            Assert.That(() => bookingLogic.MostFrequentCustomers(parameter),
+                                        Throws.TypeOf<ArgumentException>());
+        }
 
-            var result = bookingLogic.MostFrequentCustomers(0);
+        [Test]
+        public void MostFrequentCustomersWithPositiveParameterReturnsFrequentors()
+        {
+            var parameter = 2;
+
+            var expected = new List<Frequenter>()
+            {
+                //két vendég kell ide
+                new Frequenter(),
+                new Frequenter()
+            };
+
+            var result = bookingLogic.MostFrequentCustomers(parameter);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -76,11 +125,13 @@ namespace A3C6TV_HFT_2023241.Test
         [Test]
         public void TableKindsBookedWhereStartIsLaterThanEnd()
         {
-            var expected = new TableRate();
-
-            var result = bookingLogic.TablekindsBooked(DateTime.Now, new DateTime(2010, 10, 10));
-
-            Assert.That(result, Is.EqualTo(expected));
+            Assert.That(() => bookingLogic
+                  .TablekindsBooked(new DateTime(2025, 01, 01),
+                                    new DateTime(2020, 01, 01)),
+                                    Throws.TypeOf<ArgumentException>());
         }
+
+
+
     }
 }
