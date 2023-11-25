@@ -10,18 +10,20 @@ namespace A3C6TV_HFT_2023241.Client
     {
         static RestService rest;
 
-        //ki kell dolgozni az összes crud metódust
+        //ki kell dolgozni a create és update metódust
         static void Create(string entity)
         {
             if (entity == "Bookings")
             {
-
+                rest.Post(new Booking(), "booking");
             }
             else if (entity == "Customers")
             {
+                rest.Post(new Customer(), "customer");
             }
             else if (entity == "PoolTables")
             {
+                rest.Post(new PoolTable(), "pooltable");
             }
         }
         static void List(string entity)
@@ -29,7 +31,7 @@ namespace A3C6TV_HFT_2023241.Client
             if (entity == "Bookings")
             {
                 Console.WriteLine("All Bookings: ");
-                List<Booking> all = rest.Get<Booking>("tajfun");
+                List<Booking> all = rest.Get<Booking>("booking");
                 foreach (Booking booking in all)
                 {
                     Console.WriteLine(booking.ToString());
@@ -38,7 +40,7 @@ namespace A3C6TV_HFT_2023241.Client
             else if (entity == "Customers")
             {
                 Console.WriteLine("All Customers: ");
-                List<Customer> all = rest.Get<Customer>("tajfun");
+                List<Customer> all = rest.Get<Customer>("customer");
                 foreach (Customer cust in all)
                 {
                     Console.WriteLine(cust.ToString());
@@ -47,7 +49,7 @@ namespace A3C6TV_HFT_2023241.Client
             else if (entity == "PoolTables")
             {
                 Console.WriteLine("All PoolTables: ");
-                List<PoolTable> all = rest.Get<PoolTable>("tajfun");
+                List<PoolTable> all = rest.Get<PoolTable>("pooltable");
                 foreach (PoolTable table in all)
                 {
                     Console.WriteLine(table.ToString());
@@ -59,30 +61,41 @@ namespace A3C6TV_HFT_2023241.Client
         {
             if (entity == "Bookings")
             {
+                //rest.Put(_,"booking");
             }
             else if (entity == "Customers")
             {
+                //rest.Put(_, "customer");
             }
             else if (entity == "PoolTables")
             {
+                //rest.Put(_, "pooltable");
             }
         }
         static void Delete(string entity)
         {
             if (entity == "Bookings")
             {
-
+                Console.Write("ID:");
+                int ID = int.Parse(Console.ReadLine());
+                rest.Delete(ID,"booking");
             }
             else if (entity == "Customers")
             {
+                Console.Write("ID:");
+                int ID = int.Parse(Console.ReadLine());
+                rest.Delete(ID, "customers");
             }
             else if (entity == "PoolTables")
             {
+                Console.Write("ID:");
+                int ID = int.Parse(Console.ReadLine());
+                rest.Delete(ID, "pooltables");
             }
         }
         static void Main(string[] args)
         {
-            RestService rest = new RestService("http://localhost:7332/", "tajfun");
+            rest = new RestService("http://localhost:7332/", "booking");
 
             var bookingSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Bookings"))
@@ -113,6 +126,7 @@ namespace A3C6TV_HFT_2023241.Client
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
+
         }
     }
 }

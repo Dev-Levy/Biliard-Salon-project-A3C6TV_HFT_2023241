@@ -9,9 +9,9 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
     [ApiController]
     public class PoolTableController : ControllerBase
     {
-        PoolTableLogic logic;
+        IPoolTableLogic logic;
 
-        public PoolTableController(PoolTableLogic logic)
+        public PoolTableController(IPoolTableLogic logic)
         {
             this.logic = logic;
         }

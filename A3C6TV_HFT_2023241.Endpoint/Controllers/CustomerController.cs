@@ -10,9 +10,9 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        CustomerLogic logic;
+        ICustomerLogic logic;
 
-        public CustomerController(CustomerLogic logic)
+        public CustomerController(ICustomerLogic logic)
         {
             this.logic = logic;
         }
