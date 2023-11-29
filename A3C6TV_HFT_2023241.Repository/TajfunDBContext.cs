@@ -10,8 +10,6 @@ namespace A3C6TV_HFT_2023241.Repository
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
 
-        Random random = new Random();
-
         public TajfunDBContext()
         {
             Database.EnsureCreated();
