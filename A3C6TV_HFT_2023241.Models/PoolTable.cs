@@ -31,7 +31,7 @@ namespace A3C6TV_HFT_2023241.Models
 
         public override string ToString()
         {
-            return $"{TableId}\t{T_kind}";
+            return $"\t{TableId}\t{T_kind}";
         }
     }
 }

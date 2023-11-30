@@ -1,6 +1,5 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace A3C6TV_HFT_2023241.Repository
 {
@@ -9,8 +8,6 @@ namespace A3C6TV_HFT_2023241.Repository
         public DbSet<PoolTable> PoolTables { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-
-        Random random = new Random();
 
         public TajfunDBContext()
         {
@@ -21,8 +18,8 @@ namespace A3C6TV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies()
-                              .UseInMemoryDatabase("MyDB");
+                optionsBuilder.UseInMemoryDatabase("MyDB")
+                              .UseLazyLoadingProxies();
             }
         }
 

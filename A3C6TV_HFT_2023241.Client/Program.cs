@@ -61,7 +61,39 @@ namespace A3C6TV_HFT_2023241.Client
         {
             if (entity == "Bookings")
             {
-                //rest.Put(_,"booking");
+                Console.Write("Give me an ID: ");
+                var ID = int.Parse(Console.ReadLine());
+                Booking bk = rest.Get<Booking>(ID, "booking");
+                Console.WriteLine(bk.ToString());
+                string answer = "";
+                while (answer != "no")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("What do you want to update? - [StartDate/EndDate/TableId/CustomerId]");
+                    Console.WriteLine("Type 'no', if you want to quit");
+                    answer = Console.ReadLine();
+                    switch (answer)
+                    {
+                        case "StartDate":
+                            Console.Write("Enter a new StartDate:");
+                            bk.StartDate = DateTime.Parse(Console.ReadLine());
+                            break;
+                        case "EndDate":
+                            Console.Write("Enter a new EndDate:");
+                            bk.EndDate = DateTime.Parse(Console.ReadLine());
+                            break;
+                        case "TableId":
+                            Console.Write("Enter a new TableId:");
+                            bk.TableId = int.Parse(Console.ReadLine());
+                            break;
+                        case "CustomerId":
+                            Console.Write("Enter a new CustomerId:");
+                            bk.CustomerId = int.Parse(Console.ReadLine());
+                            break;
+                    }
+                }
+                rest.Put(bk, "booking");
+                Console.ReadLine();
             }
             else if (entity == "Customers")
             {
@@ -78,7 +110,7 @@ namespace A3C6TV_HFT_2023241.Client
             {
                 Console.Write("ID:");
                 int ID = int.Parse(Console.ReadLine());
-                rest.Delete(ID,"booking");
+                rest.Delete(ID, "booking");
             }
             else if (entity == "Customers")
             {
