@@ -10,16 +10,20 @@ using System.Linq;
 namespace A3C6TV_HFT_2023241.Test
 {
     [TestFixture]
-    public class BookingLogicTester
+    public class LogicTester
     {
         BookingLogic bookingLogic;
+        CustomerLogic customerLogic;
+        PoolTableLogic poolLogic;
 
         Mock<IRepository<Booking>> mockBookingRepo;
+        Mock<IRepository<Customer>> mockCustomerRepo;
+        Mock<IRepository<PoolTable>> mockPoolTableRepo;
 
         [SetUp]
         public void Init()
         {
-            var BookingList = new List<Booking>()
+            var inputBookings = new List<Booking>()
             {
                 new Booking(1, "2023-11-14 15:00", "2023-11-14 18:30", 14, 1),
                 new Booking(2, "2023-11-15 08:00", "2023-11-15 18:30", 8, 1),
@@ -61,8 +65,9 @@ namespace A3C6TV_HFT_2023241.Test
                 new Booking(38, "2023-11-17 11:00", "2023-11-17 14:30", 5, 1),
                 new Booking(39, "2023-11-17 15:30", "2023-11-17 18:00", 19, 1),
                 new Booking(40, "2023-11-17 19:00", "2023-11-17 21:30", 12, 1),
-            }.AsQueryable();
-            var CustomerList = new List<Customer>()
+            };
+
+            var inputCustomers = new List<Customer>()
             {
                 new Customer(1,"Oláh Levente","+10000000001","asdasd1@qwert.com"),
                 new Customer(2,"Szőllős Márton","+10000000002","asdasd2@qwert.com"),
@@ -84,8 +89,9 @@ namespace A3C6TV_HFT_2023241.Test
                 new Customer(18,"Isabella Hill", "+1223344556", "isabella.hill@example.com"),
                 new Customer(19,"Benjamin Clark", "+1890765432", "benjamin.clark@example.com"),
                 new Customer(20,"Aria Adams", "+1765432987", "aria.adams@example.com")
-            }.AsQueryable();
-            var PooltableList = new List<PoolTable>()
+            };
+
+            var inputTables = new List<PoolTable>()
             {
                 new PoolTable(1,"pool"),
                 new PoolTable(2,"pool"),
@@ -107,13 +113,30 @@ namespace A3C6TV_HFT_2023241.Test
                 new PoolTable(18,"snooker"),
                 new PoolTable(19,"snooker"),
                 new PoolTable(20,"snooker"),
-            }.AsQueryable();
+            };
 
             mockBookingRepo = new Mock<IRepository<Booking>>();
-            mockBookingRepo.Setup(m => m.ReadAll()).Returns(BookingList);
+            mockCustomerRepo = new Mock<IRepository<Customer>>();
+            mockPoolTableRepo = new Mock<IRepository<PoolTable>>();
 
 
+            inputBookings.ForEach(Booking =>
+            {
+                Booking.Customer = inputCustomers.Find(t => t.CustomerId == Booking.CustomerId);
+            }); //Customer connection
+            inputBookings.ForEach(Booking =>
+            {
+                Booking.PoolTable = inputTables.Find(t => t.TableId == Booking.TableId);
+            }); //Table connection
+
+            mockBookingRepo.Setup(m => m.ReadAll()).Returns(inputBookings.AsQueryable);
             bookingLogic = new BookingLogic(mockBookingRepo.Object);
+
+            mockCustomerRepo.Setup(m => m.ReadAll()).Returns(inputCustomers.AsQueryable);
+            customerLogic = new CustomerLogic(mockCustomerRepo.Object);
+
+            mockPoolTableRepo.Setup(m => m.ReadAll()).Returns(inputTables.AsQueryable);
+            poolLogic = new PoolTableLogic(mockPoolTableRepo.Object);
         }
 
         [Test]
@@ -164,7 +187,6 @@ namespace A3C6TV_HFT_2023241.Test
             Assert.That(result, Is.EqualTo(expected));
         }
 
-
         [Test]
         public void MostFrequentCustomersWithZeroParameterThrowsException()
         {
@@ -189,15 +211,14 @@ namespace A3C6TV_HFT_2023241.Test
             var expected = new List<Frequenter>()
             {
                 //két vendég kell ide
-                new Frequenter(),
-                new Frequenter()
+                new Frequenter("Oláh Levente",14),
+                new Frequenter("Benjamin Clark",2)
             };
 
             var result = bookingLogic.MostFrequentCustomers(parameter);
 
             Assert.That(result, Is.EqualTo(expected));
         }
-
 
         [Test]
         public void TableKindsBookedWhereStartIsLaterThanEnd()
@@ -206,6 +227,61 @@ namespace A3C6TV_HFT_2023241.Test
                   .TablekindsBooked(new DateTime(2025, 01, 01),
                                     new DateTime(2020, 01, 01)),
                                     Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void TableKindsBookedWhereDatesAreFarApartReturnsAll()
+        {
+            var expected = new TableRate() {PoolsBookedNum=23, SnookersBookedNum= 17 };
+            var result = bookingLogic.TablekindsBooked(new DateTime(2020, 01, 01),
+                                                       new DateTime(2025, 01, 01));
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+
+        [Test]
+        public void BookingCreateTest()
+        {
+            var sample = new Booking() {};
+
+            bookingLogic.Create(sample);
+
+            mockBookingRepo.Verify(m => m.Create(sample), Times.Once);
+        }
+
+        [Test]
+        public void CustomerCreateTest()
+        {
+            var sample = new Customer() { Name = "Teszt Elek"};
+
+            customerLogic.Create(sample);
+
+            mockCustomerRepo.Verify(m => m.Create(sample), Times.Once);
+        }
+
+        [Test]
+        public void CustomerCreateTestWithBadNameThrowsException()
+        {
+            Assert.That(() => customerLogic.Create(new Customer() {Name="123"}),
+                                Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void PoolTableCreateTest()
+        {
+            var sample = new PoolTable() { T_kind = "pool"};
+
+            poolLogic.Create(sample);
+
+            mockPoolTableRepo.Verify(m => m.Create(sample), Times.Once);
+        }
+
+        [Test]
+        public void PoolTableCreateTestWithBadKindNameThrowsException()
+        {
+            Assert.That(() => poolLogic.Create(new PoolTable() {T_kind="biliard"}), 
+                                Throws.TypeOf<ArgumentException>());
         }
     }
 }
