@@ -24,7 +24,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(id) == null)
             {
-                throw new ArgumentException("Table with this ID doesn't exist!\nCannot delete it!");
+                throw new ArgumentException("Table with this ID doesn't exist! Cannot delete it!");
             }
             repo.Delete(id);
         }
@@ -32,7 +32,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(id) == null)
             {
-                throw new ArgumentException("Table with this ID doesn't exist!\nCannot read it!");
+                throw new ArgumentException("Table with this ID doesn't exist! Cannot read it!");
             }
             return repo.Read(id);
         }
@@ -44,7 +44,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(item.TableId) == null)
             {
-                throw new ArgumentException("Table with this ID doesn't exist!\nCannot update!");
+                throw new ArgumentException("Table with this ID doesn't exist! Cannot update!");
             }
             repo.Update(item);
         }

@@ -22,12 +22,16 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Delete(int id)
         {
+            if (repo.Read(id) == null)
+            {
+                throw new ArgumentException("Customer with this ID doesn't exist! Cannot delete it!");
+            }
             repo.Delete(id);
         }
         public Customer Read(int id)
         {
             if (repo.Read(id) == null)
-                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot read it!");
+                throw new ArgumentException("Customer with this ID doesn't exist! Cannot read it!");
 
             return repo.Read(id);
         }
@@ -39,7 +43,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(item.CustomerId) == null)
             {
-                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot update it!");
+                throw new ArgumentException("Customer with this ID doesn't exist! Cannot update it!");
             }
             repo.Update(item);
         }

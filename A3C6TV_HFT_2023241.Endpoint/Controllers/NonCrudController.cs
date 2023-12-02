@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace A3C6TV_HFT_2023241.Endpoint.Controllers
 {
     [Route("[controller]/[action]")]
@@ -45,7 +43,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
         [HttpGet("{start},{end}")]
         public TableRate TablekindsBooked(DateTime start, DateTime end)
         {
-           return logic.TablekindsBooked(start, end);
+            return logic.TablekindsBooked(start, end);
         }
     }
 }

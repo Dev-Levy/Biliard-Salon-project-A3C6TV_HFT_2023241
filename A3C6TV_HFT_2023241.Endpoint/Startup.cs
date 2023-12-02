@@ -45,7 +45,7 @@ namespace A3C6TV_HFT_2023241.Endpoint
                 var exception = context.Features
                 .Get<IExceptionHandlerPathFeature>()
                 .Error;
-                var response = new { msg = exception.Message };
+                var response = new { message = exception.Message };
                 await context.Response.WriteAsJsonAsync(response);
             }));
 

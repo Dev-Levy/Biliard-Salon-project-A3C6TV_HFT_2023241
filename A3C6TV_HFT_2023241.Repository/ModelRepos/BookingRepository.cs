@@ -14,10 +14,10 @@ namespace A3C6TV_HFT_2023241.Repository
         public override void Update(Booking item)
         {
             var old = Read(item.BookingId);
-            foreach (var prop in old.GetType().GetProperties())
-            {
-                prop.SetValue(old, prop.GetValue(item));
-            }
+            old.StartDate = item.StartDate;
+            old.EndDate = item.EndDate;
+            old.TableId = item.TableId;
+            old.CustomerId = item.CustomerId;
             ctx.SaveChanges();
         }
     }

@@ -22,7 +22,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(id) == null)
             {
-                throw new ArgumentException("Booking with this ID doesn't exist!\nCannot delete it!");
+                throw new ArgumentException("Booking with this ID doesn't exist! Cannot delete it!");
             }
             repo.Delete(id);
         }
@@ -30,7 +30,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(id) == null)
             {
-                throw new ArgumentException("Customer with this ID doesn't exist!\nCannot read it!");
+                throw new ArgumentException("Customer with this ID doesn't exist! Cannot read it!");
             }
             return repo.Read(id);
         }
@@ -42,7 +42,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(item.BookingId) == null)
             {
-                throw new ArgumentException("Booking with this ID doesn't exist!\nCannot update it!");
+                throw new ArgumentException("Booking with this ID doesn't exist! Cannot update it!");
             }
             repo.Update(item);
         }
@@ -69,7 +69,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (start >= end)
             {
-                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+                throw new ArgumentException("The starting date is later than/or at the same time as the ending date, you won't have any results!");
             }
             var count = repo.ReadAll()
                              .Where(t => t.StartDate >= start && t.EndDate <= end);
@@ -81,7 +81,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (start >= end)
             {
-                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+                throw new ArgumentException("The starting date is later than/or at the same time as the ending date, you won't have any results!");
             }
             var bookingList = repo.ReadAll()
                                   .Where(t => t.StartDate >= start
@@ -107,7 +107,7 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (start >= end)
             {
-                throw new ArgumentException("The starting date is later than the ending date, you won't have any results!");
+                throw new ArgumentException("The starting date is later than/or at the same time as the ending date, you won't have any results!");
             }
             var tableRate = new TableRate()
             {

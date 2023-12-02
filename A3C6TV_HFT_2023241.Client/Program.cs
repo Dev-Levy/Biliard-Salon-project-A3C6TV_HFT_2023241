@@ -10,20 +10,41 @@ namespace A3C6TV_HFT_2023241.Client
     {
         static RestService rest;
 
-        //ki kell dolgozni a create és update metódust
         static void Create(string entity)
         {
             if (entity == "Bookings")
             {
-                rest.Post(new Booking(), "booking");
+                var bk = new Booking();
+                Console.WriteLine("What's the startdate?");
+                bk.StartDate = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("What's the enddate?");
+                bk.EndDate = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Which table are you booking? [Id]");
+                bk.TableId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Which customer is booking? [Id]");
+                bk.CustomerId = int.Parse(Console.ReadLine());
+
+                rest.Post(bk, "booking");
             }
             else if (entity == "Customers")
             {
-                rest.Post(new Customer(), "customer");
+                var cust = new Customer();
+                Console.WriteLine("What's his/her name?");
+                cust.Name = Console.ReadLine();
+                Console.WriteLine("What's his/her phone number?");
+                cust.Phone = Console.ReadLine();
+                Console.WriteLine("What's his/her email?");
+                cust.Email = Console.ReadLine();
+
+                rest.Post(cust, "customer");
             }
             else if (entity == "PoolTables")
             {
-                rest.Post(new PoolTable(), "pooltable");
+                var table = new PoolTable();
+                Console.WriteLine("Is it a pool or a snooker table?");
+                table.T_kind = Console.ReadLine();
+
+                rest.Post(table, "pooltable");
             }
         }
         static void List(string entity)
@@ -57,6 +78,8 @@ namespace A3C6TV_HFT_2023241.Client
             }
             Console.ReadLine();
         }
+
+        //update-nél a httprequest nem kap eredményt
         static void Update(string entity)
         {
             if (entity == "Bookings")
@@ -71,24 +94,28 @@ namespace A3C6TV_HFT_2023241.Client
                     Console.WriteLine();
                     Console.WriteLine("What do you want to update? - [StartDate/EndDate/TableId/CustomerId]");
                     Console.WriteLine("Type 'no', if you want to quit");
-                    answer = Console.ReadLine();
+                    answer = Console.ReadLine().ToLower();
                     switch (answer)
                     {
-                        case "StartDate":
-                            Console.Write("Enter a new StartDate:");
+                        case "startdate":
+                            Console.Write("Enter a new StartDate: ");
                             bk.StartDate = DateTime.Parse(Console.ReadLine());
+                            Console.WriteLine("StartDate updated!");
                             break;
-                        case "EndDate":
-                            Console.Write("Enter a new EndDate:");
+                        case "enddate":
+                            Console.Write("Enter a new EndDate: ");
                             bk.EndDate = DateTime.Parse(Console.ReadLine());
+                            Console.WriteLine("EndDate updated!");
                             break;
-                        case "TableId":
-                            Console.Write("Enter a new TableId:");
+                        case "tableid":
+                            Console.Write("Enter a new TableId: ");
                             bk.TableId = int.Parse(Console.ReadLine());
+                            Console.WriteLine("TableId updated!");
                             break;
-                        case "CustomerId":
-                            Console.Write("Enter a new CustomerId:");
+                        case "customerid":
+                            Console.Write("Enter a new CustomerId: ");
                             bk.CustomerId = int.Parse(Console.ReadLine());
+                            Console.WriteLine("CustomerId updated!");
                             break;
                     }
                 }
@@ -97,13 +124,68 @@ namespace A3C6TV_HFT_2023241.Client
             }
             else if (entity == "Customers")
             {
-                //rest.Put(_, "customer");
+                Console.Write("Give me an ID: ");
+                var ID = int.Parse(Console.ReadLine());
+                Customer cust = rest.Get<Customer>(ID, "customer");
+                Console.WriteLine(cust.ToString());
+                string answer = "";
+                while (answer != "no")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("What do you want to update? - [Name/Phone/Email]");
+                    Console.WriteLine("Type 'no', if you want to quit");
+                    answer = Console.ReadLine().ToLower();
+                    switch (answer)
+                    {
+                        case "name":
+                            Console.Write("Enter a new name: ");
+                            cust.Name = Console.ReadLine();
+                            Console.WriteLine("Name updated!");
+                            break;
+                        case "phone":
+                            Console.Write("Enter a new phone number: ");
+                            cust.Phone = Console.ReadLine();
+                            Console.WriteLine("Phone number updated!");
+                            break;
+                        case "email":
+                            Console.Write("Enter a new email: ");
+                            cust.Email = Console.ReadLine();
+                            Console.WriteLine("Email updated!");
+                            break;
+                    }
+                }
+                rest.Put(cust, "customer");
+                Console.ReadLine();
             }
             else if (entity == "PoolTables")
             {
-                //rest.Put(_, "pooltable");
+                Console.Write("Give me an ID: ");
+                var ID = int.Parse(Console.ReadLine());
+                PoolTable table = rest.Get<PoolTable>(ID, "pooltable");
+                Console.WriteLine(table.ToString());
+
+
+                string answer = "";
+                Console.WriteLine("Is it a pool or a snooker table?");
+                answer = Console.ReadLine().ToLower();
+
+                switch (answer)
+                {
+                    case "pool":
+                        table.T_kind = "pool";
+                        break;
+                    case "snooker":
+                        table.T_kind = "snooker";
+                        break;
+                }
+                Console.WriteLine("Table updated!");
+
+                rest.Put(table, "customer");
+                Console.ReadLine();
             }
         }
+
+        //Delete-nél a httprequest nem kap eredményt
         static void Delete(string entity)
         {
             if (entity == "Bookings")

@@ -14,10 +14,7 @@ namespace A3C6TV_HFT_2023241.Repository
         public override void Update(PoolTable item)
         {
             var old = Read(item.TableId);
-            foreach (var prop in old.GetType().GetProperties())
-            {
-                prop.SetValue(old, prop.GetValue(item));
-            }
+            old.T_kind = item.T_kind;
             ctx.SaveChanges();
         }
     }

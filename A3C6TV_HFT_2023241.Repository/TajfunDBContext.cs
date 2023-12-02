@@ -25,17 +25,17 @@ namespace A3C6TV_HFT_2023241.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Booking>(Bookings => Bookings
+            modelBuilder.Entity<Booking>()
                         .HasOne(b => b.Customer)
-                        .WithMany(c => c.Bookings)
-                        .HasForeignKey(Booking => Booking.CustomerId)
-                        .OnDelete(DeleteBehavior.SetNull));
+                        .WithMany()
+                        .HasForeignKey(b => b.CustomerId)
+                        .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Booking>(Bookings => Bookings
+            modelBuilder.Entity<Booking>()
                         .HasOne(b => b.PoolTable)
-                        .WithMany(c => c.Bookings)
-                        .HasForeignKey(Booking => Booking.TableId)
-                        .OnDelete(DeleteBehavior.SetNull));
+                        .WithMany()
+                        .HasForeignKey(b => b.TableId)
+                        .OnDelete(DeleteBehavior.SetNull);
 
 
 
@@ -121,7 +121,7 @@ namespace A3C6TV_HFT_2023241.Repository
                 new PoolTable(7,"pool"),
                 new PoolTable(8,"pool"),
                 new PoolTable(9,"pool"),
-                new PoolTable(10,"snooker"),
+                new PoolTable(10,"pool"),
                 new PoolTable(11,"snooker"),
                 new PoolTable(12,"snooker"),
                 new PoolTable(13,"snooker"),
@@ -132,6 +132,7 @@ namespace A3C6TV_HFT_2023241.Repository
                 new PoolTable(18,"snooker"),
                 new PoolTable(19,"snooker"),
                 new PoolTable(20,"snooker"),
+                new PoolTable(21,"snooker"),
             });
 
         }
