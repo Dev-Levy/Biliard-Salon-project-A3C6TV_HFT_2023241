@@ -88,7 +88,7 @@ namespace A3C6TV_HFT_2023241.Client
             Console.ReadLine();
         }
 
-        //Update-nél a httprequest nem kap eredményt
+        //Update-nél a httprequest 405 error kódot kap
         static void Update(string entity)
         {
             try
@@ -203,7 +203,7 @@ namespace A3C6TV_HFT_2023241.Client
 
         }
 
-        //Delete-nél a httprequest nem kap eredményt
+        //Delete-nél a httprequest 405 error kódot kap
         static void Delete(string entity)
         {
             try
