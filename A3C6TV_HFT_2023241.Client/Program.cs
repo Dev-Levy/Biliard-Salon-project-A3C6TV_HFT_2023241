@@ -1,4 +1,5 @@
-﻿using A3C6TV_HFT_2023241.Models;
+﻿using A3C6TV_HFT_2023241.Logic;
+using A3C6TV_HFT_2023241.Models;
 using ConsoleTools;
 using MovieDbApp.RestClient;
 using System;
@@ -27,6 +28,7 @@ namespace A3C6TV_HFT_2023241.Client
                     bk.CustomerId = int.Parse(Console.ReadLine());
 
                     rest.Post(bk, "booking");
+                    Console.WriteLine("Booking added!");
                 }
                 else if (entity == "Customers")
                 {
@@ -37,8 +39,12 @@ namespace A3C6TV_HFT_2023241.Client
                     cust.Phone = Console.ReadLine();
                     Console.WriteLine("What's his/her email?");
                     cust.Email = Console.ReadLine();
+                    if (cust.Name == "")
+                        throw new ArgumentException("Name is required!");
+
 
                     rest.Post(cust, "customer");
+                    Console.WriteLine("Customer added!");
                 }
                 else if (entity == "PoolTables")
                 {
@@ -47,6 +53,7 @@ namespace A3C6TV_HFT_2023241.Client
                     table.T_kind = Console.ReadLine();
 
                     rest.Post(table, "pooltable");
+                    Console.WriteLine("Pooltable added!");
                 }
             }
             catch (Exception e)
@@ -98,7 +105,11 @@ namespace A3C6TV_HFT_2023241.Client
                     Console.Write("Give me an ID: ");
                     var ID = int.Parse(Console.ReadLine());
                     Booking bk = rest.Get<Booking>(ID, "booking");
+
+                    Console.WriteLine();
                     Console.WriteLine(bk.ToString());
+                    Console.WriteLine();
+
                     string answer = "";
                     while (answer != "no")
                     {
@@ -138,7 +149,10 @@ namespace A3C6TV_HFT_2023241.Client
                     Console.Write("Give me an ID: ");
                     var ID = int.Parse(Console.ReadLine());
                     Customer cust = rest.Get<Customer>(ID, "customer");
+                    Console.WriteLine();
                     Console.WriteLine(cust.ToString());
+                    Console.WriteLine();
+
                     string answer = "";
                     while (answer != "no")
                     {
@@ -173,7 +187,9 @@ namespace A3C6TV_HFT_2023241.Client
                     Console.Write("Give me an ID: ");
                     var ID = int.Parse(Console.ReadLine());
                     PoolTable table = rest.Get<PoolTable>(ID, "pooltable");
+                    Console.WriteLine();
                     Console.WriteLine(table.ToString());
+                    Console.WriteLine();
 
 
                     string answer = "";
@@ -189,9 +205,9 @@ namespace A3C6TV_HFT_2023241.Client
                             table.T_kind = "snooker";
                             break;
                     }
-                    Console.WriteLine("Table updated!");
 
                     rest.Put(table, "pooltable");
+                    Console.WriteLine("Table updated!");
                     Console.ReadLine();
                 }
             }
@@ -202,8 +218,6 @@ namespace A3C6TV_HFT_2023241.Client
             finally { Console.ReadLine(); }
 
         }
-
-        //Delete-nél a httprequest 405 error kódot kap
         static void Delete(string entity)
         {
             try
@@ -213,18 +227,21 @@ namespace A3C6TV_HFT_2023241.Client
                     Console.Write("ID:");
                     int ID = int.Parse(Console.ReadLine());
                     rest.Delete(ID, "booking");
+                    Console.WriteLine("Booking deleted!");
                 }
                 else if (entity == "Customers")
                 {
                     Console.Write("ID:");
                     int ID = int.Parse(Console.ReadLine());
                     rest.Delete(ID, "customer");
+                    Console.WriteLine("Customer deleted!");
                 }
                 else if (entity == "PoolTables")
                 {
                     Console.Write("ID:");
                     int ID = int.Parse(Console.ReadLine());
                     rest.Delete(ID, "pooltable");
+                    Console.WriteLine("Table deleted!");
                 }
             }
             catch (Exception e)
@@ -234,6 +251,47 @@ namespace A3C6TV_HFT_2023241.Client
             finally { Console.ReadLine(); }
 
         }
+
+        static void MostFrequentCustomers(int numofppl, string entity)
+        {
+            var custs = rest.GetMostFrequentCustomers<Frequenter>(numofppl, entity);
+            foreach (Frequenter cust in custs)
+            {
+                Console.WriteLine(cust.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void HowManyBookingsBetweenTwoDates(DateTime start, DateTime end, string entity)
+        {
+            var num = rest.GetHowManyBookingsBetweenTwoDates<int>(start, end, entity);
+            Console.WriteLine(num);
+            Console.ReadLine();
+        }
+        static void BookingsBetweenTwoDates(DateTime start, DateTime end, string entity)
+        {
+            var bks = rest.GetBookingsBetweenTwoDates<Booking>(start, end, entity);
+            foreach (Booking bk in bks)
+            {
+                Console.WriteLine(bk.ToString());
+            }   
+            Console.ReadLine();
+        }
+        static void MostUsedTable(string entity)
+        {
+            var table = rest.GetMostUsedTable<PoolTable>(entity);
+            foreach (PoolTable t in table)
+            {
+                Console.WriteLine(t.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void TablekindsBooked(DateTime start, DateTime end, string entity)
+        {
+            var rate = rest.GetTablekindsBooked<TableRate>(start, end, entity);
+            Console.WriteLine(rate.ToString());
+            Console.ReadLine();
+        }
+
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:7332/", "booking");
@@ -258,12 +316,20 @@ namespace A3C6TV_HFT_2023241.Client
                 .Add("Delete", () => Delete("PoolTables"))
                 .Add("Update", () => Update("PoolTables"))
                 .Add("Exit", ConsoleMenu.Close);
+            var noncrudSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("MostFrequentCustomers", () => MostFrequentCustomers(numofppl: int.Parse(Console.ReadLine()), "noncrud"))
+                .Add("HowManyBookingsBetweenTwoDates", () => HowManyBookingsBetweenTwoDates(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
+                .Add("BookingsBetweenTwoDates", () => BookingsBetweenTwoDates(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
+                .Add("MostUsedTable", () => MostUsedTable("noncrud"))
+                .Add("TablekindsBooked", () => TablekindsBooked(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
+                .Add("Exit", ConsoleMenu.Close);
 
 
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Bookings", () => bookingSubMenu.Show())
                 .Add("Customers", () => customerSubMenu.Show())
                 .Add("PoolTables", () => pooltableSubManu.Show())
+                .Add("Non CRUDs", () => noncrudSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();

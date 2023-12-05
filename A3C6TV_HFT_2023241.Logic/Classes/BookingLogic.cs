@@ -16,6 +16,9 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Create(Booking item)
         {
+            if (item.CustomerId < 1 || item.TableId < 1 )
+                throw new ArgumentException("Ids must be higher than zero!");
+
             repo.Create(item);
         }
         public void Delete(int id)

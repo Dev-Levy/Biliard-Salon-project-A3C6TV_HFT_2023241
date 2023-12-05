@@ -30,5 +30,10 @@ namespace A3C6TV_HFT_2023241.Models
         {
             return HashCode.Combine(PoolsBookedNum, SnookersBookedNum);
         }
+
+        public override string ToString()
+        {
+            return $"Pool: {PoolsBookedNum}, Snooker: {SnookersBookedNum}";
+        }
     }
 }

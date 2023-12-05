@@ -35,7 +35,7 @@ namespace A3C6TV_HFT_2023241.Models
 
         public override string ToString()
         {
-            return $"\t{CustomerId}\t{Name} - {Phone} - {Email}";
+            return $"Id: {CustomerId} - {Name} - {Phone} - {Email}";
         }
     }
 }

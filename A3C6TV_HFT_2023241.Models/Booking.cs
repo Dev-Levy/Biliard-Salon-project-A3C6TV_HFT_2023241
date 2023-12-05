@@ -55,7 +55,7 @@ namespace A3C6TV_HFT_2023241.Models
 
         public override string ToString()
         {
-            return $"\t{BookingId}\t{StartDate} - {EndDate} - Customer: {CustomerId} - Table: {TableId}";
+            return $"Id: {BookingId} - Date:{StartDate} - {EndDate} - CustomerId: {CustomerId} - TableId: {TableId}";
         }
     }
 }

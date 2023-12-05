@@ -17,8 +17,6 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (!item.Name.Replace(" ", "").Any(ch => char.IsLetter(ch)))
                 throw new ArgumentException("Name can't contain anything but letters and space!");
-            else if (item.Name == null || item.Phone == null || item.Email == null)
-                throw new ArgumentException("One or more missing information, pls give all of them a value");
 
             repo.Create(item);
         }

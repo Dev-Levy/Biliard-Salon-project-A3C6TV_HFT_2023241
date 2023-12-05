@@ -30,5 +30,10 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             return HashCode.Combine(Name, Count);
         }
+
+        public override string ToString()
+        {
+            return $"Name: {Name} Count: {Count}";
+        }
     }
 }

@@ -142,22 +142,85 @@ namespace MovieDbApp.RestClient
             response.EnsureSuccessStatusCode();
         }
 
-        //public T GetTableRate<T>(int id, string endpoint)
-        //{
-        //    T item = default(T);
-        //    HttpResponseMessage response = client.GetAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
-        //    }
-        //    else
-        //    {
-        //        var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-        //        throw new ArgumentException(error.Msg);
-        //    }
-        //    return item;
-        //}
+        public List<T> GetMostFrequentCustomers<T>(int numOfPpl, string endpoint)
+        {
+            var items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + "MostFrequentCustomers" + "/" + numOfPpl.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
 
+        internal T GetHowManyBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
+        {
+            T item = default(T);
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + "HowManyBookingsBetweenTwoDates" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return item;
+        }
+
+        internal List<T> GetBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
+        {
+            var items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + "BookingsBetweenTwoDates" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
+        internal List<T> GetMostUsedTable<T>(string endpoint)
+        {
+            var items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + "MostUsedTable").GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
+        internal T GetTablekindsBooked<T>(DateTime start, DateTime end, string endpoint)
+        {
+            T item = default(T);
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + "TablekindsBooked" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return item;
+        }
     }
     public class RestExceptionInfo
     {
