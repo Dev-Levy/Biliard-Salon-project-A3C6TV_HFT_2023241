@@ -252,8 +252,11 @@ namespace A3C6TV_HFT_2023241.Client
 
         }
 
-        static void MostFrequentCustomers(int numofppl, string entity)
+        static void MostFrequentCustomers(string entity)
         {
+            Console.WriteLine("How many frequent customers do you want to list?");
+            int numofppl = int.Parse(Console.ReadLine());
+
             var custs = rest.GetMostFrequentCustomers<Frequenter>(numofppl, entity);
             foreach (Frequenter cust in custs)
             {
@@ -261,14 +264,24 @@ namespace A3C6TV_HFT_2023241.Client
             }
             Console.ReadLine();
         }
-        static void HowManyBookingsBetweenTwoDates(DateTime start, DateTime end, string entity)
+        static void HowManyBookingsBetweenTwoDates(string entity)
         {
+            Console.WriteLine("What's the startdate?");
+            var start = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("What's the enddate?");
+            var end = DateTime.Parse(Console.ReadLine());
+
             var num = rest.GetHowManyBookingsBetweenTwoDates<int>(start, end, entity);
             Console.WriteLine(num);
             Console.ReadLine();
         }
-        static void BookingsBetweenTwoDates(DateTime start, DateTime end, string entity)
+        static void BookingsBetweenTwoDates(string entity)
         {
+            Console.WriteLine("What's the startdate?");
+            var start = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("What's the enddate?");
+            var end = DateTime.Parse(Console.ReadLine());
+
             var bks = rest.GetBookingsBetweenTwoDates<Booking>(start, end, entity);
             foreach (Booking bk in bks)
             {
@@ -285,8 +298,13 @@ namespace A3C6TV_HFT_2023241.Client
             }
             Console.ReadLine();
         }
-        static void TablekindsBooked(DateTime start, DateTime end, string entity)
+        static void TablekindsBooked(string entity)
         {
+            Console.WriteLine("What's the startdate?");
+            var start = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("What's the enddate?");
+            var end = DateTime.Parse(Console.ReadLine());
+
             var rate = rest.GetTablekindsBooked<TableRate>(start, end, entity);
             Console.WriteLine(rate.ToString());
             Console.ReadLine();
@@ -317,11 +335,11 @@ namespace A3C6TV_HFT_2023241.Client
                 .Add("Update", () => Update("PoolTables"))
                 .Add("Exit", ConsoleMenu.Close);
             var noncrudSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("MostFrequentCustomers", () => MostFrequentCustomers(numofppl: int.Parse(Console.ReadLine()), "noncrud"))
-                .Add("HowManyBookingsBetweenTwoDates", () => HowManyBookingsBetweenTwoDates(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
-                .Add("BookingsBetweenTwoDates", () => BookingsBetweenTwoDates(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
+                .Add("MostFrequentCustomers", () => MostFrequentCustomers("noncrud"))
+                .Add("HowManyBookingsBetweenTwoDates", () => HowManyBookingsBetweenTwoDates("noncrud"))
+                .Add("BookingsBetweenTwoDates", () => BookingsBetweenTwoDates("noncrud"))
                 .Add("MostUsedTable", () => MostUsedTable("noncrud"))
-                .Add("TablekindsBooked", () => TablekindsBooked(start: DateTime.Parse(Console.ReadLine()), end: DateTime.Parse(Console.ReadLine()), "noncrud"))
+                .Add("TablekindsBooked", () => TablekindsBooked("noncrud"))
                 .Add("Exit", ConsoleMenu.Close);
 
 
