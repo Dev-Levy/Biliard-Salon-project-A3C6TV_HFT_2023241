@@ -51,6 +51,8 @@ namespace A3C6TV_HFT_2023241.Client
                     var table = new PoolTable();
                     Console.WriteLine("Is it a pool or a snooker table?");
                     table.T_kind = Console.ReadLine();
+                    if (table.T_kind=="")
+                        throw new ArgumentException("This field is required!");
 
                     rest.Post(table, "pooltable");
                     Console.WriteLine("Pooltable added!");
@@ -96,6 +98,7 @@ namespace A3C6TV_HFT_2023241.Client
         }
 
         //Update-nél a httprequest 405 error kódot kap
+        //elküldi a json objectet, de nem tudja feldolgozni
         static void Update(string entity)
         {
             try
@@ -254,60 +257,96 @@ namespace A3C6TV_HFT_2023241.Client
 
         static void MostFrequentCustomers(string entity)
         {
-            Console.WriteLine("How many frequent customers do you want to list?");
-            int numofppl = int.Parse(Console.ReadLine());
-
-            var custs = rest.GetMostFrequentCustomers<Frequenter>(numofppl, entity);
-            foreach (Frequenter cust in custs)
+            try
             {
-                Console.WriteLine(cust.ToString());
+                Console.WriteLine("How many frequent customers do you want to list?");
+                int numofppl = int.Parse(Console.ReadLine());
+
+                var custs = rest.GetMostFrequentCustomers<Frequenter>(numofppl, entity);
+                foreach (Frequenter cust in custs)
+                {
+                    Console.WriteLine(cust.ToString());
+                }
             }
-            Console.ReadLine();
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally { Console.ReadLine(); }
         }
         static void HowManyBookingsBetweenTwoDates(string entity)
         {
-            Console.WriteLine("What's the startdate?");
-            var start = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("What's the enddate?");
-            var end = DateTime.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("What's the startdate?");
+                var start = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("What's the enddate?");
+                var end = DateTime.Parse(Console.ReadLine());
 
-            var num = rest.GetHowManyBookingsBetweenTwoDates<int>(start, end, entity);
-            Console.WriteLine(num);
-            Console.ReadLine();
+                var num = rest.GetHowManyBookingsBetweenTwoDates<int>(start, end, entity);
+                Console.WriteLine(num);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally { Console.ReadLine(); }
         }
         static void BookingsBetweenTwoDates(string entity)
         {
-            Console.WriteLine("What's the startdate?");
-            var start = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("What's the enddate?");
-            var end = DateTime.Parse(Console.ReadLine());
-
-            var bks = rest.GetBookingsBetweenTwoDates<Booking>(start, end, entity);
-            foreach (Booking bk in bks)
+            try
             {
-                Console.WriteLine(bk.ToString());
-            }   
-            Console.ReadLine();
+                Console.WriteLine("What's the startdate?");
+                var start = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("What's the enddate?");
+                var end = DateTime.Parse(Console.ReadLine());
+
+                var bks = rest.GetBookingsBetweenTwoDates<Booking>(start, end, entity);
+                foreach (Booking bk in bks)
+                {
+                    Console.WriteLine(bk.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally { Console.ReadLine(); }
+
         }
         static void MostUsedTable(string entity)
         {
-            var table = rest.GetMostUsedTable<PoolTable>(entity);
-            foreach (PoolTable t in table)
+            try
             {
-                Console.WriteLine(t.ToString());
+                var table = rest.GetMostUsedTable<PoolTable>(entity);
+                foreach (PoolTable t in table)
+                {
+                    Console.WriteLine(t.ToString());
+                }
             }
-            Console.ReadLine();
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally { Console.ReadLine(); }
         }
         static void TablekindsBooked(string entity)
         {
-            Console.WriteLine("What's the startdate?");
-            var start = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("What's the enddate?");
-            var end = DateTime.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("What's the startdate?");
+                var start = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("What's the enddate?");
+                var end = DateTime.Parse(Console.ReadLine());
 
-            var rate = rest.GetTablekindsBooked<TableRate>(start, end, entity);
-            Console.WriteLine(rate.ToString());
-            Console.ReadLine();
+                var rate = rest.GetTablekindsBooked<TableRate>(start, end, entity);
+                Console.WriteLine(rate.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally { Console.ReadLine(); }
         }
 
         static void Main(string[] args)

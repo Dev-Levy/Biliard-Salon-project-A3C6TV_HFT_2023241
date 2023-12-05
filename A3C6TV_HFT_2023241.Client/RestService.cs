@@ -158,7 +158,7 @@ namespace MovieDbApp.RestClient
             return items;
         }
 
-        internal T GetHowManyBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
+        public T GetHowManyBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
         {
             T item = default(T);
             HttpResponseMessage response = client.GetAsync(endpoint + "/" + "HowManyBookingsBetweenTwoDates" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
@@ -174,7 +174,7 @@ namespace MovieDbApp.RestClient
             return item;
         }
 
-        internal List<T> GetBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
+        public List<T> GetBookingsBetweenTwoDates<T>(DateTime start, DateTime end, string endpoint)
         {
             var items = new List<T>();
             HttpResponseMessage response = client.GetAsync(endpoint + "/" + "BookingsBetweenTwoDates" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
@@ -190,7 +190,7 @@ namespace MovieDbApp.RestClient
             return items;
         }
 
-        internal List<T> GetMostUsedTable<T>(string endpoint)
+        public List<T> GetMostUsedTable<T>(string endpoint)
         {
             var items = new List<T>();
             HttpResponseMessage response = client.GetAsync(endpoint + "/" + "MostUsedTable").GetAwaiter().GetResult();
@@ -206,7 +206,7 @@ namespace MovieDbApp.RestClient
             return items;
         }
 
-        internal T GetTablekindsBooked<T>(DateTime start, DateTime end, string endpoint)
+        public T GetTablekindsBooked<T>(DateTime start, DateTime end, string endpoint)
         {
             T item = default(T);
             HttpResponseMessage response = client.GetAsync(endpoint + "/" + "TablekindsBooked" + "/" + start.ToString() + "," + end.ToString()).GetAwaiter().GetResult();
