@@ -128,6 +128,7 @@ namespace MovieDbApp.RestClient
             response.EnsureSuccessStatusCode();
         }
 
+        //response allow header states that it only allows GET and POST, so this is useless at this point :(
         public void Put<T>(T item, string endpoint)
         {
             HttpResponseMessage response =
