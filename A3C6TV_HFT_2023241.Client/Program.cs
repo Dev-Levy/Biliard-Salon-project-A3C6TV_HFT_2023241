@@ -211,7 +211,10 @@ namespace A3C6TV_HFT_2023241.Client
                     string answer = "";
                     Console.WriteLine("Is it a pool or a snooker table?");
                     answer = Console.ReadLine().ToLower();
-
+                    if (answer == "")
+                    {
+                        throw new ArgumentException("This field is required!");
+                    }
                     switch (answer)
                     {
                         case "pool":
