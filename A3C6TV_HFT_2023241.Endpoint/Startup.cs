@@ -1,3 +1,4 @@
+using A3C6TV_HFT_2023241.Endpoint.Services;
 using A3C6TV_HFT_2023241.Logic;
 using A3C6TV_HFT_2023241.Models;
 using A3C6TV_HFT_2023241.Repository;
@@ -24,6 +25,8 @@ namespace A3C6TV_HFT_2023241.Endpoint
             services.AddTransient<IBookingLogic, BookingLogic>();
             services.AddTransient<ICustomerLogic, CustomerLogic>();
             services.AddTransient<IPoolTableLogic, PoolTableLogic>();
+
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -56,6 +59,7 @@ namespace A3C6TV_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
