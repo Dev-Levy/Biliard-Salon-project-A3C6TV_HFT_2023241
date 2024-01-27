@@ -224,13 +224,13 @@ namespace A3C6TV_HFT_2023241.Client
                             table.T_kind = "snooker";
                             break;
                     }
-                    rest.Delete(ID, "pooltable");
-                    rest.Post(table, "pooltable");
+                    //rest.Delete(ID, "pooltable");
+                    //rest.Post(table, "pooltable");
 
                     //The put method is not allowed so I used the delete then post method instead
                     //not the right way, but it works
 
-                    //rest.Put(table, "pooltable");
+                    rest.Put(table, "pooltable");
                     Console.WriteLine("Table updated!");
                     Console.ReadLine();
                 }
