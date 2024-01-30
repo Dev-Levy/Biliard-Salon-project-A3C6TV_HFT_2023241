@@ -41,7 +41,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
             hub.Clients.All.SendAsync("CustomerCreated", value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update([FromBody] Customer value)
         {
             logic.Update(value);

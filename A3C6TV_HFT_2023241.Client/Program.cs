@@ -96,8 +96,6 @@ namespace A3C6TV_HFT_2023241.Client
             }
             Console.ReadLine();
         }
-
-        //Httprequest returns with code 405, the put method is not allowed
         static void Update(string entity)
         {
             try
@@ -224,11 +222,6 @@ namespace A3C6TV_HFT_2023241.Client
                             table.T_kind = "snooker";
                             break;
                     }
-                    //rest.Delete(ID, "pooltable");
-                    //rest.Post(table, "pooltable");
-
-                    //The put method is not allowed so I used the delete then post method instead
-                    //not the right way, but it works
 
                     rest.Put(table, "pooltable");
                     Console.WriteLine("Table updated!");
