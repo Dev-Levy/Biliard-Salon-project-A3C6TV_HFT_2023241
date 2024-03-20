@@ -1,0 +1,83 @@
+﻿<Window
+    x:Class="Tajfun_WPF_Client.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Tajfun_WPF_Client"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TajfunBiliard"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1">
+            <Label
+                Margin="5"
+                Padding="5"
+                Background="LightSalmon"
+                BorderBrush="Black"
+                Content="Name" />
+            <TextBox
+                Margin="5"
+                Padding="5"
+                Text="{Binding SelectedCustomer.Name}" />
+            <Label
+                Margin="5"
+                Padding="5"
+                Background="LightSalmon"
+                BorderBrush="Black"
+                Content="Phone number" />
+            <TextBox
+                Margin="5"
+                Padding="5"
+                Text="{Binding SelectedCustomer.Phone}" />
+            <Label
+                Margin="5"
+                Padding="5"
+                Background="LightSalmon"
+                BorderBrush="Black"
+                Content="Email" />
+            <TextBox
+                Margin="5"
+                Padding="5"
+                Text="{Binding SelectedCustomer.Email}" />
+            <Button
+                Margin="5"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="2"
+                Command="{Binding CreateCustomerCommand}"
+                Content="Create Customer" />
+            <Button
+                Margin="5"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="2"
+                Command="{Binding DeleteCustomerCommand}"
+                Content="Delete Customer" />
+            <Button
+                Margin="5"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="2"
+                Command="{Binding UpdateCustomerCommand}"
+                Content="Update Customer" />
+        </StackPanel>
+    </Grid>
+</Window>
