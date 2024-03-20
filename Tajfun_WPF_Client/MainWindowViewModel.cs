@@ -20,7 +20,7 @@ namespace Tajfun_WPF_Client
             {
                 if (value != null)
                 {
-                    selectedCustomer = new Customer()
+                    selectedCustomer = new Customer() //ez egy gány megoldás szerintem
                     {
                         Name = value.Name,
                         Email = value.Email,
@@ -28,6 +28,9 @@ namespace Tajfun_WPF_Client
                         CustomerId = value.CustomerId
                     };
                     OnPropertyChanged();
+
+                    //SetProperty(ref selectedCustomer, value); //ez lenne helyette, de hibás az update
+
                     (DeleteCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
                     (UpdateCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 }
@@ -54,7 +57,7 @@ namespace Tajfun_WPF_Client
             SelectedCustomer = new Customer();
             if (!IsInDesignMode)
             {
-                Customers = new RestCollection<Customer>("http://localhost:7332/", "customer");
+                Customers = new RestCollection<Customer>("http://localhost:7332/", "customer", "hub");
 
                 CreateCustomerCommand = new RelayCommand(
                     () => Customers.Add(new Customer()
