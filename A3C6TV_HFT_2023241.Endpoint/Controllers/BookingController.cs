@@ -35,7 +35,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
             logic.Create(value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update([FromBody] Booking value)
         {
             logic.Update(value);

@@ -51,7 +51,7 @@ namespace A3C6TV_HFT_2023241.Client
                     var table = new PoolTable();
                     Console.WriteLine("Is it a pool or a snooker table?");
                     table.T_kind = Console.ReadLine();
-                    if (table.T_kind=="")
+                    if (table.T_kind == "")
                         throw new ArgumentException("This field is required!");
 
                     rest.Post(table, "pooltable");
@@ -97,7 +97,6 @@ namespace A3C6TV_HFT_2023241.Client
             Console.ReadLine();
         }
 
-        //Httprequest returns with code 405, the put method is not allowed
         static void Update(string entity)
         {
             try
@@ -143,14 +142,12 @@ namespace A3C6TV_HFT_2023241.Client
                                 break;
                         }
                     }
-                    rest.Delete(ID, "booking");
-                    rest.Post(bk, "booking");
+                    //rest.Delete(ID, "booking");
+                    //rest.Post(bk, "booking");
+
+                    rest.Put(bk, "booking");
                     Console.WriteLine("Booking updated!");
 
-                    //The put method is not allowed so I used the delete then post method instead
-                    //not the right way, but it works
-
-                    //rest.Put(bk, "booking");
                     Console.ReadLine();
                 }
                 else if (entity == "Customers")
@@ -188,14 +185,11 @@ namespace A3C6TV_HFT_2023241.Client
                                 break;
                         }
                     }
-                    rest.Delete(ID, "customer");
-                    rest.Post(cust, "customer");
+                    //rest.Delete(ID, "customer");
+                    //rest.Post(cust, "customer");
+
+                    rest.Put(cust, "customer");
                     Console.WriteLine("Customer updated!");
-
-                    //The put method is not allowed so I used the delete then post method instead
-                    //not the right way, but it works
-
-                    //rest.Put(cust, "customer");
                     Console.ReadLine();
                 }
                 else if (entity == "PoolTables")
@@ -224,13 +218,10 @@ namespace A3C6TV_HFT_2023241.Client
                             table.T_kind = "snooker";
                             break;
                     }
-                    rest.Delete(ID, "pooltable");
-                    rest.Post(table, "pooltable");
+                    //rest.Delete(ID, "pooltable");
+                    //rest.Post(table, "pooltable");
 
-                    //The put method is not allowed so I used the delete then post method instead
-                    //not the right way, but it works
-
-                    //rest.Put(table, "pooltable");
+                    rest.Put(table, "pooltable");
                     Console.WriteLine("Table updated!");
                     Console.ReadLine();
                 }
