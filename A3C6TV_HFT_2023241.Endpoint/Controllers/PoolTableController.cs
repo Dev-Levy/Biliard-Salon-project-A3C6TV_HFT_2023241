@@ -34,7 +34,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
             logic.Create(value);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public void Update([FromBody] PoolTable value)
         {
             logic.Update(value);
