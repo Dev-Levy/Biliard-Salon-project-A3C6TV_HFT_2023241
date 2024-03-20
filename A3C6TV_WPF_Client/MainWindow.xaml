@@ -6,49 +6,7 @@
         xmlns:local="clr-namespace:A3C6TV_WPF_Client"
         mc:Ignorable="d"
         Title="TajfunApp" Height="450" Width="800">
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="6*"/>
-        </Grid.RowDefinitions>
-        
-        <Grid Grid.ColumnSpan="2" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
 
-            <Button Content="Customers" Grid.Column="0" Margin="10" Padding="10"/>
-            <Button Content="Bookings" Grid.Column="1" Margin="10" Padding="10"/>
-            <Button Content="Tables" Grid.Column="2" Margin="10" Padding="10"/>
-        </Grid>
-        
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            
-            <ListBox ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" Grid.Column="1" Grid.Row="1" Background="{x:Null}" Grid.RowSpan="2">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label Content="{Binding Name}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-            <StackPanel Grid.Column="0" Grid.Row="1">
-                <Label Content="Name" Background="LightBlue" Padding="10"/>
-                <TextBox Text="{Binding SelectedCustomer.Name}" Padding="10" Margin="0,0,0,30"/>
-                <Button Content="Create Customer" Command="{Binding CreateCustomerCommand}" Margin="10" Padding="10"/>
-                <Button Content="Delete Customer" Command="{Binding DeleteCustomerCommand}" Margin="10" Padding="10"/>
-                <Button Content="Update Customer" Command="{Binding UpdateCustomerCommand}" Margin="10" Padding="10"/>
-            </StackPanel>
-        </Grid>
-        
     </Grid>
 </Window>
