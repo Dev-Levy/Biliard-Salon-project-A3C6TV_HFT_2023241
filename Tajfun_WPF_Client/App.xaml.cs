@@ -1,6 +1,7 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using Tajfun_WPF_Client.Services;
 
 namespace Tajfun_WPF_Client
 {
@@ -9,6 +10,16 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                    .AddSingleton<ICustomerService, CustomersViaWindow>()
+                    .AddSingleton<IBookingService, BookingsViaWindow>()
+                    .AddSingleton<IPoolTableService, PoolTablesViaWindow>()
+                    .BuildServiceProvider()
+                    );
+        }
     }
 
 }
