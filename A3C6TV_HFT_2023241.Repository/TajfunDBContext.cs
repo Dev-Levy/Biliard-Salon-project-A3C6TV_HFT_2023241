@@ -106,7 +106,8 @@ namespace A3C6TV_HFT_2023241.Repository
                 new Customer(17,"Ethan White", "+1357924680", "ethan.white@example.com"),
                 new Customer(18,"Isabella Hill", "+1223344556", "isabella.hill@example.com"),
                 new Customer(19,"Benjamin Clark", "+1890765432", "benjamin.clark@example.com"),
-                new Customer(20,"Aria Adams", "+1765432987", "aria.adams@example.com")
+                new Customer(20,"Aria Adams", "+1765432987", "aria.adams@example.com"),
+                new Customer(21,"Prof. Dr. habil Litresits Ádám", "+17654378523475682", "sajt.sajt@citromail.com")
 
             });
 
