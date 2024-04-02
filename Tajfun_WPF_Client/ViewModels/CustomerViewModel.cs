@@ -51,12 +51,12 @@ namespace Tajfun_WPF_Client.ViewModels
             }
         }
 
-        public CustomerViewModel()
+        public CustomerViewModel(RestCollection<Customer> customers)
         {
             SelectedCustomer = new Customer();
             if (!IsInDesignMode)
             {
-                Customers = new RestCollection<Customer>("http://localhost:7332/", "customer", "hub");
+                Customers = customers;
 
                 CreateCustomerCommand = new RelayCommand(
                     () => Customers.Add(new Customer()

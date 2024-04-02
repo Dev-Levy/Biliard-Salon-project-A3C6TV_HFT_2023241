@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Tajfun_WPF_Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:Tajfun_WPF_Client.ViewModels"
     Title="Bookings"
     Width="800"
     Height="450"
@@ -17,8 +18,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -26,12 +27,34 @@
             Grid.Row="0"
             Grid.RowSpan="4"
             Grid.Column="0"
-            ItemsSource="{Binding asdasdasdas}">
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Bookings}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <Label Content="asd" />
-                    </StackPanel>
+                    <Border
+                        Margin="10"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel
+                            HorizontalAlignment="Stretch"
+                            Background="LightGoldenrodYellow"
+                            Orientation="Horizontal">
+                            <Label
+                                Padding="20"
+                                VerticalAlignment="Center"
+                                Content="{Binding Customer.Name}" />
+                            <StackPanel>
+                                <Label
+                                    Padding="5"
+                                    Content="{Binding StartDate}"
+                                    ContentStringFormat="Kezdete: {0}" />
+                                <Label
+                                    Padding="5"
+                                    Content="{Binding EndDate}"
+                                    ContentStringFormat="Vége: {0}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

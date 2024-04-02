@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using A3C6TV_HFT_2023241.Models;
+using System.Windows;
 
 namespace Tajfun_WPF_Client
 {
@@ -7,8 +8,9 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class Customers : Window
     {
-        public Customers()
+        public Customers(RestCollection<Customer> customers)
         {
+            DataContext = new ViewModels.CustomerViewModel(customers);
             InitializeComponent();
         }
     }

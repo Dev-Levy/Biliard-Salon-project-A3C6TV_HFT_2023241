@@ -1,12 +1,13 @@
-﻿using Tajfun_WPF_Client.Services;
+﻿using A3C6TV_HFT_2023241.Models;
+using Tajfun_WPF_Client.Services;
 
 namespace Tajfun_WPF_Client
 {
     internal class BookingsViaWindow : IBookingService
     {
-        public void Open()
+        public void Open(RestCollection<Booking> bookings)
         {
-            new Bookings().Show();
+            new Bookings(bookings).Show();
         }
     }
 }

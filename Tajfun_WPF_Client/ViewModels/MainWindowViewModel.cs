@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using A3C6TV_HFT_2023241.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
@@ -14,9 +15,9 @@ namespace Tajfun_WPF_Client
         IBookingService bookingService;
         IPoolTableService poolTableService;
 
-        //public RestCollection<Customer> customers { get; set; }
-        //public RestCollection<Booking> bookings { get; set; }
-        //public RestCollection<PoolTable> poolTables { get; set; }
+        public RestCollection<Customer> customers { get; set; }
+        public RestCollection<Booking> bookings { get; set; }
+        public RestCollection<PoolTable> poolTables { get; set; }
 
 
         public ICommand GetCustomersCommand { get; set; }
@@ -35,9 +36,9 @@ namespace Tajfun_WPF_Client
         {
             if (!IsInDesignMode)
             {
-                //customers = new RestCollection<Customer>("http://localhost:7332/", "Customer", "hub");
-                //bookings = new RestCollection<Booking>("http://localhost:7332/", "Booking", "hub");
-                //poolTables = new RestCollection<PoolTable>("http://localhost:7332/", "PoolTable", "hub");
+                customers = new RestCollection<Customer>("http://localhost:7332/", "Customer", "hub");
+                bookings = new RestCollection<Booking>("http://localhost:7332/", "Booking", "hub");
+                poolTables = new RestCollection<PoolTable>("http://localhost:7332/", "PoolTable", "hub");
 
 
                 customerService = Ioc.Default.GetRequiredService<ICustomerService>();
@@ -45,15 +46,15 @@ namespace Tajfun_WPF_Client
                 poolTableService = Ioc.Default.GetRequiredService<IPoolTableService>();
 
                 GetCustomersCommand = new RelayCommand(
-                    () => customerService.Open(/*customers*/),
+                    () => customerService.Open(customers),
                     () => true
                     );
                 GetBookingsCommand = new RelayCommand(
-                    () => bookingService.Open(/*bookings*/),
+                    () => bookingService.Open(bookings),
                     () => true
                     );
                 GetPoolTablesCommand = new RelayCommand(
-                    () => poolTableService.Open(/*poolTables*/),
+                    () => poolTableService.Open(poolTables),
                     () => true
                     );
             }

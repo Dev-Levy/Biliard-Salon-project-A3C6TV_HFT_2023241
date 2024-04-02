@@ -9,80 +9,162 @@
     Title="Customers"
     Width="800"
     Height="450"
+    Background="#fefae0"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <views:CustomerViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="11*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <ListBox
-            Grid.RowSpan="2"
-            ItemsSource="{Binding Customers}"
-            SelectedIndex="0"
-            SelectedItem="{Binding SelectedCustomer}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Name}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Grid.RowSpan="2" Grid.Column="1">
             <Label
-                Margin="5"
+                Grid.Column="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
+                Content="Name"
+                FontSize="15"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
+            <Label
+                Grid.Column="1"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
+                Content="Phone"
+                FontSize="15"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
+            <Label
+                Grid.Column="2"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
+                Content="Email"
+                FontSize="15"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
+
+            <ListBox
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                HorizontalContentAlignment="Stretch"
+                Background="Transparent"
+                ItemsSource="{Binding Customers}"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                SelectedIndex="0"
+                SelectedItem="{Binding SelectedCustomer}">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding Name}" />
+                            <Label Grid.Column="1" Content="{Binding Phone}" />
+                            <Label Grid.Column="2" Content="{Binding Email}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
                 Padding="5"
-                Background="LightSalmon"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
                 BorderBrush="Black"
-                Content="Name" />
+                Content="Name"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
             <TextBox
-                Margin="5"
+                Grid.Row="1"
                 Padding="5"
+                VerticalContentAlignment="Center"
                 Text="{Binding SelectedCustomer.Name}" />
+
             <Label
-                Margin="5"
+                Grid.Row="2"
                 Padding="5"
-                Background="LightSalmon"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
                 BorderBrush="Black"
-                Content="Phone number" />
+                Content="Phone number"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
             <TextBox
-                Margin="5"
+                Grid.Row="3"
                 Padding="5"
+                VerticalContentAlignment="Center"
                 Text="{Binding SelectedCustomer.Phone}" />
+
             <Label
-                Margin="5"
+                Grid.Row="4"
                 Padding="5"
-                Background="LightSalmon"
+                VerticalContentAlignment="Center"
+                Background="#dda15e"
                 BorderBrush="Black"
-                Content="Email" />
+                Content="Email"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
             <TextBox
-                Margin="5"
+                Grid.Row="5"
                 Padding="5"
+                VerticalContentAlignment="Center"
                 Text="{Binding SelectedCustomer.Email}" />
+
             <Button
-                Margin="5"
+                Grid.Row="6"
                 Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
+                Background="#bc6c25"
                 Command="{Binding CreateCustomerCommand}"
-                Content="Create Customer" />
+                Content="Create Customer"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
             <Button
-                Margin="5"
+                Grid.Row="7"
                 Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
+                Background="#dda15e"
                 Command="{Binding DeleteCustomerCommand}"
-                Content="Delete Customer" />
+                Content="Delete Customer"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
             <Button
-                Margin="5"
+                Grid.Row="8"
                 Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
+                Background="#bc6c25"
                 Command="{Binding UpdateCustomerCommand}"
-                Content="Update Customer" />
-        </StackPanel>
+                Content="Update Customer"
+                FontWeight="Bold"
+                Foreground="#fefae0" />
+        </Grid>
     </Grid>
 </Window>
