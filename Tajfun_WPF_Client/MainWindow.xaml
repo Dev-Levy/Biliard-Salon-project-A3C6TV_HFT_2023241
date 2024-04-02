@@ -5,99 +5,36 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Tajfun_WPF_Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:Tajfun_WPF_Client.ViewModels"
     Title="TajfunBiliard"
     Width="800"
     Height="450"
+    FontFamily="Roboto"
+    FontSize="30"
+    FontWeight="Bold"
     mc:Ignorable="d">
     <Window.DataContext>
-        <local:MainWindowViewModel />
+        <views:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Button
-            Grid.Row="0"
             Grid.Column="0"
-            Margin="5"
-            Padding="5"
-            BorderBrush="Black"
-            BorderThickness="2"
             Command="{Binding GetCustomersCommand}"
-            Content="Customers"
-            FontSize="100"
-            Visibility="Hidden" />
+            Content="Customers" />
+        <Button
+            Grid.Column="1"
+            Command="{Binding GetBookingsCommand}"
+            Content="Bookings" />
+        <Button
+            Grid.Column="2"
+            Command="{Binding GetPoolTablesCommand}"
+            Content="Pool Tables" />
 
-
-        <ListBox
-            Grid.RowSpan="2"
-            ItemsSource="{Binding Customers}"
-            SelectedIndex="0"
-            SelectedItem="{Binding SelectedCustomer}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Name}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Grid.RowSpan="2" Grid.Column="1">
-            <Label
-                Margin="5"
-                Padding="5"
-                Background="LightSalmon"
-                BorderBrush="Black"
-                Content="Name" />
-            <TextBox
-                Margin="5"
-                Padding="5"
-                Text="{Binding SelectedCustomer.Name}" />
-            <Label
-                Margin="5"
-                Padding="5"
-                Background="LightSalmon"
-                BorderBrush="Black"
-                Content="Phone number" />
-            <TextBox
-                Margin="5"
-                Padding="5"
-                Text="{Binding SelectedCustomer.Phone}" />
-            <Label
-                Margin="5"
-                Padding="5"
-                Background="LightSalmon"
-                BorderBrush="Black"
-                Content="Email" />
-            <TextBox
-                Margin="5"
-                Padding="5"
-                Text="{Binding SelectedCustomer.Email}" />
-            <Button
-                Margin="5"
-                Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
-                Command="{Binding CreateCustomerCommand}"
-                Content="Create Customer" />
-            <Button
-                Margin="5"
-                Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
-                Command="{Binding DeleteCustomerCommand}"
-                Content="Delete Customer" />
-            <Button
-                Margin="5"
-                Padding="5"
-                BorderBrush="Black"
-                BorderThickness="2"
-                Command="{Binding UpdateCustomerCommand}"
-                Content="Update Customer" />
-        </StackPanel>
     </Grid>
 </Window>

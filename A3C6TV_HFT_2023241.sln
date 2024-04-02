@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{77A7B3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3C6TV_HFT_2023241.Endpoint", "A3C6TV_HFT_2023241.Endpoint\A3C6TV_HFT_2023241.Endpoint.csproj", "{ABF1A864-0D6E-4281-86A0-21B34E08905C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tajfun_WPF_Client", "Tajfun_WPF_Client\Tajfun_WPF_Client.csproj", "{7340F0AE-02D9-49A8-93A9-74A4DE75FD61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tajfun_WPF_Client", "Tajfun_WPF_Client\Tajfun_WPF_Client.csproj", "{7340F0AE-02D9-49A8-93A9-74A4DE75FD61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

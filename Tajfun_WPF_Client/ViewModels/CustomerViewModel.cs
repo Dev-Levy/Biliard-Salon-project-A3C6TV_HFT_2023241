@@ -5,9 +5,9 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Tajfun_WPF_Client
+namespace Tajfun_WPF_Client.ViewModels
 {
-    class MainWindowViewModel : ObservableRecipient
+    internal class CustomerViewModel : ObservableRecipient
     {
         public RestCollection<Customer> Customers { get; set; }
 
@@ -51,7 +51,7 @@ namespace Tajfun_WPF_Client
             }
         }
 
-        public MainWindowViewModel()
+        public CustomerViewModel()
         {
             SelectedCustomer = new Customer();
             if (!IsInDesignMode)
