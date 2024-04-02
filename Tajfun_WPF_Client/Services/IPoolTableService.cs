@@ -2,6 +2,6 @@
 {
     interface IPoolTableService
     {
-        public void Open(RestCollection<PoolTables> poolTables);
+        public void Open();
     }
 }

@@ -2,6 +2,6 @@
 {
     interface IBookingService
     {
-        public void Open(RestCollection<Bookings> bookings);
+        public void Open();
     }
 }

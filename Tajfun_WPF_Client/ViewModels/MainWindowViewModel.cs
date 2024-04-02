@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using Tajfun_WPF_Client.Services;
 
-namespace Tajfun_WPF_Client.ViewModels
+namespace Tajfun_WPF_Client
 {
     class MainWindowViewModel : ObservableRecipient
     {
@@ -14,14 +14,14 @@ namespace Tajfun_WPF_Client.ViewModels
         IBookingService bookingService;
         IPoolTableService poolTableService;
 
-        public RestCollection<Customers> customers { get; set; }
-        public RestCollection<Bookings> bookings { get; set; }
-        public RestCollection<PoolTables> poolTables { get; set; }
+        //public RestCollection<Customer> customers { get; set; }
+        //public RestCollection<Booking> bookings { get; set; }
+        //public RestCollection<PoolTable> poolTables { get; set; }
 
 
-        ICommand GetCustomersCommand;
-        ICommand GetBookingsCommand;
-        ICommand GetPoolTablesCommand;
+        public ICommand GetCustomersCommand { get; set; }
+        public ICommand GetBookingsCommand { get; set; }
+        public ICommand GetPoolTablesCommand { get; set; }
 
         public static bool IsInDesignMode
         {
@@ -35,9 +35,9 @@ namespace Tajfun_WPF_Client.ViewModels
         {
             if (!IsInDesignMode)
             {
-                customers = new RestCollection<Customers>("http://localhost:7332/", "customer", "hub");
-                bookings = new RestCollection<Bookings>("http://localhost:7332/", "booking", "hub");
-                poolTables = new RestCollection<PoolTables>("http://localhost:7332/", "pooltable", "hub");
+                //customers = new RestCollection<Customer>("http://localhost:7332/", "Customer", "hub");
+                //bookings = new RestCollection<Booking>("http://localhost:7332/", "Booking", "hub");
+                //poolTables = new RestCollection<PoolTable>("http://localhost:7332/", "PoolTable", "hub");
 
 
                 customerService = Ioc.Default.GetRequiredService<ICustomerService>();
@@ -45,15 +45,15 @@ namespace Tajfun_WPF_Client.ViewModels
                 poolTableService = Ioc.Default.GetRequiredService<IPoolTableService>();
 
                 GetCustomersCommand = new RelayCommand(
-                    () => customerService.Open(customers),
+                    () => customerService.Open(/*customers*/),
                     () => true
                     );
                 GetBookingsCommand = new RelayCommand(
-                    () => bookingService.Open(bookings),
+                    () => bookingService.Open(/*bookings*/),
                     () => true
                     );
                 GetPoolTablesCommand = new RelayCommand(
-                    () => poolTableService.Open(poolTables),
+                    () => poolTableService.Open(/*poolTables*/),
                     () => true
                     );
             }

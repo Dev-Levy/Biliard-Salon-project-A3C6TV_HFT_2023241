@@ -4,9 +4,9 @@ namespace Tajfun_WPF_Client
 {
     internal class BookingsViaWindow : IBookingService
     {
-        public void Open(RestCollection<Bookings> bookings)
+        public void Open()
         {
-            new Bookings(bookings).Show();
+            new Bookings().Show();
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     interface ICustomerService
     {
-        public void Open(RestCollection<Customers> customers);
+        public void Open();
     }
 }

@@ -7,9 +7,8 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class Customers : Window
     {
-        public Customers(RestCollection<Customers> customers)
+        public Customers()
         {
-            DataContext = customers;
             InitializeComponent();
         }
     }

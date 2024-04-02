@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Tajfun_WPF_Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:Tajfun_WPF_Client.ViewModels"
     Title="TajfunBiliard"
     Width="800"
     Height="450"
@@ -14,7 +13,7 @@
     FontWeight="Bold"
     mc:Ignorable="d">
     <Window.DataContext>
-        <views:MainWindowViewModel />
+        <local:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>

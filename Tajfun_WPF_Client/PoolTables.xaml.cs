@@ -7,9 +7,8 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class PoolTables : Window
     {
-        public PoolTables(RestCollection<PoolTables> poolTables)
+        public PoolTables()
         {
-            DataContext = poolTables;
             InitializeComponent();
         }
     }

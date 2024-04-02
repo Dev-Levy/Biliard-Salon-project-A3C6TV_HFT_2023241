@@ -2,9 +2,9 @@
 {
     class CustomersViaWindow : ICustomerService
     {
-        public void Open(RestCollection<Customers> customers)
+        public void Open()
         {
-            new Customers(customers).Show();
+            new Customers().Show();
         }
     }
 }
