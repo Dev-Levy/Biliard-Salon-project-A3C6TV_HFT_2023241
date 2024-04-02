@@ -24,14 +24,17 @@
 
         <Button
             Grid.Column="0"
+            Margin="5"
             Command="{Binding GetCustomersCommand}"
             Content="Customers" />
         <Button
             Grid.Column="1"
+            Margin="5"
             Command="{Binding GetBookingsCommand}"
             Content="Bookings" />
         <Button
             Grid.Column="2"
+            Margin="5"
             Command="{Binding GetPoolTablesCommand}"
             Content="Pool Tables" />
 

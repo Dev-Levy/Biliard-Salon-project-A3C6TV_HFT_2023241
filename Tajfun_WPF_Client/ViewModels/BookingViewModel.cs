@@ -11,18 +11,21 @@ namespace Tajfun_WPF_Client.ViewModels
     {
         public RestCollection<Booking> Bookings { get; set; }
 
-        private Booking selectedBookings;
+        private Booking selectedBooking;
 
-        public Booking SelectedBookings
+        public Booking SelectedBooking
         {
-            get { return selectedBookings; }
+            get { return selectedBooking; }
             set
             {
                 if (value != null)
                 {
-                    selectedBookings = new Booking() //ez egy gány megoldás szerintem
+                    selectedBooking = new Booking() //ez egy gány megoldás szerintem
                     {
-
+                        StartDate = value.StartDate,
+                        EndDate = value.EndDate,
+                        PoolTable = value.PoolTable,
+                        Customer = value.Customer
                     };
                     OnPropertyChanged();
 
@@ -50,7 +53,7 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public BookingViewModel(RestCollection<Booking> bookings)
         {
-            SelectedBookings = new Booking();
+            SelectedBooking = new Booking();
             if (!IsInDesignMode)
             {
                 Bookings = bookings;
