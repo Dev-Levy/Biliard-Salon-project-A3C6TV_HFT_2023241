@@ -13,20 +13,40 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}">
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5"
+            Padding="5"
+            BorderBrush="Black"
+            BorderThickness="2"
+            Command="{Binding GetCustomersCommand}"
+            Content="Customers"
+            FontSize="100"
+            Visibility="Hidden" />
+
+
+        <ListBox
+            Grid.RowSpan="2"
+            ItemsSource="{Binding Customers}"
+            SelectedIndex="0"
+            SelectedItem="{Binding SelectedCustomer}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding Name}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.RowSpan="2" Grid.Column="1">
             <Label
                 Margin="5"
                 Padding="5"

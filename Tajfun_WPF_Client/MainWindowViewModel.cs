@@ -37,7 +37,6 @@ namespace Tajfun_WPF_Client
             }
         }
 
-
         public ICommand CreateCustomerCommand { get; set; }
         public ICommand DeleteCustomerCommand { get; set; }
         public ICommand UpdateCustomerCommand { get; set; }
