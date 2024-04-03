@@ -31,9 +31,12 @@ namespace Tajfun_WPF_Client.ViewModels
                 {
                     selectedBooking = new Booking() //ez egy gány megoldás szerintem
                     {
+                        BookingId = value.BookingId,
                         StartDate = value.StartDate,
                         EndDate = value.EndDate,
+                        TableId = value.TableId,
                         PoolTable = value.PoolTable,
+                        CustomerId = value.CustomerId,
                         Customer = value.Customer
                     };
                     OnPropertyChanged();
@@ -84,10 +87,23 @@ namespace Tajfun_WPF_Client.ViewModels
             {
                 Bookings = bookings;
 
+                CreateBookingCommand = new RelayCommand(
+                    () => Bookings.Add(new Booking()
+                    {
+                        //ide kellenek a mezők
+                    }),
+                    () => true
+                    );
+                DeleteBookingCommand = new RelayCommand(
+                    () => Bookings.Delete(SelectedBooking.BookingId),
+                    () => SelectedBooking != null
+                    );
 
-
+                UpdateBookingCommand = new RelayCommand(
+                    () => Bookings.Update(SelectedBooking),
+                    () => SelectedBooking != null
+                    );
             }
-
         }
     }
 }
