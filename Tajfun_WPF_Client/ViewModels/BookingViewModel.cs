@@ -10,6 +10,9 @@ namespace Tajfun_WPF_Client.ViewModels
     class BookingViewModel : ObservableRecipient
     {
         public RestCollection<Booking> Bookings { get; set; }
+        public List<int> Years { get; set; }
+        public List<int> Months { get; set; }
+        public List<int> Days { get; set; }
 
         private Booking selectedBooking;
 
@@ -58,6 +61,18 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public BookingViewModel(RestCollection<Booking> bookings)
         {
+            Years = new List<int>();
+            for (int i = 0; i < 25; i++)
+                Years.Add(2000 + i);
+
+            Months = new List<int>();
+            for (int i = 1; i < 13; i++)
+                Years.Add(i);
+
+            Days = new List<int>();
+            for (int i = 1; i < 32; i++)
+                Years.Add(i);
+
             SelectedBooking = new Booking();
             if (!IsInDesignMode)
             {

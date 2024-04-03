@@ -1,6 +1,6 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using System.Windows;
-//using Tajfun_WPF_Client.ViewModels;
+using Tajfun_WPF_Client.ViewModels;
 
 namespace Tajfun_WPF_Client
 {
@@ -11,7 +11,7 @@ namespace Tajfun_WPF_Client
     {
         public Bookings(RestCollection<Booking> bookings)
         {
-            //DataContext = new BookingViewModel(bookings);
+            DataContext = new BookingViewModel(bookings);
             InitializeComponent();
         }
     }
