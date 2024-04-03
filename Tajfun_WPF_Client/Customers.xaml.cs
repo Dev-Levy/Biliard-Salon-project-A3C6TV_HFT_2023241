@@ -1,5 +1,6 @@
 ﻿using A3C6TV_HFT_2023241.Models;
 using System.Windows;
+using Tajfun_WPF_Client.ViewModels;
 
 namespace Tajfun_WPF_Client
 {
@@ -10,7 +11,7 @@ namespace Tajfun_WPF_Client
     {
         public Customers(RestCollection<Customer> customers)
         {
-            DataContext = new ViewModels.CustomerViewModel(customers);
+            DataContext = new CustomerViewModel(customers);
             InitializeComponent();
         }
     }

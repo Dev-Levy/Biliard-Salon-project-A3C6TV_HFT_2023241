@@ -9,7 +9,7 @@
     Title="Bookings"
     Width="800"
     Height="450"
-    Background="#c9ada7"
+    Background="#8ecae6"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
