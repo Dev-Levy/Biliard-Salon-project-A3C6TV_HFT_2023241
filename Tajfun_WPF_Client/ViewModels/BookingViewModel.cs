@@ -51,6 +51,11 @@ namespace Tajfun_WPF_Client.ViewModels
             }
         }
 
+        public BookingViewModel()
+        {
+
+        }
+
         public BookingViewModel(RestCollection<Booking> bookings)
         {
             SelectedBooking = new Booking();

@@ -19,6 +19,11 @@ namespace Tajfun_WPF_Client.ViewModels
             }
         }
 
+        public PoolTableViewModel()
+        {
+
+        }
+
         public PoolTableViewModel(RestCollection<PoolTable> poolTables)
         {
             if (!IsInDesignMode)

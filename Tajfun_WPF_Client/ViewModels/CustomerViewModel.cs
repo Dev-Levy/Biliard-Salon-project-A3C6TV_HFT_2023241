@@ -51,6 +51,10 @@ namespace Tajfun_WPF_Client.ViewModels
             }
         }
 
+        public CustomerViewModel()
+        {
+
+        }
         public CustomerViewModel(RestCollection<Customer> customers)
         {
             SelectedCustomer = new Customer();

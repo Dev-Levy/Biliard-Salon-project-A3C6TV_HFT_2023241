@@ -62,15 +62,14 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Column="1" DataContext="{Binding Se}">
+        <Grid Grid.Column="1" DataContext="{Binding SelectedBooking}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <TextBlock
@@ -82,29 +81,54 @@
                 Grid.Row="1"
                 Margin="5"
                 VerticalContentAlignment="Center"
-                Text="{Binding SelectedBooking.Customer.Name}" />
+                Text="{Binding Customer.Name}" />
 
             <TextBlock
                 Grid.Row="2"
                 Margin="5"
                 VerticalAlignment="Center"
-                Text="Starts" />
+                Text="Date" />
             <DatePicker
                 Grid.Row="3"
                 Margin="5"
                 VerticalContentAlignment="Center"
-                Text="{Binding SelectedBooking.StartDate}" />
+                Text="{Binding StartDate.Date}" />
 
-            <TextBlock
-                Grid.Row="4"
-                Margin="5"
-                VerticalAlignment="Center"
-                Text="Ends" />
-            <DatePickerTextBox
-                Grid.Row="5"
-                Margin="5"
-                VerticalContentAlignment="Center"
-                Text="{Binding SelectedBooking.EndDate}" />
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    Text="Starts" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    Text="Ends" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding StartDate.Hour}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding EndDate.Hour}" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>
