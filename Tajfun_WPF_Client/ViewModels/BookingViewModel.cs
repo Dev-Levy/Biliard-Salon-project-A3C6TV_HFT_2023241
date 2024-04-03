@@ -11,41 +11,29 @@ namespace Tajfun_WPF_Client.ViewModels
     {
         public RestCollection<Booking> Bookings { get; set; }
 
-        private List<int> years;
-        public List<int> Years
-        {
-            get { return years; }
-            set { SetProperty(ref years, value); }
-        }
-
-        public List<int> Months { get; set; }
-        public List<int> Days { get; set; }
-
         private Booking selectedBooking;
         public Booking SelectedBooking
         {
             get { return selectedBooking; }
             set
             {
-                if (value != null)
-                {
-                    selectedBooking = new Booking() //ez egy gány megoldás szerintem
-                    {
-                        BookingId = value.BookingId,
-                        StartDate = value.StartDate,
-                        EndDate = value.EndDate,
-                        TableId = value.TableId,
-                        PoolTable = value.PoolTable,
-                        CustomerId = value.CustomerId,
-                        Customer = value.Customer
-                    };
-                    OnPropertyChanged();
-
-                    //SetProperty(ref selectedCustomer, value); //ez lenne helyette, de hibás az update
-
-                    (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                    (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                }
+                SetProperty(ref selectedBooking, value);
+                //if (value != null)
+                //{
+                //    selectedBooking = new Booking()
+                //    {
+                //        BookingId = value.BookingId,
+                //        StartDate = value.StartDate,
+                //        EndDate = value.EndDate,
+                //        TableId = value.TableId,
+                //        PoolTable = value.PoolTable,
+                //        CustomerId = value.CustomerId,
+                //        Customer = value.Customer
+                //    };
+                //    OnPropertyChanged();
+                //}
+                (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
@@ -70,18 +58,6 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public BookingViewModel(RestCollection<Booking> bookings)
         {
-            Years = new List<int>();
-            for (int i = 0; i < 25; i++)
-                Years.Add(2000 + i);
-
-            Months = new List<int>();
-            for (int i = 1; i < 13; i++)
-                Years.Add(i);
-
-            Days = new List<int>();
-            for (int i = 1; i < 32; i++)
-                Years.Add(i);
-
             SelectedBooking = new Booking();
             if (!IsInDesignMode)
             {

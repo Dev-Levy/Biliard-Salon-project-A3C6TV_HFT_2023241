@@ -43,7 +43,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
         public void Update([FromBody] Booking value)
         {
             logic.Update(value);
-            hub.Clients.All.SendAsync("BookingCreated", value);
+            hub.Clients.All.SendAsync("BookingUpdated", value);
         }
 
         [HttpDelete("{id}")]
@@ -51,7 +51,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
         {
             var value = logic.Read(id);
             logic.Delete(id);
-            hub.Clients.All.SendAsync("BookingCreated", value);
+            hub.Clients.All.SendAsync("BookingDeleted", value);
         }
     }
 }

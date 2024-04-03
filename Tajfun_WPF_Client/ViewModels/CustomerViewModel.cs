@@ -12,28 +12,25 @@ namespace Tajfun_WPF_Client.ViewModels
         public RestCollection<Customer> Customers { get; set; }
 
         private Customer selectedCustomer;
-
         public Customer SelectedCustomer
         {
             get { return selectedCustomer; }
             set
             {
-                if (value != null)
-                {
-                    selectedCustomer = new Customer() //ez egy gány megoldás szerintem
-                    {
-                        Name = value.Name,
-                        Email = value.Email,
-                        Phone = value.Phone,
-                        CustomerId = value.CustomerId
-                    };
-                    OnPropertyChanged();
-
-                    //SetProperty(ref selectedCustomer, value); //ez lenne helyette, de hibás az update
-
-                    (DeleteCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                    (UpdateCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                }
+                SetProperty(ref selectedCustomer, value);
+                //if (value != null)
+                //{
+                //    selectedCustomer = new Customer()
+                //    {
+                //        CustomerId = value.CustomerId,
+                //        Name = value.Name,
+                //        Email = value.Email,
+                //        Phone = value.Phone
+                //    };
+                //    OnPropertyChanged();
+                //}
+                (DeleteCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
