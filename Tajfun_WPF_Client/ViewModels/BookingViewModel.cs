@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Tajfun_WPF_Client.ViewModels
 {
-    internal class BookingViewModel : ObservableRecipient
+    class BookingViewModel : ObservableRecipient
     {
         public RestCollection<Booking> Bookings { get; set; }
 

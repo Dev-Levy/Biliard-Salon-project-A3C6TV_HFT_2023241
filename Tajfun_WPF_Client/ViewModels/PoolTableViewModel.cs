@@ -1,10 +1,11 @@
 ﻿using A3C6TV_HFT_2023241.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using System.Windows;
 
 namespace Tajfun_WPF_Client.ViewModels
 {
-    internal class PoolTableViewModel
+    class PoolTableViewModel : ObservableRecipient
     {
         public RestCollection<PoolTable> PoolTables { get; set; }
 

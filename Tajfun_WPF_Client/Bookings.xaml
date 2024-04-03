@@ -11,6 +11,9 @@
     Height="450"
     Background="#8ecae6"
     mc:Ignorable="d">
+    <Window.DataContext>
+        <views:BookingViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
