@@ -21,12 +21,18 @@ namespace Tajfun_WPF_Client.ViewModels
                 SetProperty(ref selectedPoolTable, value);
                 (DeletePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdatePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (SetTablePoolCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (SetTableSnookerCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
         public ICommand CreatePoolTableCommand { get; set; }
         public ICommand DeletePoolTableCommand { get; set; }
         public ICommand UpdatePoolTableCommand { get; set; }
+        public ICommand SetTablePoolCommand { get; set; }
+        public ICommand SetTableSnookerCommand { get; set; }
+
+
 
         public static bool IsInDesignMode
         {
@@ -61,7 +67,14 @@ namespace Tajfun_WPF_Client.ViewModels
                     () => PoolTables.Update(SelectedPoolTable),
                     () => SelectedPoolTable != null
                     );
-
+                SetTablePoolCommand = new RelayCommand(
+                    () => SelectedPoolTable.T_kind = "Pool",
+                    () => SelectedPoolTable != null && SelectedPoolTable.T_kind != "Pool"
+                    );
+                SetTableSnookerCommand = new RelayCommand(
+                    () => SelectedPoolTable.T_kind = "Snooker",
+                    () => SelectedPoolTable != null && SelectedPoolTable.T_kind != "Snooker"
+                    );
             }
         }
     }
