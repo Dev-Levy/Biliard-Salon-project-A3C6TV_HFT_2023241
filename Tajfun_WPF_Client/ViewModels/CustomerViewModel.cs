@@ -71,16 +71,13 @@ namespace Tajfun_WPF_Client.ViewModels
                         Name = selectedCustomer.Name, //lehet üres minden mező
                         Email = selectedCustomer.Email,
                         Phone = selectedCustomer.Phone
-                    }),
-                    () => true
-                    );
+                    }));
 
                 DeleteCustomerCommand = new RelayCommand(
                     () =>
                     {
                         Customers.Delete(SelectedCustomer.CustomerId);
                         IsSomethingSelected = false;
-                        //Bookings.TriggerReset();
                     },
                     () => IsSomethingSelected != false
                     );

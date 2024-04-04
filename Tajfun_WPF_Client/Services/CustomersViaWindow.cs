@@ -6,7 +6,7 @@ namespace Tajfun_WPF_Client.Services
     {
         public void Open(RestCollection<Customer> customers)
         {
-            new Customers(customers).Show();
+            new CustomersWindow(customers).Show();
         }
     }
 }

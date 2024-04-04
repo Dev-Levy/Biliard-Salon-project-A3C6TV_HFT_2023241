@@ -75,9 +75,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         PoolTable = SelectedBooking.PoolTable,
                         CustomerId = SelectedBooking.CustomerId,
                         Customer = SelectedBooking.Customer
-                    }),
-                    () => true
-                    );
+                    }));
 
                 DeleteBookingCommand = new RelayCommand(
                     () =>

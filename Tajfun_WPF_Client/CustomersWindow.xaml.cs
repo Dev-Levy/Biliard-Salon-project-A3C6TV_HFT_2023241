@@ -5,11 +5,11 @@ using Tajfun_WPF_Client.ViewModels;
 namespace Tajfun_WPF_Client
 {
     /// <summary>
-    /// Interaction logic for Customers.xaml
+    /// Interaction logic for CustomersWindow.xaml
     /// </summary>
-    public partial class Customers : Window
+    public partial class CustomersWindow : Window
     {
-        public Customers(RestCollection<Customer> customers)
+        public CustomersWindow(RestCollection<Customer> customers)
         {
             DataContext = new CustomerViewModel(customers);
             InitializeComponent();

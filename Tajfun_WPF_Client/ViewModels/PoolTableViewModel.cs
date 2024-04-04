@@ -71,17 +71,13 @@ namespace Tajfun_WPF_Client.ViewModels
                     () => PoolTables.Add(new PoolTable()
                     {
                         T_kind = "Pool"
-                    }),
-                    () => true
-                    );
+                    }));
 
                 CreateSnookerCommand = new RelayCommand(
                     () => PoolTables.Add(new PoolTable()
                     {
                         T_kind = "Snooker"
-                    }),
-                    () => true
-                    );
+                    }));
 
                 DeletePoolTableCommand = new RelayCommand(
                     () =>

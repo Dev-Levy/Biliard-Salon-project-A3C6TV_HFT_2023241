@@ -5,11 +5,11 @@ using Tajfun_WPF_Client.ViewModels;
 namespace Tajfun_WPF_Client
 {
     /// <summary>
-    /// Interaction logic for PoolTables.xaml
+    /// Interaction logic for PoolTablesWindow.xaml
     /// </summary>
-    public partial class PoolTables : Window
+    public partial class PoolTablesWindow : Window
     {
-        public PoolTables(RestCollection<PoolTable> poolTables)
+        public PoolTablesWindow(RestCollection<PoolTable> poolTables)
         {
             DataContext = new PoolTableViewModel(poolTables);
             InitializeComponent();

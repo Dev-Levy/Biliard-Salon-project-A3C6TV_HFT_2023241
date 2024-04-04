@@ -7,7 +7,7 @@ namespace Tajfun_WPF_Client
     {
         public void Open(RestCollection<PoolTable> poolTables)
         {
-            new PoolTables(poolTables).Show();
+            new PoolTablesWindow(poolTables).Show();
         }
     }
 }
