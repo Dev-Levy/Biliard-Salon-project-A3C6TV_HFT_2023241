@@ -21,13 +21,16 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" MinWidth="300" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="2*" MinWidth="300" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="1*" MinWidth="100" />
         </Grid.ColumnDefinitions>
 
         <ListBox
             Grid.Column="0"
+            Grid.ColumnSpan="2"
             HorizontalContentAlignment="Stretch"
             Background="Transparent"
             ItemsSource="{Binding Bookings}"
@@ -67,7 +70,14 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Column="1">
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Black" />
+
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -238,7 +248,14 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Column="2">
+        <GridSplitter
+            Grid.Column="3"
+            Width="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Black" />
+
+        <Grid Grid.Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
