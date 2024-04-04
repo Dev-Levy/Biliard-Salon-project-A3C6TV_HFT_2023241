@@ -28,20 +28,21 @@ namespace Tajfun_WPF_Client.ViewModels
                     };
                     IsSomethingSelected = true;
                     OnPropertyChanged();
-                    (DeletePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                    (SetTablePoolCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                    (SetTableSnookerCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 }
                 else
                 {
                     SelectedPoolTable = new PoolTable();
                     IsSomethingSelected = false;
                 }
+                (DeletePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (SetTablePoolCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (SetTableSnookerCommand as RelayCommand)?.NotifyCanExecuteChanged();
 
             }
         }
 
-        public ICommand CreatePoolTableCommand { get; set; }
+        public ICommand CreatePoolCommand { get; set; }
+        public ICommand CreateSnookerCommand { get; set; }
         public ICommand DeletePoolTableCommand { get; set; }
         public ICommand SetTablePoolCommand { get; set; }
         public ICommand SetTableSnookerCommand { get; set; }
@@ -56,33 +57,42 @@ namespace Tajfun_WPF_Client.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-
         public PoolTableViewModel()
         {
 
         }
-
         public PoolTableViewModel(RestCollection<PoolTable> poolTables)
         {
             if (!IsInDesignMode)
             {
                 PoolTables = poolTables;
 
-                CreatePoolTableCommand = new RelayCommand(
+                CreatePoolCommand = new RelayCommand(
                     () => PoolTables.Add(new PoolTable()
                     {
-                        T_kind = SelectedPoolTable.T_kind
+                        T_kind = "Pool"
                     }),
                     () => true
                     );
-                DeletePoolTableCommand = new RelayCommand(
-                    async () =>
+
+                CreateSnookerCommand = new RelayCommand(
+                    () => PoolTables.Add(new PoolTable()
                     {
-                        await PoolTables.Delete(SelectedPoolTable.TableId);
+                        T_kind = "Snooker"
+                    }),
+                    () => true
+                    );
+
+                DeletePoolTableCommand = new RelayCommand(
+                    () =>
+                    {
+                        PoolTables.Delete(SelectedPoolTable.TableId);
                         IsSomethingSelected = false;
                     },
                     () => IsSomethingSelected != false
                     );
+
+
                 SetTablePoolCommand = new RelayCommand(
                     () =>
                     {

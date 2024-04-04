@@ -7,7 +7,7 @@ namespace Tajfun_WPF_Client
     {
         public void Open(RestCollection<Booking> bookings)
         {
-            new Bookings(bookings).Show();
+            new BookingsWindow(bookings).Show();
         }
     }
 }

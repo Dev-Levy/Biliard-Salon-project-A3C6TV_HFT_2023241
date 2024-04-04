@@ -76,11 +76,11 @@ namespace Tajfun_WPF_Client.ViewModels
                     );
 
                 DeleteCustomerCommand = new RelayCommand(
-                    async () =>
+                    () =>
                     {
-                        await Customers.Delete(SelectedCustomer.CustomerId);
+                        Customers.Delete(SelectedCustomer.CustomerId);
                         IsSomethingSelected = false;
-                        Bookings.TriggerReset();
+                        //Bookings.TriggerReset();
                     },
                     () => IsSomethingSelected != false
                     );

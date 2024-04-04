@@ -56,12 +56,10 @@ namespace Tajfun_WPF_Client.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-
         public BookingViewModel()
         {
 
         }
-
         public BookingViewModel(RestCollection<Booking> bookings)
         {
             if (!IsInDesignMode)
@@ -82,9 +80,9 @@ namespace Tajfun_WPF_Client.ViewModels
                     );
 
                 DeleteBookingCommand = new RelayCommand(
-                    async () =>
+                    () =>
                     {
-                        await Bookings.Delete(SelectedBooking.BookingId);
+                        Bookings.Delete(SelectedBooking.BookingId);
                         IsSomethingSelected = false;
                     },
                     () => IsSomethingSelected != false

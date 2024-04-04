@@ -5,11 +5,11 @@ using Tajfun_WPF_Client.ViewModels;
 namespace Tajfun_WPF_Client
 {
     /// <summary>
-    /// Interaction logic for Bookings.xaml
+    /// Interaction logic for BookingsWindow.xaml
     /// </summary>
-    public partial class Bookings : Window
+    public partial class BookingsWindow : Window
     {
-        public Bookings(RestCollection<Booking> bookings)
+        public BookingsWindow(RestCollection<Booking> bookings)
         {
             DataContext = new BookingViewModel(bookings);
             InitializeComponent();
