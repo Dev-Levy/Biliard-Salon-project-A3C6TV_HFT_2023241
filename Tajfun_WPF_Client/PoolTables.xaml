@@ -8,7 +8,7 @@
     Title="PoolTables"
     Width="800"
     Height="450"
-    Background="#99582a"
+    Background="#84a98c"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,19 +26,21 @@
             <ListBox
                 Background="Transparent"
                 BorderBrush="Transparent"
+                FontSize="15"
                 ItemsSource="{Binding PoolTables}"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                SelectedItem="SelectedPoolTable">
+                SelectedItem="{Binding SelectedPoolTable}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding TableId}" />
-                            <TextBlock Text="{Binding T_kind, StringFormat=' {0}'}" />
+                            <TextBlock Padding="10" Text="{Binding TableId, StringFormat='ID: {0}'}" />
+                            <TextBlock Padding="10" Text="{Binding T_kind, StringFormat='Type: {0}'}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Row="1">
+
+            <Grid Grid.Row="1" Background="#52796f">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -50,8 +52,8 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Text="Pool Table Type:" />
-                <Grid Grid.Column="1">
+                    Text="Choose a table type:" />
+                <Grid Grid.Column="1" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -75,9 +77,8 @@
             VerticalAlignment="Stretch"
             Background="Black" />
 
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="2" Background="#52796f">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -91,11 +92,6 @@
                 Margin="10"
                 Command="{Binding DeletePoolTableCommand}"
                 Content="Delete" />
-            <Button
-                Grid.Row="2"
-                Margin="10"
-                Command="{Binding UpdatePoolTableCommand}"
-                Content="Update" />
         </Grid>
     </Grid>
 </Window>

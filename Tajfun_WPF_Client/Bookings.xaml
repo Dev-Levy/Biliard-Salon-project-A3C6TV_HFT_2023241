@@ -10,6 +10,7 @@
     Width="800"
     Height="450"
     Background="#8ecae6"
+    FontFamily="Roboto"
     mc:Ignorable="d">
     <!--<Window.DataContext>
         <views:BookingViewModel />
@@ -53,7 +54,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Text="{Binding BookingId, StringFormat=' {0}.'}" />
+                                Text="{Binding BookingId, StringFormat='ID: {0}'}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -61,6 +62,7 @@
                                 Text="{Binding Customer.Name}" />
                             <TextBlock
                                 Grid.Row="0"
+                                Grid.RowSpan="2"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 Text="{Binding StartDate, StringFormat='yyyy/MM/dd'}" />
@@ -77,7 +79,7 @@
             VerticalAlignment="Stretch"
             Background="Black" />
 
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="2" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />

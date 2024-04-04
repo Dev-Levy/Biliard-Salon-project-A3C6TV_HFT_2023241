@@ -9,6 +9,7 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class BookingViewModel : ObservableRecipient
     {
+        public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
 
         private Booking selectedBooking;
@@ -17,21 +18,26 @@ namespace Tajfun_WPF_Client.ViewModels
             get { return selectedBooking; }
             set
             {
-                //if (value != null)
-                //{
-                //    selectedBooking = new Booking()
-                //    {
-                //        BookingId = value.BookingId,
-                //        StartDate = value.StartDate,
-                //        EndDate = value.EndDate,
-                //        TableId = value.TableId,
-                //        PoolTable = value.PoolTable,
-                //        CustomerId = value.CustomerId,
-                //        Customer = value.Customer
-                //    };
-                //    OnPropertyChanged();
-                //}
-                SetProperty(ref selectedBooking, value);
+                if (value != null)
+                {
+                    selectedBooking = new Booking()
+                    {
+                        BookingId = value.BookingId,
+                        StartDate = value.StartDate,
+                        EndDate = value.EndDate,
+                        TableId = value.TableId,
+                        PoolTable = value.PoolTable,
+                        CustomerId = value.CustomerId,
+                        Customer = value.Customer
+                    };
+                    IsSomethingSelected = true;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    selectedBooking = new Booking();
+                    IsSomethingSelected = false;
+                }
                 (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
@@ -58,7 +64,6 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public BookingViewModel(RestCollection<Booking> bookings)
         {
-            SelectedBooking = new Booking();
             if (!IsInDesignMode)
             {
                 Bookings = bookings;
@@ -66,18 +71,28 @@ namespace Tajfun_WPF_Client.ViewModels
                 CreateBookingCommand = new RelayCommand(
                     () => Bookings.Add(new Booking()
                     {
-                        //ide kellenek a mezők
+                        //StartDate = value.StartDate,
+                        //EndDate = value.EndDate,
+                        TableId = SelectedBooking.TableId,
+                        PoolTable = SelectedBooking.PoolTable,
+                        CustomerId = SelectedBooking.CustomerId,
+                        Customer = SelectedBooking.Customer
                     }),
                     () => true
                     );
+
                 DeleteBookingCommand = new RelayCommand(
-                    () => Bookings.Delete(SelectedBooking.BookingId),
-                    () => SelectedBooking != null
+                    async () =>
+                    {
+                        await Bookings.Delete(SelectedBooking.BookingId);
+                        IsSomethingSelected = false;
+                    },
+                    () => IsSomethingSelected != false
                     );
 
                 UpdateBookingCommand = new RelayCommand(
                     () => Bookings.Update(SelectedBooking),
-                    () => SelectedBooking != null
+                    () => IsSomethingSelected != false
                     );
             }
         }

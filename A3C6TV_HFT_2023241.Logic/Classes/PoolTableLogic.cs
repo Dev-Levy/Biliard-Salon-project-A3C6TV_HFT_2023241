@@ -24,7 +24,8 @@ namespace A3C6TV_HFT_2023241.Logic
         {
             if (repo.Read(id) == null)
             {
-                throw new ArgumentException("Table with this ID doesn't exist! Cannot delete it!");
+                //nem dobok exceptiont, mert a delete nem hibás, ha nem találja a törlendő elemet
+                //throw new ArgumentException("Table with this ID doesn't exist! Cannot delete it!");
             }
             repo.Delete(id);
         }

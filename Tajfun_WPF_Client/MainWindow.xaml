@@ -26,17 +26,20 @@
             Grid.Column="0"
             Margin="5"
             Command="{Binding GetCustomersCommand}"
-            Content="Customers" />
+            Content="Customers"
+            FontFamily="Roboto" />
         <Button
             Grid.Column="1"
             Margin="5"
             Command="{Binding GetBookingsCommand}"
-            Content="Bookings" />
+            Content="Bookings"
+            FontFamily="Roboto" />
         <Button
             Grid.Column="2"
             Margin="5"
             Command="{Binding GetPoolTablesCommand}"
-            Content="Pool Tables" />
+            Content="Pool Tables"
+            FontFamily="Roboto" />
 
     </Grid>
 </Window>

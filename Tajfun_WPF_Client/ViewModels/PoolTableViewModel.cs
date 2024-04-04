@@ -9,6 +9,7 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class PoolTableViewModel : ObservableRecipient
     {
+        public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<PoolTable> PoolTables { get; set; }
 
         private PoolTable selectedPoolTable;
@@ -18,17 +19,30 @@ namespace Tajfun_WPF_Client.ViewModels
             get { return selectedPoolTable; }
             set
             {
-                SetProperty(ref selectedPoolTable, value);
-                (DeletePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                (UpdatePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                (SetTablePoolCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                (SetTableSnookerCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                if (value != null)
+                {
+                    selectedPoolTable = new PoolTable()
+                    {
+                        TableId = value.TableId,
+                        T_kind = value.T_kind
+                    };
+                    IsSomethingSelected = true;
+                    OnPropertyChanged();
+                    (DeletePoolTableCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                    (SetTablePoolCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                    (SetTableSnookerCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                }
+                else
+                {
+                    SelectedPoolTable = new PoolTable();
+                    IsSomethingSelected = false;
+                }
+
             }
         }
 
         public ICommand CreatePoolTableCommand { get; set; }
         public ICommand DeletePoolTableCommand { get; set; }
-        public ICommand UpdatePoolTableCommand { get; set; }
         public ICommand SetTablePoolCommand { get; set; }
         public ICommand SetTableSnookerCommand { get; set; }
 
@@ -50,30 +64,42 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public PoolTableViewModel(RestCollection<PoolTable> poolTables)
         {
-            SelectedPoolTable = new PoolTable();
             if (!IsInDesignMode)
             {
                 PoolTables = poolTables;
 
                 CreatePoolTableCommand = new RelayCommand(
-                    () => PoolTables.Add(SelectedPoolTable),
-                    () => SelectedPoolTable != null
+                    () => PoolTables.Add(new PoolTable()
+                    {
+                        T_kind = SelectedPoolTable.T_kind
+                    }),
+                    () => true
                     );
                 DeletePoolTableCommand = new RelayCommand(
-                    () => PoolTables.Delete(SelectedPoolTable.TableId),
-                    () => SelectedPoolTable != null
-                    );
-                UpdatePoolTableCommand = new RelayCommand(
-                    () => PoolTables.Update(SelectedPoolTable),
-                    () => SelectedPoolTable != null
+                    async () =>
+                    {
+                        await PoolTables.Delete(SelectedPoolTable.TableId);
+                        IsSomethingSelected = false;
+                    },
+                    () => IsSomethingSelected != false
                     );
                 SetTablePoolCommand = new RelayCommand(
-                    () => SelectedPoolTable.T_kind = "Pool",
-                    () => SelectedPoolTable != null && SelectedPoolTable.T_kind != "Pool"
+                    () =>
+                    {
+                        SelectedPoolTable.T_kind = "Pool";
+                        PoolTables.Update(SelectedPoolTable);
+                        IsSomethingSelected = false;
+                    },
+                    () => IsSomethingSelected != false && SelectedPoolTable.T_kind != "Pool"
                     );
                 SetTableSnookerCommand = new RelayCommand(
-                    () => SelectedPoolTable.T_kind = "Snooker",
-                    () => SelectedPoolTable != null && SelectedPoolTable.T_kind != "Snooker"
+                    () =>
+                    {
+                        SelectedPoolTable.T_kind = "Snooker";
+                        PoolTables.Update(SelectedPoolTable);
+                        IsSomethingSelected = false;
+                    },
+                    () => IsSomethingSelected != false && SelectedPoolTable.T_kind != "Snooker"
                     );
             }
         }

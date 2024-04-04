@@ -61,9 +61,9 @@
                 Grid.ColumnSpan="3"
                 HorizontalContentAlignment="Stretch"
                 Background="Transparent"
+                FontFamily="Roboto"
                 ItemsSource="{Binding Customers}"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                SelectedIndex="0"
                 SelectedItem="{Binding SelectedCustomer}">
 
                 <ListBox.ItemTemplate>
@@ -74,9 +74,18 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Content="{Binding Name}" />
-                            <Label Grid.Column="1" Content="{Binding Phone}" />
-                            <Label Grid.Column="2" Content="{Binding Email}" />
+                            <Label
+                                Grid.Column="0"
+                                Content="{Binding Name}"
+                                FontFamily="Roboto" />
+                            <Label
+                                Grid.Column="1"
+                                Content="{Binding Phone}"
+                                FontFamily="Roboto" />
+                            <Label
+                                Grid.Column="2"
+                                Content="{Binding Email}"
+                                FontFamily="Roboto" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

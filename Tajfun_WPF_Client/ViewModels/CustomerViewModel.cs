@@ -9,6 +9,7 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class CustomerViewModel : ObservableRecipient
     {
+        public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Customer> Customers { get; set; }
 
         private Customer selectedCustomer;
@@ -17,18 +18,23 @@ namespace Tajfun_WPF_Client.ViewModels
             get { return selectedCustomer; }
             set
             {
-                //if (value != null)
-                //{
-                //    selectedCustomer = new Customer()
-                //    {
-                //        CustomerId = value.CustomerId,
-                //        Name = value.Name,
-                //        Email = value.Email,
-                //        Phone = value.Phone
-                //    };
-                //    OnPropertyChanged();
-                //}
-                SetProperty(ref selectedCustomer, value);
+                if (value != null)
+                {
+                    selectedCustomer = new Customer()
+                    {
+                        CustomerId = value.CustomerId,
+                        Name = value.Name,
+                        Email = value.Email,
+                        Phone = value.Phone
+                    };
+                    IsSomethingSelected = true;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    selectedCustomer = new Customer();
+                    IsSomethingSelected = false;
+                }
                 (DeleteCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdateCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
@@ -54,7 +60,7 @@ namespace Tajfun_WPF_Client.ViewModels
         }
         public CustomerViewModel(RestCollection<Customer> customers)
         {
-            SelectedCustomer = new Customer();
+            SelectedCustomer = null;
             if (!IsInDesignMode)
             {
                 Customers = customers;
@@ -70,13 +76,18 @@ namespace Tajfun_WPF_Client.ViewModels
                     );
 
                 DeleteCustomerCommand = new RelayCommand(
-                    () => Customers.Delete(SelectedCustomer.CustomerId),
-                    () => SelectedCustomer != null
+                    async () =>
+                    {
+                        await Customers.Delete(SelectedCustomer.CustomerId);
+                        IsSomethingSelected = false;
+                        Bookings.TriggerReset();
+                    },
+                    () => IsSomethingSelected != false
                     );
 
                 UpdateCustomerCommand = new RelayCommand(
                     () => Customers.Update(SelectedCustomer),
-                    () => SelectedCustomer != null
+                    () => IsSomethingSelected != false
                     );
             }
 

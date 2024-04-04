@@ -384,28 +384,35 @@ namespace Tajfun_WPF_Client
             }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (hasSignalR)
             {
-                rest.DeleteAsync(id, typeof(T).Name);
+                await rest.DeleteAsync(id, typeof(T).Name);
             }
             else
             {
-                rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
-                {
-                    Init().ContinueWith(z =>
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                        });
-                    });
-                });
+                await rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
+               {
+                   Init().ContinueWith(z =>
+                   {
+                       Application.Current.Dispatcher.Invoke(() =>
+                       {
+                           CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                       });
+                   });
+               });
             }
 
         }
 
-
+        public async Task TriggerReset()
+        {
+            await Init();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            });
+        }
     }
 }
