@@ -17,7 +17,6 @@ namespace Tajfun_WPF_Client.ViewModels
             get { return selectedBooking; }
             set
             {
-                SetProperty(ref selectedBooking, value);
                 //if (value != null)
                 //{
                 //    selectedBooking = new Booking()
@@ -32,6 +31,7 @@ namespace Tajfun_WPF_Client.ViewModels
                 //    };
                 //    OnPropertyChanged();
                 //}
+                SetProperty(ref selectedBooking, value);
                 (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }

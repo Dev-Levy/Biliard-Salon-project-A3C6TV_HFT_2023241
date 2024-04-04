@@ -17,7 +17,6 @@ namespace Tajfun_WPF_Client.ViewModels
             get { return selectedCustomer; }
             set
             {
-                SetProperty(ref selectedCustomer, value);
                 //if (value != null)
                 //{
                 //    selectedCustomer = new Customer()
@@ -29,6 +28,7 @@ namespace Tajfun_WPF_Client.ViewModels
                 //    };
                 //    OnPropertyChanged();
                 //}
+                SetProperty(ref selectedCustomer, value);
                 (DeleteCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdateCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }

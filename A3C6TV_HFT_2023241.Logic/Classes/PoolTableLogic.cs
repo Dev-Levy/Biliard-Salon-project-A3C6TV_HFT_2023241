@@ -15,7 +15,7 @@ namespace A3C6TV_HFT_2023241.Logic
         }
         public void Create(PoolTable item)
         {
-            if (item.T_kind != "pool" && item.T_kind != "snooker")
+            if (item.T_kind != "Pool" && item.T_kind != "Snooker")
                 throw new ArgumentException("Table type is not okay, it has to be 'pool' or 'snooker'!");
 
             repo.Create(item);
