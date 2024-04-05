@@ -76,6 +76,11 @@ namespace Tajfun_WPF_Client.ViewModels
                 DeleteCustomerCommand = new RelayCommand(
                     () =>
                     {
+                        //foreach (var asd in Bookings)
+                        //{
+                        //  if (booking.customerid == selectedcustomer)
+                        //      Bookings.Delete(booking.bookingid);
+                        //}
                         Customers.Delete(SelectedCustomer.CustomerId);
                         IsSomethingSelected = false;
                     },

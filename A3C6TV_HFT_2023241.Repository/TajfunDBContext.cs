@@ -18,12 +18,10 @@ namespace A3C6TV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\\MSSQLLocalDB;
-                AttachDbFilename=|DataDirectory|\TajfunDB.mdf;
-                Integrated Security=True;MultipleActiveResultSets=true";
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\TajfunDB.mdf;Integrated Security=True;MultipleActiveResultSets=true";
 
-                optionsBuilder/*.UseSqlServer(conn);*/
-                .UseInMemoryDatabase("MyDB")
+                optionsBuilder.UseSqlServer(conn)
+                //.UseInMemoryDatabase("MyDB")
                 .UseLazyLoadingProxies();
             }
         }
@@ -34,13 +32,13 @@ namespace A3C6TV_HFT_2023241.Repository
                         .HasOne(b => b.Customer)
                         .WithMany()
                         .HasForeignKey(b => b.CustomerId)
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Booking>()
                         .HasOne(b => b.PoolTable)
                         .WithMany()
                         .HasForeignKey(b => b.TableId)
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
 
 
