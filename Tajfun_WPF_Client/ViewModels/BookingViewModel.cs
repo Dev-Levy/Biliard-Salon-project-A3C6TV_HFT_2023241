@@ -9,12 +9,6 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class BookingViewModel : ObservableRecipient
     {
-        private string name; public string Name
-        {
-            get { return name; }
-            set { SetProperty(ref name, value); }
-        }
-
         private int year; public int Year
         {
             get { return year; }
@@ -73,11 +67,9 @@ namespace Tajfun_WPF_Client.ViewModels
                         BookingId = value.BookingId,
                         TableId = value.TableId,
                         PoolTable = value.PoolTable,
+                        Customer = value.Customer,
                         CustomerId = value.CustomerId,
-                        Customer = value.Customer
                     };
-                    Name = value.Customer.Name;
-
                     Year = value.StartDate.Year;
                     Month = value.StartDate.Month;
                     Day = value.StartDate.Day;
@@ -148,7 +140,6 @@ namespace Tajfun_WPF_Client.ViewModels
                 UpdateBookingCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedBooking.Customer.Name = Name;
                         SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
                         SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
 

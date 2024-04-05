@@ -92,15 +92,16 @@
                 FontSize="20"
                 FontWeight="Bold"
                 Foreground="{StaticResource Secondary}"
-                Text="Name" />
-            <TextBox
+                Text="Guest" />
+            <ComboBox
                 Grid.Row="1"
                 Margin="5"
                 VerticalContentAlignment="Center"
-                Background="{StaticResource Secondary}"
+                DisplayMemberPath="Name"
                 FontWeight="Bold"
-                Foreground="{StaticResource White}"
-                Text="{Binding Name}" />
+                ItemsSource="{Binding Customers}"
+                SelectedValue="{Binding SelectedBooking.Customer.Name}"
+                SelectedValuePath="Name" />
 
             <TextBlock
                 Grid.Row="2"
@@ -253,15 +254,15 @@
                     FontWeight="Bold"
                     Foreground="{StaticResource Secondary}"
                     Text="Table Type:" />
-                <TextBox
+                <ComboBox
                     Grid.Column="1"
                     Margin="10"
                     VerticalContentAlignment="Center"
-                    Background="{StaticResource Secondary}"
-                    FontSize="15"
+                    DisplayMemberPath="TableId"
                     FontWeight="Bold"
-                    Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.PoolTable.TableId}" />
+                    ItemsSource="{Binding PoolTables}"
+                    SelectedValue="{Binding SelectedBooking.TableId}"
+                    SelectedValuePath="TableId" />
             </Grid>
         </Grid>
 
