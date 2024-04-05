@@ -4,9 +4,9 @@ namespace Tajfun_WPF_Client.Services
 {
     class CustomersViaWindow : ICustomerService
     {
-        public void Open(RestCollection<Customer> customers)
+        public void Open(RestCollection<Customer> customers, RestCollection<Booking> bookings)
         {
-            new CustomersWindow(customers).Show();
+            new CustomersWindow(customers, bookings).Show();
         }
     }
 }

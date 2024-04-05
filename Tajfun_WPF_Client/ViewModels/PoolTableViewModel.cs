@@ -11,6 +11,7 @@ namespace Tajfun_WPF_Client.ViewModels
     {
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<PoolTable> PoolTables { get; set; }
+        public RestCollection<Booking> Bookings { get; set; }
 
         private PoolTable selectedPoolTable;
 
@@ -61,11 +62,13 @@ namespace Tajfun_WPF_Client.ViewModels
         {
 
         }
-        public PoolTableViewModel(RestCollection<PoolTable> poolTables)
+        public PoolTableViewModel(RestCollection<PoolTable> poolTables, RestCollection<Booking> bookings)
         {
             if (!IsInDesignMode)
             {
                 PoolTables = poolTables;
+                Bookings = bookings;
+
 
                 CreatePoolCommand = new RelayCommand(
                     () => PoolTables.Add(new PoolTable()
@@ -82,10 +85,15 @@ namespace Tajfun_WPF_Client.ViewModels
                 DeletePoolTableCommand = new RelayCommand(
                     () =>
                     {
+                        foreach (var bking in Bookings)
+                        {
+                            if (bking.TableId == SelectedPoolTable.TableId)
+                                Bookings.Delete(bking.BookingId);
+                        }
                         PoolTables.Delete(SelectedPoolTable.TableId);
                         IsSomethingSelected = false;
                     },
-                    () => IsSomethingSelected != false
+                    () => IsSomethingSelected == true
                     );
 
 
@@ -96,7 +104,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         PoolTables.Update(SelectedPoolTable);
                         IsSomethingSelected = false;
                     },
-                    () => IsSomethingSelected != false && SelectedPoolTable.T_kind != "Pool"
+                    () => IsSomethingSelected == true && SelectedPoolTable.T_kind != "Pool"
                     );
                 SetTableSnookerCommand = new RelayCommand(
                     () =>
@@ -105,7 +113,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         PoolTables.Update(SelectedPoolTable);
                         IsSomethingSelected = false;
                     },
-                    () => IsSomethingSelected != false && SelectedPoolTable.T_kind != "Snooker"
+                    () => IsSomethingSelected == true && SelectedPoolTable.T_kind != "Snooker"
                     );
             }
         }

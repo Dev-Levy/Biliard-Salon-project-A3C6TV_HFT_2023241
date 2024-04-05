@@ -46,7 +46,7 @@ namespace Tajfun_WPF_Client
                 poolTableService = Ioc.Default.GetRequiredService<IPoolTableService>();
 
                 GetCustomersCommand = new RelayCommand(
-                    () => customerService.Open(customers),
+                    () => customerService.Open(customers, bookings),
                     () => true
                     );
                 GetBookingsCommand = new RelayCommand(
@@ -54,7 +54,7 @@ namespace Tajfun_WPF_Client
                     () => true
                     );
                 GetPoolTablesCommand = new RelayCommand(
-                    () => poolTableService.Open(poolTables),
+                    () => poolTableService.Open(poolTables, bookings),
                     () => true
                     );
             }

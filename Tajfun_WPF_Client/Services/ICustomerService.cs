@@ -4,6 +4,6 @@ namespace Tajfun_WPF_Client.Services
 {
     interface ICustomerService
     {
-        public void Open(RestCollection<Customer> customers);
+        public void Open(RestCollection<Customer> customers, RestCollection<Booking> bookings);
     }
 }

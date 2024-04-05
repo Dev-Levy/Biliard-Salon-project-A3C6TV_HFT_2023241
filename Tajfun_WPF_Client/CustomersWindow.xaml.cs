@@ -9,9 +9,9 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class CustomersWindow : Window
     {
-        public CustomersWindow(RestCollection<Customer> customers)
+        public CustomersWindow(RestCollection<Customer> customers, RestCollection<Booking> bookings)
         {
-            DataContext = new CustomerViewModel(customers);
+            DataContext = new CustomerViewModel(customers, bookings);
             InitializeComponent();
         }
     }

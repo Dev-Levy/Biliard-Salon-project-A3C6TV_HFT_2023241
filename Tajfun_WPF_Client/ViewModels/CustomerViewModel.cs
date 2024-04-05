@@ -11,6 +11,7 @@ namespace Tajfun_WPF_Client.ViewModels
     {
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Customer> Customers { get; set; }
+        public RestCollection<Booking> Bookings { get; set; }
 
         private Customer selectedCustomer;
         public Customer SelectedCustomer
@@ -58,12 +59,12 @@ namespace Tajfun_WPF_Client.ViewModels
         {
 
         }
-        public CustomerViewModel(RestCollection<Customer> customers)
+        public CustomerViewModel(RestCollection<Customer> customers, RestCollection<Booking> bookings)
         {
-            SelectedCustomer = null;
             if (!IsInDesignMode)
             {
                 Customers = customers;
+                Bookings = bookings;
 
                 CreateCustomerCommand = new RelayCommand(
                     () => Customers.Add(new Customer()
@@ -76,20 +77,20 @@ namespace Tajfun_WPF_Client.ViewModels
                 DeleteCustomerCommand = new RelayCommand(
                     () =>
                     {
-                        //foreach (var asd in Bookings)
-                        //{
-                        //  if (booking.customerid == selectedcustomer)
-                        //      Bookings.Delete(booking.bookingid);
-                        //}
+                        foreach (var bking in Bookings)
+                        {
+                            if (bking.CustomerId == SelectedCustomer.CustomerId)
+                                Bookings.Delete(bking.BookingId);
+                        }
                         Customers.Delete(SelectedCustomer.CustomerId);
                         IsSomethingSelected = false;
                     },
-                    () => IsSomethingSelected != false
+                    () => IsSomethingSelected == true
                     );
 
                 UpdateCustomerCommand = new RelayCommand(
                     () => Customers.Update(SelectedCustomer),
-                    () => IsSomethingSelected != false
+                    () => IsSomethingSelected == true
                     );
             }
 

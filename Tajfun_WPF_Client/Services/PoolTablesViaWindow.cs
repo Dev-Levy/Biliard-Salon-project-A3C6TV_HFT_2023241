@@ -5,9 +5,9 @@ namespace Tajfun_WPF_Client
 {
     internal class PoolTablesViaWindow : IPoolTableService
     {
-        public void Open(RestCollection<PoolTable> poolTables)
+        public void Open(RestCollection<PoolTable> poolTables, RestCollection<Booking> bookings)
         {
-            new PoolTablesWindow(poolTables).Show();
+            new PoolTablesWindow(poolTables, bookings).Show();
         }
     }
 }

@@ -53,6 +53,8 @@ namespace Tajfun_WPF_Client.ViewModels
             set { SetProperty(ref endminute, value); }
         }
 
+
+
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
         public RestCollection<Customer> Customers { get; set; }
@@ -140,7 +142,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         Bookings.Delete(SelectedBooking.BookingId);
                         IsSomethingSelected = false;
                     },
-                    () => IsSomethingSelected != false
+                    () => IsSomethingSelected == true
                     );
 
                 UpdateBookingCommand = new RelayCommand(
@@ -152,7 +154,7 @@ namespace Tajfun_WPF_Client.ViewModels
 
                         Bookings.Update(SelectedBooking);
                     },
-                    () => IsSomethingSelected != false
+                    () => IsSomethingSelected == true
                     );
             }
         }

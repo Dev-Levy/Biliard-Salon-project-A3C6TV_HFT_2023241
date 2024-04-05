@@ -209,7 +209,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding Starthour}" />
+                    Text="{Binding Starthour, StringFormat='00'}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
@@ -218,7 +218,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding Startminute}" />
+                    Text="{Binding Startminute, StringFormat='00'}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
@@ -227,7 +227,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding Endhour}" />
+                    Text="{Binding Endhour, StringFormat='00'}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="3"
@@ -236,7 +236,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding Endminute}" />
+                    Text="{Binding Endminute, StringFormat='00'}" />
             </Grid>
 
             <Grid Grid.Row="5">
@@ -261,7 +261,7 @@
                     FontSize="15"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.PoolTable.T_kind}" />
+                    Text="{Binding SelectedBooking.PoolTable.TableId}" />
             </Grid>
         </Grid>
 

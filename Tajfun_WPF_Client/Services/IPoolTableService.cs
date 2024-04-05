@@ -4,6 +4,6 @@ namespace Tajfun_WPF_Client.Services
 {
     interface IPoolTableService
     {
-        public void Open(RestCollection<PoolTable> poolTables);
+        public void Open(RestCollection<PoolTable> poolTables, RestCollection<Booking> bookings);
     }
 }
