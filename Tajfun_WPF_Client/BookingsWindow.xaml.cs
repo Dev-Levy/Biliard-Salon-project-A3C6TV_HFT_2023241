@@ -9,9 +9,9 @@ namespace Tajfun_WPF_Client
     /// </summary>
     public partial class BookingsWindow : Window
     {
-        public BookingsWindow(RestCollection<Booking> bookings)
+        public BookingsWindow(RestCollection<Booking> bookings, RestCollection<Customer> customers, RestCollection<PoolTable> poolTables)
         {
-            DataContext = new BookingViewModel(bookings);
+            DataContext = new BookingViewModel(bookings, customers, poolTables);
             InitializeComponent();
         }
     }

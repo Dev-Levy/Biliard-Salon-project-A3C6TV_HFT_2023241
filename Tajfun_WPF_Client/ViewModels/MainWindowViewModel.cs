@@ -50,7 +50,7 @@ namespace Tajfun_WPF_Client
                     () => true
                     );
                 GetBookingsCommand = new RelayCommand(
-                    () => bookingService.Open(bookings),
+                    () => bookingService.Open(bookings, customers, poolTables),
                     () => true
                     );
                 GetPoolTablesCommand = new RelayCommand(

@@ -100,7 +100,7 @@
                 Background="{StaticResource Secondary}"
                 FontWeight="Bold"
                 Foreground="{StaticResource White}"
-                Text="{Binding SelectedBooking.Customer.Name}" />
+                Text="{Binding Name}" />
 
             <TextBlock
                 Grid.Row="2"
@@ -154,7 +154,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.StartDate, StringFormat='yyyy'}" />
+                    Text="{Binding Year}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
@@ -163,7 +163,7 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.StartDate, StringFormat='MM'}" />
+                    Text="{Binding Month}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
@@ -172,11 +172,13 @@
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.StartDate, StringFormat='dd'}" />
+                    Text="{Binding Day}" />
             </Grid>
 
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -186,7 +188,6 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    Grid.Row="0"
                     Grid.Column="0"
                     Margin="5"
                     VerticalAlignment="Center"
@@ -194,8 +195,7 @@
                     Foreground="{StaticResource Secondary}"
                     Text="Starts" />
                 <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Margin="5"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
@@ -204,21 +204,39 @@
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="5"
+                    Margin="5,5,0,5"
                     VerticalContentAlignment="Center"
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.StartDate, StringFormat='HH:mm'}" />
+                    Text="{Binding Starthour}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    Margin="5"
+                    Margin="0,5,5,5"
                     VerticalContentAlignment="Center"
                     Background="{StaticResource Secondary}"
                     FontWeight="Bold"
                     Foreground="{StaticResource White}"
-                    Text="{Binding SelectedBooking.EndDate, StringFormat='HH:mm'}" />
+                    Text="{Binding Startminute}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="5,5,0,5"
+                    VerticalContentAlignment="Center"
+                    Background="{StaticResource Secondary}"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource White}"
+                    Text="{Binding Endhour}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="0,5,5,5"
+                    VerticalContentAlignment="Center"
+                    Background="{StaticResource Secondary}"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource White}"
+                    Text="{Binding Endminute}" />
             </Grid>
 
             <Grid Grid.Row="5">
