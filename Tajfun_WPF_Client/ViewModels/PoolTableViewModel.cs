@@ -83,14 +83,15 @@ namespace Tajfun_WPF_Client.ViewModels
                     }));
 
                 DeletePoolTableCommand = new RelayCommand(
-                    () =>
+                    async () =>
                     {
-                        foreach (var bking in Bookings)
-                        {
-                            if (bking.TableId == SelectedPoolTable.TableId)
-                                Bookings.Delete(bking.BookingId);
-                        }
+                        //foreach (var bking in Bookings)
+                        //{
+                        //    if (bking.TableId == SelectedPoolTable.TableId)
+                        //        Bookings.Delete(bking.BookingId);
+                        //}
                         PoolTables.Delete(SelectedPoolTable.TableId);
+                        await Bookings.Refresh();
                         IsSomethingSelected = false;
                     },
                     () => IsSomethingSelected == true

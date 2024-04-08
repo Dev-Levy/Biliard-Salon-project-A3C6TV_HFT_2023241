@@ -75,14 +75,15 @@ namespace Tajfun_WPF_Client.ViewModels
                     }));
 
                 DeleteCustomerCommand = new RelayCommand(
-                    () =>
+                    async () =>
                     {
-                        foreach (var bking in Bookings)
-                        {
-                            if (bking.CustomerId == SelectedCustomer.CustomerId)
-                                Bookings.Delete(bking.BookingId);
-                        }
+                        //foreach (var bking in Bookings)
+                        //{
+                        //    if (bking.CustomerId == SelectedCustomer.CustomerId)
+                        //        Bookings.Delete(bking.BookingId);
+                        //}
                         Customers.Delete(SelectedCustomer.CustomerId);
+                        await Bookings.Refresh();
                         IsSomethingSelected = false;
                     },
                     () => IsSomethingSelected == true

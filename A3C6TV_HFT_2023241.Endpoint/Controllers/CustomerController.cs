@@ -12,6 +12,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
     public class CustomerController : ControllerBase
     {
         ICustomerLogic logic;
+
         IHubContext<SignalRHub> hub;
 
         public CustomerController(ICustomerLogic logic, IHubContext<SignalRHub> hub)
@@ -51,6 +52,7 @@ namespace A3C6TV_HFT_2023241.Endpoint.Controllers
         {
             var value = logic.Read(id);
             logic.Delete(id);
+
             hub.Clients.All.SendAsync("CustomerDeleted", value);
         }
     }

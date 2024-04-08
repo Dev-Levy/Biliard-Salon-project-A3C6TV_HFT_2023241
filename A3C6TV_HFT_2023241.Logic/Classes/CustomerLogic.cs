@@ -9,6 +9,7 @@ namespace A3C6TV_HFT_2023241.Logic
     {
         IRepository<Customer> repo;
 
+
         public CustomerLogic(IRepository<Customer> inrepo)
         {
             repo = inrepo;

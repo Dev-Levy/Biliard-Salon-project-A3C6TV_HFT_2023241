@@ -320,7 +320,10 @@ namespace Tajfun_WPF_Client
         private async Task Init()
         {
             items = await rest.GetAsync<T>(typeof(T).Name);
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            });
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -406,13 +409,11 @@ namespace Tajfun_WPF_Client
 
         }
 
-        //public async Task TriggerReset()
-        //{
-        //    await Init();
-        //    Application.Current.Dispatcher.Invoke(() =>
-        //    {
-        //        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        //    });
-        //}
+
+        public async Task Refresh()
+        {
+            await Init();
+        }
+
     }
 }
