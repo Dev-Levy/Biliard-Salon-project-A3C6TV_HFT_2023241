@@ -20,9 +20,10 @@ namespace A3C6TV_HFT_2023241.Repository
             {
                 string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\TajfunDB.mdf;Integrated Security=True;MultipleActiveResultSets=true";
 
-                optionsBuilder/*.UseSqlServer(conn)*/
-                .UseInMemoryDatabase("MyDB")
-                .UseLazyLoadingProxies();
+                optionsBuilder
+                    .UseSqlServer(conn)
+                    //.UseInMemoryDatabase("MyDB")
+                    .UseLazyLoadingProxies();
             }
         }
 
