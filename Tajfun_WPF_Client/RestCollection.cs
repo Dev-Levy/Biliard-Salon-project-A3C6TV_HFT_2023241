@@ -400,13 +400,7 @@ namespace Tajfun_WPF_Client
             {
                 await rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
                 {
-                    Init().ContinueWith(z =>
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                        });
-                    });
+                    Init();
                 });
             }
 
