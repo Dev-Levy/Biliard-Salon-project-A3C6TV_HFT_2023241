@@ -398,10 +398,7 @@ namespace Tajfun_WPF_Client
             }
             else
             {
-                await rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
-                {
-                    Init();
-                });
+                await rest.DeleteAsync(id, typeof(T).Name).ContinueWith(async (t) => await Init());
             }
 
         }
