@@ -56,7 +56,7 @@ namespace A3C6TV_HFT_2023241.Endpoint
                          .AllowCredentials()
                          .AllowAnyMethod()
                          .AllowAnyHeader()
-                         .WithOrigins("http://localhost:55993"));
+                         .WithOrigins("http://localhost:2031"));
 
             app.UseRouting();
 
