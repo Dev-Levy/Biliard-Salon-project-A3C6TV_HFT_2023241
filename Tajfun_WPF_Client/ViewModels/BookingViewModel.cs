@@ -129,9 +129,9 @@ namespace Tajfun_WPF_Client.ViewModels
                     }));
 
                 DeleteBookingCommand = new RelayCommand(
-                    () =>
+                    async () =>
                     {
-                        Bookings.Delete(SelectedBooking.BookingId);
+                        await Bookings.Delete(SelectedBooking.BookingId);
                         IsSomethingSelected = false;
                     },
                     () => IsSomethingSelected == true

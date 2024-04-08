@@ -69,20 +69,15 @@ namespace Tajfun_WPF_Client.ViewModels
                 CreateCustomerCommand = new RelayCommand(
                     () => Customers.Add(new Customer()
                     {
-                        Name = selectedCustomer.Name, //lehet üres minden mező
-                        Email = selectedCustomer.Email,
-                        Phone = selectedCustomer.Phone
+                        Name = SelectedCustomer.Name,
+                        Email = SelectedCustomer.Email,
+                        Phone = SelectedCustomer.Phone
                     }));
 
                 DeleteCustomerCommand = new RelayCommand(
                     async () =>
                     {
-                        //foreach (var bking in Bookings)
-                        //{
-                        //    if (bking.CustomerId == SelectedCustomer.CustomerId)
-                        //        Bookings.Delete(bking.BookingId);
-                        //}
-                        Customers.Delete(SelectedCustomer.CustomerId);
+                        await Customers.Delete(SelectedCustomer.CustomerId);
                         await Bookings.Refresh();
                         IsSomethingSelected = false;
                     },

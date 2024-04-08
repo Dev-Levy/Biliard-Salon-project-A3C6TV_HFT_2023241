@@ -90,7 +90,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         //    if (bking.TableId == SelectedPoolTable.TableId)
                         //        Bookings.Delete(bking.BookingId);
                         //}
-                        PoolTables.Delete(SelectedPoolTable.TableId);
+                        await PoolTables.Delete(SelectedPoolTable.TableId);
                         await Bookings.Refresh();
                         IsSomethingSelected = false;
                     },

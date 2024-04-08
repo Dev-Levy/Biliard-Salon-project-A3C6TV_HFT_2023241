@@ -288,11 +288,13 @@ namespace Tajfun_WPF_Client
             if (hub != null)
             {
                 notify = new NotifyService(baseurl + hub);
+
                 notify.AddHandler(type.Name + "Created", (T item) =>
                 {
                     items.Add(item);
                     CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 });
+
                 notify.AddHandler(type.Name + "Deleted", (T item) =>
                 {
                     var element = items.FirstOrDefault(t => t.Equals(item));
@@ -307,6 +309,7 @@ namespace Tajfun_WPF_Client
                     }
 
                 });
+
                 notify.AddHandler(type.Name + "Updated", (T item) =>
                 {
                     Init();
@@ -387,15 +390,15 @@ namespace Tajfun_WPF_Client
             }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (hasSignalR)
             {
-                rest.DeleteAsync(id, typeof(T).Name);
+                await rest.DeleteAsync(id, typeof(T).Name);
             }
             else
             {
-                rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
+                await rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
@@ -408,12 +411,9 @@ namespace Tajfun_WPF_Client
             }
 
         }
-
-
         public async Task Refresh()
         {
             await Init();
         }
-
     }
 }
