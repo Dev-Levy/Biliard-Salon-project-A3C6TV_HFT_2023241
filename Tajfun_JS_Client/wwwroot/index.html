@@ -12,7 +12,7 @@
     <main>
         <h1>Welcome to Tájfun Biliard!</h1>
 
-        <div>
+        <div id="customerwindow">
             <h3>Customers</h3>
             <table>
                 <thead>
@@ -23,11 +23,36 @@
                     </tr>
                 </thead>
                 <tbody id="customers">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="bookingwindow">
+            <h3>Bookings</h3>
+            <table>
+                <thead>
                     <tr>
-                        <td>John Doe</td>
-                        <td>123456789</td>
-                        <td>asdasd@asdasd</td>
-                    </tr>    
+                        <th>Name</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Table</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="pooltablewindow">
+            <h3>Pool Tables</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="pooltables">
                 </tbody>
             </table>
         </div>
