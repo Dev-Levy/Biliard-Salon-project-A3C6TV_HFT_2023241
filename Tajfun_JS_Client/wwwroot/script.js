@@ -60,7 +60,10 @@ function displayCustomers() {
     document.getElementById('customers').innerHTML = "";
     customers.forEach(t => {
         document.getElementById('customers').innerHTML +=
-            "<tr><td>" + t.name + "</td><td>" + t.phone + "</td><td>" + t.email + "</td></tr>";
+            "<tr><td>" + t.name +
+            "</td><td>" + t.phone +
+            "</td><td>" + t.email +
+            `</td><td><button type="button" onclick='removeCustomer(${t.customerId})'>Delete</button></td></tr>`;
     })
 }
 function displayBookings() {
@@ -71,9 +74,11 @@ function displayBookings() {
     document.getElementById('bookings').innerHTML = "";
     bookings.forEach(t => {
         document.getElementById('bookings').innerHTML +=
-            "<tr><td>" + t.customer.name + "</td><td>" +
-           formatDate(t.startDate) + "</td><td>" + formatDate(t.endDate) +
-            "</td><td>" + t.poolTable.t_kind + "</td></tr>";
+            "<tr><td>" + t.customer.name +
+            "</td><td>" + formatDate(t.startDate) +
+            "</td><td>" + formatDate(t.endDate) +
+            "</td><td>" + t.poolTable.t_kind +
+            `</td><td><button type="button" onclick='removeBooking(${t.bookingId})'>Delete</button></td></tr>`;;
     })
 
     document.getElementById('customerSelect').innerHTML = "";
@@ -96,7 +101,9 @@ function displayPoolTables() {
     document.getElementById('pooltables').innerHTML = "";
     pooltables.forEach(t => {
         document.getElementById('pooltables').innerHTML +=
-            "<tr><td>" + t.tableId + "</td><td>" + t.t_kind + "</td></tr>";
+            "<tr><td>" + t.tableId +
+            "</td><td>" + t.t_kind +
+            `</td><td><button type="button" onlclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
     })
 }
 
@@ -193,3 +200,48 @@ function addSnookerTable() {
         });
 }
 
+function removeCustomer(id) {
+    fetch('http://localhost:7332/customer/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+    .then(data => {
+        console.log(data);
+        getCustomers();
+        displayCustomers();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function removeBooking(id) {
+    fetch('http://localhost:7332/booking/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+    .then(data => {
+        console.log(data);
+        getBookings();
+        displayBookings();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function removePoolTable(id) {
+    fetch('http://localhost:7332/pooltable/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+    .then(data => {
+        console.log(data);
+        getPoolTables();
+        displayPoolTables();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}

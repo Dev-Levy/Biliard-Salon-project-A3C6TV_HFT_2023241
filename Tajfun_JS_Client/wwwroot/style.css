@@ -30,3 +30,7 @@ button{
     flex-shrink: 2;
     margin: 1em;
 }
+.table button{
+    width: auto;
+    margin: 0.5em 0;
+}
