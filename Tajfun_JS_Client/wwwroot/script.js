@@ -100,3 +100,96 @@ function displayPoolTables() {
     })
 }
 
+function addCustomer() {
+    let name = document.getElementById('name').value;
+    let phone = document.getElementById('phone').value;
+    let email = document.getElementById('email').value;
+
+    fetch('http://localhost:7332/customer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            phone: phone,
+            email: email
+        })
+    })
+    .then(data => {
+        console.log(data);
+        getCustomers();
+        displayCustomers();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function addBooking() {
+    let customer = document.getElementById('customerSelect').value;
+    let poolTable = document.getElementById('poolTableSelect').value;
+    let startDate = document.getElementById('start').value;
+    let endDate = document.getElementById('end').value;
+
+    fetch('http://localhost:7332/booking', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            customerId: customer,
+            tableId: poolTable,
+            startDate: startDate,
+            endDate: endDate
+        })
+    })
+    .then(data => {
+        console.log(data);
+        getBookings();
+        displayBookings();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function addPoolTable() {
+
+    fetch('http://localhost:7332/pooltable', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            t_kind: "Pool"
+        })
+    })
+    .then(data => {
+        console.log(data);
+        getPoolTables();
+        displayPoolTables();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function addSnookerTable() {
+
+    fetch('http://localhost:7332/pooltable', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            t_kind: "Snooker"
+        })
+    })
+        .then(data => {
+            console.log(data);
+            getPoolTables();
+            displayPoolTables();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+

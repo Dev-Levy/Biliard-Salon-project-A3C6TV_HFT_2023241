@@ -43,6 +43,7 @@
                 <input type="text" id="phone" required>
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
+                <button onclick="addCustomer()">Add</button>
             </div>
         </div>
 
@@ -72,6 +73,7 @@
                 <input type="datetime-local" id="end" step="1800" value="2024-01-01T12:00">
                 <label for="table">Table</label>
                 <select id="poolTableSelect"> </select>
+                <button onclick="addBooking()">Add</button>
             </div>
 
         </div>
@@ -92,8 +94,8 @@
             </div>
             <div class="editor">
                 <h4>Add table</h4>
-                <button>Add pool table</button>
-                <button>Add snooker table</button>
+                <button onclick="addPoolTable()">Add pool table</button>
+                <button onclick="addSnookerTable()" >Add snooker table</button>
             </div>
         </div>
        
