@@ -26,6 +26,7 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id='customers'>
@@ -57,6 +58,7 @@
                             <th>Start</th>
                             <th>End</th>
                             <th>Table</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="bookings">
@@ -86,6 +88,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Type</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="pooltables">
@@ -95,13 +98,14 @@
             <div class="editor">
                 <h4>Add table</h4>
                 <button onclick="addPoolTable()">Add pool table</button>
-                <button onclick="addSnookerTable()" >Add snooker table</button>
+                <button onclick="addSnookerTable()">Add snooker table</button>
             </div>
         </div>
-       
+
 
     </main>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

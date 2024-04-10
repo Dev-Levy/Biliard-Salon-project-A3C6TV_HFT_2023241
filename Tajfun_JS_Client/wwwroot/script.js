@@ -2,30 +2,73 @@
 let customers = [];
 let pooltables = [];
 let bookings = [];
+let connection = null;
 
 getCustomers();
 getBookings();
 getPoolTables();
+setupSignalR();
 
-function formatDate(date) {
-    let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear(),
-        hour = '' + d.getHours(),
-        minute = '' + d.getMinutes();
+function setupSignalR() {
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:7332/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-    if (hour.length < 2)
-        hour = '0' + hour;
-    if (minute.length < 2)
-        minute = '0' + minute;
+    connection.on("CustomerCreated", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
+    connection.on("CustomerDeleted", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
+    connection.on("CustomerUpdated", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
 
-    return [year, month, day].join('.') + ' ' + [hour, minute].join(':');
+    connection.on("BookingCreated", (user, message) => {
+        return getBookings()
+            .then(() => displayBookings());
+    });
+    connection.on("BookingDeleted", (user, message) => {
+        return getBookings()
+            .then(() => displayBookings());
+    });
+    connection.on("BookingUpdated", (user, message) => {
+        return getBookings()
+            .then(() => displayBookings());
+    });
+
+    connection.on("PoolTableCreated", (user, message) => {
+        return getPoolTables()
+            .then(() => displayPoolTables());
+    });
+    connection.on("PoolTableDeleted", (user, message) => {
+        return getPoolTables()
+            .then(() => displayPoolTables());
+    });
+    connection.on("PoolTableUpdated", (user, message) => {
+        return getPoolTables()
+            .then(() => displayPoolTables());
+    });
+
+    connection.onclose
+        (async () => {
+            await start();
+        });
+    start();
 }
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 async function getCustomers() {
     await fetch('http://localhost:7332/customer')
         .then(response => response.json())
@@ -35,7 +78,7 @@ async function getCustomers() {
         });
 }
 async function getBookings() {
-   await fetch('http://localhost:7332/booking')
+    await fetch('http://localhost:7332/booking')
         .then(response => response.json())
         .then(data => {
             bookings = data;
@@ -43,7 +86,7 @@ async function getBookings() {
         });
 }
 async function getPoolTables() {
-   await fetch('http://localhost:7332/pooltable')
+    await fetch('http://localhost:7332/pooltable')
         .then(response => response.json())
         .then(data => {
             pooltables = data;
@@ -123,14 +166,14 @@ function addCustomer() {
             email: email
         })
     })
-    .then(data => {
-        console.log(data);
-        getCustomers();
-        displayCustomers();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            getCustomers();
+            displayCustomers();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 function addBooking() {
     let customer = document.getElementById('customerSelect').value;
@@ -150,14 +193,14 @@ function addBooking() {
             endDate: endDate
         })
     })
-    .then(data => {
-        console.log(data);
-        getBookings();
-        displayBookings();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            getBookings();
+            displayBookings();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 function addPoolTable() {
 
@@ -170,14 +213,14 @@ function addPoolTable() {
             t_kind: "Pool"
         })
     })
-    .then(data => {
-        console.log(data);
-        getPoolTables();
-        displayPoolTables();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            getPoolTables();
+            displayPoolTables();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 function addSnookerTable() {
 
@@ -206,16 +249,16 @@ async function removeCustomer(id) {
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
-    .then(data => {
-        console.log(data);
-        return getCustomers();
-    })
-    .then(() => {
-        displayCustomers();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            return getCustomers();
+        })
+        .then(() => {
+            displayCustomers();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 async function removeBooking(id) {
     await fetch('http://localhost:7332/booking/' + id, {
@@ -223,16 +266,16 @@ async function removeBooking(id) {
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
-    .then(data => {
-        console.log(data);
-        return getBookings();
-    })
-    .then(() => {
-        displayBookings();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            return getBookings();
+        })
+        .then(() => {
+            displayBookings();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 async function removePoolTable(id) {
     await fetch('http://localhost:7332/pooltable/' + id, {
@@ -240,14 +283,35 @@ async function removePoolTable(id) {
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
-    .then(data => {
-        console.log(data);
-        return getPoolTables();
-    })
-    .then(() => {
-        displayPoolTables();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(data => {
+            console.log(data);
+            return getPoolTables();
+        })
+        .then(() => {
+            displayPoolTables();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+
+function formatDate(date) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = '' + d.getHours(),
+        minute = '' + d.getMinutes();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+    if (hour.length < 2)
+        hour = '0' + hour;
+    if (minute.length < 2)
+        minute = '0' + minute;
+
+    return [year, month, day].join('.') + ' ' + [hour, minute].join(':');
 }
