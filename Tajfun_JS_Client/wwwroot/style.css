@@ -15,13 +15,18 @@ button{
     margin: 1em 0;
 }
 .tablewindow {
-    display: flex;
+    display: none;
     flex-direction: row;
-    flex-grow: 2;
+}
+.tablewindow .table {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    min-width: 70%;
 }
 .editor{
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex-shrink: 2;
     margin: 1em;
 }

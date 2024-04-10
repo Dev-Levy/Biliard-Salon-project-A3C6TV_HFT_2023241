@@ -18,7 +18,7 @@
         </h3>
 
         <div class="tablewindow" id="customerwindow">
-            <div>
+            <div class="table">
                 <h3>Customers</h3>
                 <table>
                     <thead>
@@ -38,16 +38,16 @@
                 <h4>Add customer</h4>
 
                 <label for="name">Name</label>
-                <input type="text" id="name">
+                <input type="text" id="name" required>
                 <label for="phone">Phone</label>
-                <input type="text" id="phone">
+                <input type="text" id="phone" required>
                 <label for="email">Email</label>
-                <input type="text" id="email">
+                <input type="email" id="email" required>
             </div>
         </div>
 
         <div class="tablewindow" id="bookingwindow">
-            <div>
+            <div class="table">
                 <h3>Bookings</h3>
                 <table>
                     <thead>
@@ -64,12 +64,20 @@
             </div>
             <div class="editor">
                 <h4>Add booking</h4>
+                <label for="customer">Customer</label>
+                <select id="customerSelect"> </select>
+                <label for="start">Start</label>
+                <input type="datetime-local" id="start" step="1800" value="2024-01-01T12:00">
+                <label for="end">End</label>
+                <input type="datetime-local" id="end" step="1800" value="2024-01-01T12:00">
+                <label for="table">Table</label>
+                <select id="poolTableSelect"> </select>
             </div>
 
         </div>
 
         <div class="tablewindow" id="pooltablewindow">
-            <div>
+            <div class="table">
                 <h3>Pool Tables</h3>
                 <table>
                     <thead>
@@ -83,7 +91,9 @@
                 </table>
             </div>
             <div class="editor">
-
+                <h4>Add table</h4>
+                <button>Add pool table</button>
+                <button>Add snooker table</button>
             </div>
         </div>
        
