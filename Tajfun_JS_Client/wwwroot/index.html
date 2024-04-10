@@ -11,51 +11,83 @@
 <body>
     <main>
         <h1>Welcome to Tájfun Biliard!</h1>
+        <h3>
+            <button onclick="displayCustomers()">Customers</button>
+            <button onclick="displayBookings()">Bookings</button>
+            <button onclick="displayPoolTables()">Pooltables</button>
+        </h3>
 
-        <div id="customerwindow">
-            <h3>Customers</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody id="customers">
-                </tbody>
-            </table>
+        <div class="tablewindow" id="customerwindow">
+            <div>
+                <h3>Customers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id='customers'>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="editor">
+
+                <h4>Add customer</h4>
+
+                <label for="name">Name</label>
+                <input type="text" id="name">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone">
+                <label for="email">Email</label>
+                <input type="text" id="email">
+            </div>
         </div>
 
-        <div id="bookingwindow">
-            <h3>Bookings</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Table</th>
-                    </tr>
-                </thead>
-                <tbody id="bookings">
-                </tbody>
-            </table>
+        <div class="tablewindow" id="bookingwindow">
+            <div>
+                <h3>Bookings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Table</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings">
+                    </tbody>
+                </table>
+            </div>
+            <div class="editor">
+                <h4>Add booking</h4>
+            </div>
+
         </div>
 
-        <div id="pooltablewindow">
-            <h3>Pool Tables</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody id="pooltables">
-                </tbody>
-            </table>
+        <div class="tablewindow" id="pooltablewindow">
+            <div>
+                <h3>Pool Tables</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pooltables">
+                    </tbody>
+                </table>
+            </div>
+            <div class="editor">
+
+            </div>
         </div>
+       
+
     </main>
 
     <script src="script.js"></script>
