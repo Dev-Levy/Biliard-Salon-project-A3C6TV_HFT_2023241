@@ -103,7 +103,7 @@ function displayPoolTables() {
         document.getElementById('pooltables').innerHTML +=
             "<tr><td>" + t.tableId +
             "</td><td>" + t.t_kind +
-            `</td><td><button type="button" onlclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
+            `</td><td><button type="button" onclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
     })
 }
 
@@ -200,45 +200,51 @@ function addSnookerTable() {
         });
 }
 
-function removeCustomer(id) {
-    fetch('http://localhost:7332/customer/' + id, {
+async function removeCustomer(id) {
+    await fetch('http://localhost:7332/customer/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
     .then(data => {
         console.log(data);
-        getCustomers();
+        return getCustomers();
+    })
+    .then(() => {
         displayCustomers();
     })
     .catch((error) => {
         console.error('Error:', error);
     });
 }
-function removeBooking(id) {
-    fetch('http://localhost:7332/booking/' + id, {
+async function removeBooking(id) {
+    await fetch('http://localhost:7332/booking/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
     .then(data => {
         console.log(data);
-        getBookings();
+        return getBookings();
+    })
+    .then(() => {
         displayBookings();
     })
     .catch((error) => {
         console.error('Error:', error);
     });
 }
-function removePoolTable(id) {
-    fetch('http://localhost:7332/pooltable/' + id, {
+async function removePoolTable(id) {
+    await fetch('http://localhost:7332/pooltable/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: null
     })
     .then(data => {
         console.log(data);
-        getPoolTables();
+        return getPoolTables();
+    })
+    .then(() => {
         displayPoolTables();
     })
     .catch((error) => {
