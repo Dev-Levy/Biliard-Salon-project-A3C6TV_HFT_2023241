@@ -1,4 +1,44 @@
 ﻿
+let connection = null;
+
+setupSignalR();
+
+function setupSignalR() {
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:7332/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.on("CustomerCreated", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
+    connection.on("CustomerDeleted", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
+    connection.on("CustomerUpdated", (user, message) => {
+        return getCustomers()
+            .then(() => displayCustomers());
+    });
+
+    connection.onclose
+        (async () => {
+            await start();
+        });
+    start();
+}
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.(Customer)");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
+
+
 let customers = [];
 
 getCustomers();
