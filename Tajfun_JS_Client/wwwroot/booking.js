@@ -1,28 +1,30 @@
 ﻿
-let connection = null;
+//SignalR
+// #region SignalR
+let connection1 = null;
 
 setupSignalR();
 
 function setupSignalR() {
-    connection = new signalR.HubConnectionBuilder()
+    connection1 = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:7332/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-    connection.on("BookingCreated", (user, message) => {
+    connection1.on("BookingCreated", (user, message) => {
         return getBookings()
             .then(() => displayBookings());
     });
-    connection.on("BookingDeleted", (user, message) => {
+    connection1.on("BookingDeleted", (user, message) => {
         return getBookings()
             .then(() => displayBookings());
     });
-    connection.on("BookingUpdated", (user, message) => {
+    connection1.on("BookingUpdated", (user, message) => {
         return getBookings()
             .then(() => displayBookings());
     });
 
-    connection.onclose
+    connection1.onclose
         (async () => {
             await start();
         });
@@ -30,13 +32,15 @@ function setupSignalR() {
 }
 async function start() {
     try {
-        await connection.start();
+        await connection1.start();
         console.log("SignalR Connected.(Booking)");
     } catch (err) {
         console.log(err);
         setTimeout(start, 5000);
     }
 };
+
+//#endregion
 
 let bookings = [];
 

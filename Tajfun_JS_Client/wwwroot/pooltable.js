@@ -1,28 +1,30 @@
 ﻿
-//let connection = null;
+// SignalR
+// #region SignalR
+let connection3 = null;
 
 setupSignalR();
 
 function setupSignalR() {
-    //connection = new signalR.HubConnectionBuilder()
-    //    .withUrl("http://localhost:7332/hub")
-    //    .configureLogging(signalR.LogLevel.Information)
-    //    .build();
+    connection3 = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:7332/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
-    connection.on("PoolTableCreated", (user, message) => {
+    connection3.on("PoolTableCreated", (user, message) => {
         return getPoolTables()
             .then(() => displayPoolTables());
     });
-    connection.on("PoolTableDeleted", (user, message) => {
+    connection3.on("PoolTableDeleted", (user, message) => {
         return getPoolTables()
             .then(() => displayPoolTables());
     });
-    connection.on("PoolTableUpdated", (user, message) => {
+    connection3.on("PoolTableUpdated", (user, message) => {
         return getPoolTables()
             .then(() => displayPoolTables());
     });
 
-    connection.onclose
+    connection3.onclose
         (async () => {
             await start();
         });
@@ -30,14 +32,14 @@ function setupSignalR() {
 }
 async function start() {
     try {
-        await connection.start();
+        await connection3.start();
         console.log("SignalR Connected.(PoolTable)");
     } catch (err) {
         console.log(err);
         setTimeout(start, 5000);
     }
 };
-
+//#endregion
 
 let pooltables = [];
 
@@ -128,4 +130,5 @@ async function removePoolTable(id) {
 
 function showUpdatePoolTable() {
     document.getElementById('updatePoolTable').style.display = 'flex';
+
 }

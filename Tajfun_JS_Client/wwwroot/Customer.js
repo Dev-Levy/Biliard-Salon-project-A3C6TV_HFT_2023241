@@ -1,28 +1,30 @@
 ﻿
-//let connection = null;
+//SignalR
+// #region SignalR
+let connection2 = null;
 
 setupSignalR();
 
 function setupSignalR() {
-    //connection = new signalR.HubConnectionBuilder()
-    //    .withUrl("http://localhost:7332/hub")
-    //    .configureLogging(signalR.LogLevel.Information)
-    //    .build();
+    connection2 = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:7332/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
-    connection.on("CustomerCreated", (user, message) => {
+    connection2.on("CustomerCreated", (user, message) => {
         return getCustomers()
             .then(() => displayCustomers());
     });
-    connection.on("CustomerDeleted", (user, message) => {
+    connection2.on("CustomerDeleted", (user, message) => {
         return getCustomers()
             .then(() => displayCustomers());
     });
-    connection.on("CustomerUpdated", (user, message) => {
+    connection2.on("CustomerUpdated", (user, message) => {
         return getCustomers()
             .then(() => displayCustomers());
     });
 
-    connection.onclose
+    connection2.onclose
         (async () => {
             await start();
         });
@@ -30,7 +32,7 @@ function setupSignalR() {
 }
 async function start() {
     try {
-        await connection.start();
+        await connection2.start();
         console.log("SignalR Connected.(Customer)");
     } catch (err) {
         console.log(err);
@@ -38,6 +40,7 @@ async function start() {
     }
 };
 
+//#endregion
 
 let customers = [];
 
@@ -59,7 +62,7 @@ function displayCustomers() {
     document.getElementById('customers').innerHTML = "";
     customers.forEach(t => {
         document.getElementById('customers').innerHTML +=
-            `<tr><td><input type="radio" name="selectCustomerRadio" onclick='showUpdateCustomer()'></input></td>` +
+            `<tr><td><input type="radio" name="selectCustomerRadio" onclick='showUpdateCustomer("${t.name}","${t.phone}","${t.email}")'></input></td>` +
             "</td><td>" + t.name +
             "</td><td>" + t.phone +
             "</td><td>" + t.email +
@@ -109,9 +112,12 @@ async function removeCustomer(id) {
             console.error('Error:', error);
         });
 }
-function showUpdateCustomer() {
+function showUpdateCustomer(name, phone, email) {
     document.getElementById('updateCustomer').style.display = 'flex';
+    document.getElementById('nameUpdate').value = name;
+    document.getElementById('phoneUpdate').value = phone;
+    document.getElementById('emailUpdate').value = email;
 }
 function updateCustomer() {
-    // Update customer
+    
 }
