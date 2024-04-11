@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace A3C6TV_HFT_2023241.Models
 {
-    public class Booking
+    public class Booking : IBooking
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -53,9 +53,40 @@ namespace A3C6TV_HFT_2023241.Models
             CustomerId = cust_id;
         }
 
+        public Booking(int id, DateTime startDate, DateTime endDate, int t_id, int cust_id)
+        {
+            BookingId = id;
+
+            //parsing from yyyy-MM-dd HH:mm format string to DateTime 
+            //so i can compare them
+
+            StartDate = startDate;
+            EndDate = endDate;
+            TableId = t_id;
+            CustomerId = cust_id;
+        }
+
         public override string ToString()
         {
             return $"Id: {BookingId} - Date:{StartDate} - {EndDate} - CustomerId: {CustomerId} - TableId: {TableId}";
         }
+
+        public Booking Clone()
+        {
+            return new Booking().CopyFrom(this);
+        }
+
+        public Booking CopyFrom(IBooking other)
+        {
+            this.BookingId = other.BookingId;
+            this.StartDate = other.StartDate;
+            this.EndDate = other.EndDate;
+            this.TableId = other.TableId;
+            this.CustomerId = other.CustomerId;
+            this.Customer = other.Customer;
+            this.PoolTable = other.PoolTable;
+            return this;
+        }
+
     }
 }
