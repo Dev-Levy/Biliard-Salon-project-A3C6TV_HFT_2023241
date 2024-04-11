@@ -103,7 +103,8 @@ function displayCustomers() {
     document.getElementById('customers').innerHTML = "";
     customers.forEach(t => {
         document.getElementById('customers').innerHTML +=
-            "<tr><td>" + t.name +
+            `<tr><td><input type="radio" name="selectCustomerRadio"></input></td>` +
+            "</td><td>" + t.name +
             "</td><td>" + t.phone +
             "</td><td>" + t.email +
             `</td><td><button type="button" onclick='removeCustomer(${t.customerId})'>Delete</button></td></tr>`;
@@ -117,7 +118,8 @@ function displayBookings() {
     document.getElementById('bookings').innerHTML = "";
     bookings.forEach(t => {
         document.getElementById('bookings').innerHTML +=
-            "<tr><td>" + t.customer.name +
+            `<tr><td><input type="radio" name="selectBookingRadio"></input></td>` +
+            "</td><td>" + t.customer.name +
             "</td><td>" + formatDate(t.startDate) +
             "</td><td>" + formatDate(t.endDate) +
             "</td><td>" + t.poolTable.t_kind +
@@ -144,7 +146,8 @@ function displayPoolTables() {
     document.getElementById('pooltables').innerHTML = "";
     pooltables.forEach(t => {
         document.getElementById('pooltables').innerHTML +=
-            "<tr><td>" + t.tableId +
+            `<tr><td><input type="radio" name="selectPoolTableRadio"></input></td>` +
+            "</td><td>" + t.tableId +
             "</td><td>" + t.t_kind +
             `</td><td><button type="button" onclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
     })
@@ -251,6 +254,7 @@ async function removeCustomer(id) {
     })
         .then(data => {
             console.log(data);
+            getBookings();
             return getCustomers();
         })
         .then(() => {
@@ -285,6 +289,7 @@ async function removePoolTable(id) {
     })
         .then(data => {
             console.log(data);
+            getBookings();
             return getPoolTables();
         })
         .then(() => {
