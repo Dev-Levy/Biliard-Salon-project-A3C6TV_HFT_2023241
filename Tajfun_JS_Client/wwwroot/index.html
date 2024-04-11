@@ -36,7 +36,6 @@
             </div>
 
             <div class="editor">
-
                 <h4>Add customer</h4>
 
                 <label for="name">Name</label>
@@ -46,6 +45,16 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
                 <button onclick="addCustomer()">Add</button>
+
+                <div id="updateCustomer">
+                    <label for="name">Name</label>
+                    <input type="text" id="nameUpdate" required>
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phoneUpdate" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="emailUpdate" required>
+                    <button onclick="addCustomer()">Update</button>
+                </div>
             </div>
         </div>
 
@@ -78,8 +87,19 @@
                 <label for="table">Table</label>
                 <select id="poolTableSelect"> </select>
                 <button onclick="addBooking()">Add</button>
-            </div>
 
+                <div id="updateBooking">
+                    <label for="customer">Customer</label>
+                    <select id="customerSelect"> </select>
+                    <label for="start">Start</label>
+                    <input type="datetime-local" id="start" step="1800" value="2024-01-01T12:00">
+                    <label for="end">End</label>
+                    <input type="datetime-local" id="end" step="1800" value="2024-01-01T12:00">
+                    <label for="table">Table</label>
+                    <select id="poolTableSelect"> </select>
+                    <button onclick="addBooking()">Add</button>
+                </div>
+            </div>
         </div>
 
         <div class="tablewindow" id="pooltablewindow">
@@ -107,7 +127,7 @@
 
 
     </main>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
 </body>

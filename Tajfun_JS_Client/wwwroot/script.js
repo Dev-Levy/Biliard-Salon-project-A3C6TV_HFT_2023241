@@ -1,10 +1,8 @@
 
-let customers = [];
 let pooltables = [];
 let bookings = [];
 let connection = null;
 
-getCustomers();
 getBookings();
 getPoolTables();
 setupSignalR();
@@ -69,14 +67,7 @@ async function start() {
         setTimeout(start, 5000);
     }
 };
-async function getCustomers() {
-    await fetch('http://localhost:7332/customer')
-        .then(response => response.json())
-        .then(data => {
-            customers = data;
-            console.log(customers);
-        });
-}
+
 async function getBookings() {
     await fetch('http://localhost:7332/booking')
         .then(response => response.json())
@@ -95,21 +86,7 @@ async function getPoolTables() {
 }
 
 
-function displayCustomers() {
-    document.getElementById('bookingwindow').style.display = 'none'; // Hide bookingwindow
-    document.getElementById('pooltablewindow').style.display = 'none'; // Hide pooltablewindow
-    document.getElementById('customerwindow').style.display = 'flex'; // Show customerwindow
 
-    document.getElementById('customers').innerHTML = "";
-    customers.forEach(t => {
-        document.getElementById('customers').innerHTML +=
-            `<tr><td><input type="radio" name="selectCustomerRadio"></input></td>` +
-            "</td><td>" + t.name +
-            "</td><td>" + t.phone +
-            "</td><td>" + t.email +
-            `</td><td><button type="button" onclick='removeCustomer(${t.customerId})'>Delete</button></td></tr>`;
-    })
-}
 function displayBookings() {
     document.getElementById('bookingwindow').style.display = 'flex'; // Hide bookingwindow
     document.getElementById('pooltablewindow').style.display = 'none'; // Hide pooltablewindow
@@ -153,31 +130,7 @@ function displayPoolTables() {
     })
 }
 
-function addCustomer() {
-    let name = document.getElementById('name').value;
-    let phone = document.getElementById('phone').value;
-    let email = document.getElementById('email').value;
 
-    fetch('http://localhost:7332/customer', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            phone: phone,
-            email: email
-        })
-    })
-        .then(data => {
-            console.log(data);
-            getCustomers();
-            displayCustomers();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
 function addBooking() {
     let customer = document.getElementById('customerSelect').value;
     let poolTable = document.getElementById('poolTableSelect').value;
@@ -246,24 +199,7 @@ function addSnookerTable() {
         });
 }
 
-async function removeCustomer(id) {
-    await fetch('http://localhost:7332/customer/' + id, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: null
-    })
-        .then(data => {
-            console.log(data);
-            getBookings();
-            return getCustomers();
-        })
-        .then(() => {
-            displayCustomers();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
+
 async function removeBooking(id) {
     await fetch('http://localhost:7332/booking/' + id, {
         method: 'DELETE',
@@ -300,6 +236,13 @@ async function removePoolTable(id) {
         });
 }
 
+
+function showUpdateBooking() {
+    document.getElementById('updateBooking').style.display = 'flex';
+}
+function showUpdatePoolTable() {
+    document.getElementById('updateCustomer').style.display = 'flex';
+}
 
 function formatDate(date) {
     let d = new Date(date),
