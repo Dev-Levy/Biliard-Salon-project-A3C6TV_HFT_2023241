@@ -37,3 +37,7 @@ button{
     padding: 0.5em;
     background-color: #080707;
 }
+#updateCustomer, #updateBooking, #updatePoolTable{
+    display: none;
+    flex-direction:column;
+}

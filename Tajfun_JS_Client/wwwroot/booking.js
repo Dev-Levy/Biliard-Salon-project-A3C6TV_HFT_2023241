@@ -58,7 +58,7 @@ function displayBookings() {
     document.getElementById('bookings').innerHTML = "";
     bookings.forEach(t => {
         document.getElementById('bookings').innerHTML +=
-            `<tr><td><input type="radio" name="selectBookingRadio"></input></td>` +
+            `<tr><td><input type="radio" name="selectBookingRadio" onclick="showUpdateBooking()"></input></td>` +
             "</td><td>" + t.customer.name +
             "</td><td>" + formatDate(t.startDate) +
             "</td><td>" + formatDate(t.endDate) +

@@ -1,13 +1,13 @@
 ﻿
-let connection = null;
+//let connection = null;
 
 setupSignalR();
 
 function setupSignalR() {
-    connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:7332/hub")
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
+    //connection = new signalR.HubConnectionBuilder()
+    //    .withUrl("http://localhost:7332/hub")
+    //    .configureLogging(signalR.LogLevel.Information)
+    //    .build();
 
     connection.on("PoolTableCreated", (user, message) => {
         return getPoolTables()
@@ -59,7 +59,7 @@ function displayPoolTables() {
     document.getElementById('pooltables').innerHTML = "";
     pooltables.forEach(t => {
         document.getElementById('pooltables').innerHTML +=
-            `<tr><td><input type="radio" name="selectPoolTableRadio"></input></td>` +
+            `<tr><td><input type="radio" name="selectPoolTableRadio" onclick="showUpdatePoolTable()"></input></td>` +
             "</td><td>" + t.tableId +
             "</td><td>" + t.t_kind +
             `</td><td><button type="button" onclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
@@ -127,5 +127,5 @@ async function removePoolTable(id) {
 }
 
 function showUpdatePoolTable() {
-    document.getElementById('updateCustomer').style.display = 'flex';
+    document.getElementById('updatePoolTable').style.display = 'flex';
 }

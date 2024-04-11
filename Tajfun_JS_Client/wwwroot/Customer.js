@@ -1,13 +1,13 @@
 ﻿
-let connection = null;
+//let connection = null;
 
 setupSignalR();
 
 function setupSignalR() {
-    connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:7332/hub")
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
+    //connection = new signalR.HubConnectionBuilder()
+    //    .withUrl("http://localhost:7332/hub")
+    //    .configureLogging(signalR.LogLevel.Information)
+    //    .build();
 
     connection.on("CustomerCreated", (user, message) => {
         return getCustomers()
