@@ -137,7 +137,6 @@ function addCustomer() {
     })
         .then(data => {
             console.log(data);
-            getCustomers();
             displayCustomers();
         })
         .catch((error) => {
@@ -152,10 +151,6 @@ async function removeCustomer(id) {
     })
         .then(data => {
             console.log(data);
-            getBookings();
-            return getCustomers();
-        })
-        .then(() => {
             displayCustomers();
         })
         .catch((error) => {
@@ -188,47 +183,58 @@ function updateCustomer() {
     })
         .then(data => {
             console.log(data);
-            getCustomers();
+            return getCustomers();
+        })
+        .then(() => {
             displayCustomers();
         })
         .catch((error) => {
             console.error('Error:', error);
         });
+
+    document.getElementById('updateCustomer').style.display = 'none';
 }
 //#endregion
 
 //Bookings
 //#region Bookings
-function displayBookings() {
+async function displayBookings() {
     document.getElementById('bookingwindow').style.display = 'flex'; // Hide bookingwindow
     document.getElementById('pooltablewindow').style.display = 'none'; // Hide pooltablewindow
     document.getElementById('customerwindow').style.display = 'none'; // Show customerwindow
 
-    return getBookings().then(() => {
+    await Promise.all([getCustomers(), getPoolTables(), getBookings()]);
 
-        document.getElementById('bookings').innerHTML = "";
-        bookings.forEach(t => {
-            document.getElementById('bookings').innerHTML +=
-                `<tr><td><input type="radio" name="selectBookingRadio" onclick="showUpdateBooking()"></input></td>` +
-                "</td><td>" + t.customer.name +
-                "</td><td>" + formatDate(t.startDate) +
-                "</td><td>" + formatDate(t.endDate) +
-                "</td><td>" + t.poolTable.t_kind +
-                `</td><td><button type="button" onclick='removeBooking(${t.bookingId})'>Delete</button></td></tr>`;;
-        })
+    document.getElementById('bookings').innerHTML = "";
+    bookings.forEach(t => {
+        document.getElementById('bookings').innerHTML +=
+            `<tr><td><input type="radio" name="selectBookingRadio" onclick='showUpdateBooking("${t.bookingId}","${t.startDate}","${t.endDate}","${t.customer.customerId}","${t.poolTable.tableId}")'></input></td>` +
+            "</td><td>" + t.customer.name +
+            "</td><td>" + formatDate(t.startDate) +
+            "</td><td>" + formatDate(t.endDate) +
+            "</td><td>" + t.poolTable.t_kind +
+            `</td><td><button type="button" onclick='removeBooking(${t.bookingId})'>Delete</button></td></tr>`;;
+    })
 
-        document.getElementById('customerSelect').innerHTML = "";
-        customers.forEach(c => {
-            document.getElementById('customerSelect').innerHTML +=
-                "<option value='" + c.customerId + "'>" + c.name + "</option>";
-        })
+    document.getElementById('customerSelect').innerHTML = "";
+    document.getElementById('customerSelectUpdate').innerHTML = "";
+    customers.forEach(c => {
 
-        document.getElementById('poolTableSelect').innerHTML = "";
-        pooltables.forEach(t => {
-            document.getElementById('poolTableSelect').innerHTML +=
-                "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
-        })
-    });
+        document.getElementById('customerSelect').innerHTML +=
+            "<option value='" + c.customerId + "'>" + c.name + "</option>";
+
+        document.getElementById('customerSelectUpdate').innerHTML +=
+            "<option value='" + c.customerId + "'>" + c.name + "</option>";
+    })
+
+    document.getElementById('poolTableSelect').innerHTML = "";
+    document.getElementById('poolTableSelectUpdate').innerHTML = "";
+    pooltables.forEach(t => {
+        document.getElementById('poolTableSelect').innerHTML +=
+            "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
+        document.getElementById('poolTableSelectUpdate').innerHTML +=
+            "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
+    })
 }
 
 function addBooking() {
@@ -251,7 +257,6 @@ function addBooking() {
     })
         .then(data => {
             console.log(data);
-            getBookings();
             displayBookings();
         })
         .catch((error) => {
@@ -267,9 +272,6 @@ async function removeBooking(id) {
     })
         .then(data => {
             console.log(data);
-            return getBookings();
-        })
-        .then(() => {
             displayBookings();
         })
         .catch((error) => {
@@ -277,8 +279,43 @@ async function removeBooking(id) {
         });
 }
 
-function showUpdateBooking() {
+function showUpdateBooking(id, start, end, customerId, tableId) {
     document.getElementById('updateBooking').style.display = 'flex';
+    document.getElementById('startUpdate').value = start;
+    document.getElementById('endUpdate').value = end;
+    document.getElementById('customerSelectUpdate').value = customerId;
+    document.getElementById('poolTableSelectUpdate').value = tableId;
+}
+
+function UpdateBooking() {
+    let bookingId = document.getElementById('bookingId').value;
+    let startDate = document.getElementById('startUpdate').value;
+    let endDate = document.getElementById('endUpdate').value;
+    let customerId = document.getElementById('customerSelectUpdate').value;
+    let poolTableId = document.getElementById('poolTableSelectUpdate').value;
+
+    fetch('http://localhost:7332/booking', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            bookingId: bookingId,
+            startDate: startDate,
+            endDate: endDate,
+            customerId: customerId,
+            tableId: poolTableId
+        })
+    })
+        .then(data => {
+            console.log(data);
+            displayBookings();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+    document.getElementById('updateBooking').style.display = 'none';
 }
 
 function formatDate(date) {
@@ -335,7 +372,6 @@ function addPoolTable() {
     })
         .then(data => {
             console.log(data);
-            getPoolTables();
             displayPoolTables();
         })
         .catch((error) => {
@@ -355,7 +391,6 @@ function addSnookerTable() {
     })
         .then(data => {
             console.log(data);
-            getPoolTables();
             displayPoolTables();
         })
         .catch((error) => {
@@ -371,10 +406,6 @@ async function removePoolTable(id) {
     })
         .then(data => {
             console.log(data);
-            getBookings();
-            return getPoolTables();
-        })
-        .then(() => {
             displayPoolTables();
         })
         .catch((error) => {
