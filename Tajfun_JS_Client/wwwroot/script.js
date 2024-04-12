@@ -4,7 +4,8 @@ let pooltables = [];
 
 let numberOfBookings = 0;
 let mostUsedTable;
-let tableRates;
+let tableRate;
+let frequenters;
 
 //API
 //#region API
@@ -38,11 +39,12 @@ async function getMostFrequentCustomers(num) {
     await fetch('http://localhost:7332/NonCrud/MostFrequentCustomers/' + num)
         .then(response => response.json())
         .then(data => {
+            frequenters = data;
             console.log(data);
         });
 }
 async function getHowManyBookingsBetweenTwoDates(start, end) {
-    await fetch('http://localhost:7332/NonCrud/HowManyBookingsBetweenTwoDates/'+ start + ',' + end)
+    await fetch('http://localhost:7332/NonCrud/HowManyBookingsBetweenTwoDates/' + start + ',' + end)
         .then(response => response.json())
         .then(data => {
             numberOfBookings = data;
@@ -66,10 +68,10 @@ async function getMostUsedTable() {
         });
 }
 async function getTablekindsBooked(start, end) {
-    await fetch(`http://localhost:7332/NonCrud/TablekindsBooked/`)
+    await fetch('http://localhost:7332/NonCrud/TablekindsBooked/' + start + ',' + end)
         .then(response => response.json())
         .then(data => {
-            tableRates = data;
+            tableRate = data;
             console.log(data);
         });
 }
@@ -148,7 +150,7 @@ async function start() {
 //#region Customers
 let customerIdUpdate = 0;
 function displayCustomers() {
-    document.getElementById('bookingwindow').style.display = 'none'; 
+    document.getElementById('bookingwindow').style.display = 'none';
     document.getElementById('pooltablewindow').style.display = 'none';
     document.getElementById('customerwindow').style.display = 'flex';
 
@@ -167,7 +169,7 @@ function displayCustomers() {
                 "</td><td>" + t.email +
                 `</td><td><button type="button" onclick='removeCustomer(${t.customerId})'>Delete</button></td></tr>`;
         })
-    });    
+    });
 }
 function addCustomer() {
     let name = document.getElementById('name').value;
@@ -257,7 +259,7 @@ async function displayBookings() {
     document.getElementById('updateBooking').style.display = 'none';
     document.getElementById('updatePoolTable').style.display = 'none';
 
-    await Promise.all([getCustomers(), getPoolTables(), getBookings(), getMostUsedTable(), getTablekindsBooked()]);
+    await Promise.all([getCustomers(), getPoolTables(), getBookings(), getMostUsedTable(), getHowManyBookingsBetweenTwoDates("1000-01-01", "3000-01-01"), getTablekindsBooked("1000-01-01", "3000-01-01"), getMostFrequentCustomers(5)]);
 
     document.getElementById('bookings').innerHTML = "";
     bookings.forEach(t => {
@@ -289,8 +291,17 @@ async function displayBookings() {
         document.getElementById('poolTableSelectUpdate').innerHTML +=
             "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
     })
+
+    document.getElementById('frequentersList').innerHTML = "";
+    frequenters.forEach(c => {
+        document.getElementById('frequentersList').innerHTML +=
+            "<li>"+ c.name + ", count: " + c.count +"</li>"
+    })
+
+    document.getElementById('countBookings').value = numberOfBookings;
     document.getElementById('mostUsedTable').value = mostUsedTable[0].t_kind + ' - ' + mostUsedTable[0].tableId;
-    }
+    document.getElementById('tableRates').value = "Pool-Snooker: " + tableRate.poolsBookedNum + " - " + tableRate.snookersBookedNum;
+}
 async function displayBookingsBetweenDates() {
     document.getElementById('bookingwindow').style.display = 'flex';
     document.getElementById('pooltablewindow').style.display = 'none';

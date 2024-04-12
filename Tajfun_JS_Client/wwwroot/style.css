@@ -42,7 +42,7 @@ button{
     display: none;
     flex-direction:column;
 }
-td, th, label, select, input{
+td, th, label, select, input, ol{
     font-family: Arial, sans-serif;
 }
 button{
@@ -61,6 +61,15 @@ button{
     margin-right: 2em;
 }
 #stats input{
-    width: 10em;
     height: 2em;
+}
+#frequenters {
+    margin: 0 2em;
+}
+#frequentersList{
+    margin-top: 2em;
+    list-style-type: none;
+}
+#frequentersList li {
+    margin: 1em 0;
 }
