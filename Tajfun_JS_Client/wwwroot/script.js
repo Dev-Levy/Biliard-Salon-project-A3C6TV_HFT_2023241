@@ -102,9 +102,12 @@ async function start() {
 //#region Customers
 let customerIdUpdate = 0;
 function displayCustomers() {
-    document.getElementById('bookingwindow').style.display = 'none'; // Hide bookingwindow
-    document.getElementById('pooltablewindow').style.display = 'none'; // Hide pooltablewindow
-    document.getElementById('customerwindow').style.display = 'flex'; // Show customerwindow
+    document.getElementById('bookingwindow').style.display = 'none'; 
+    document.getElementById('pooltablewindow').style.display = 'none';
+    document.getElementById('customerwindow').style.display = 'flex';
+    document.getElementById('updateCustomer').style.display = 'none';
+    document.getElementById('updateBooking').style.display = 'none';
+    document.getElementById('updatePoolTable').style.display = 'none';
 
     return getCustomers().then(() => {
 
@@ -117,7 +120,7 @@ function displayCustomers() {
                 "</td><td>" + t.email +
                 `</td><td><button type="button" onclick='removeCustomer(${t.customerId})'>Delete</button></td></tr>`;
         })
-    });
+    });    
 }
 function addCustomer() {
     let name = document.getElementById('name').value;
@@ -198,10 +201,14 @@ function updateCustomer() {
 
 //Bookings
 //#region Bookings
+let bookingIdUpdate = 0;
 async function displayBookings() {
-    document.getElementById('bookingwindow').style.display = 'flex'; // Hide bookingwindow
-    document.getElementById('pooltablewindow').style.display = 'none'; // Hide pooltablewindow
-    document.getElementById('customerwindow').style.display = 'none'; // Show customerwindow
+    document.getElementById('bookingwindow').style.display = 'flex';
+    document.getElementById('pooltablewindow').style.display = 'none';
+    document.getElementById('customerwindow').style.display = 'none';
+    document.getElementById('updateCustomer').style.display = 'none';
+    document.getElementById('updateBooking').style.display = 'none';
+    document.getElementById('updatePoolTable').style.display = 'none';
 
     await Promise.all([getCustomers(), getPoolTables(), getBookings()]);
 
@@ -212,7 +219,7 @@ async function displayBookings() {
             "</td><td>" + t.customer.name +
             "</td><td>" + formatDate(t.startDate) +
             "</td><td>" + formatDate(t.endDate) +
-            "</td><td>" + t.poolTable.t_kind +
+            "</td><td>" + t.poolTable.t_kind + " - " + t.poolTable.tableId + "" +
             `</td><td><button type="button" onclick='removeBooking(${t.bookingId})'>Delete</button></td></tr>`;;
     })
 
@@ -235,8 +242,8 @@ async function displayBookings() {
         document.getElementById('poolTableSelectUpdate').innerHTML +=
             "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
     })
+    
 }
-
 function addBooking() {
     let customer = document.getElementById('customerSelect').value;
     let poolTable = document.getElementById('poolTableSelect').value;
@@ -263,7 +270,6 @@ function addBooking() {
             console.error('Error:', error);
         });
 }
-
 async function removeBooking(id) {
     await fetch('http://localhost:7332/booking/' + id, {
         method: 'DELETE',
@@ -278,21 +284,19 @@ async function removeBooking(id) {
             console.error('Error:', error);
         });
 }
-
 function showUpdateBooking(id, start, end, customerId, tableId) {
     document.getElementById('updateBooking').style.display = 'flex';
     document.getElementById('startUpdate').value = start;
     document.getElementById('endUpdate').value = end;
     document.getElementById('customerSelectUpdate').value = customerId;
     document.getElementById('poolTableSelectUpdate').value = tableId;
+    bookingIdUpdate = id;
 }
-
 function UpdateBooking() {
-    let bookingId = document.getElementById('bookingId').value;
     let startDate = document.getElementById('startUpdate').value;
     let endDate = document.getElementById('endUpdate').value;
-    let customerId = document.getElementById('customerSelectUpdate').value;
-    let poolTableId = document.getElementById('poolTableSelectUpdate').value;
+    let selectedCustomerId = document.getElementById('customerSelectUpdate').value;
+    let selectedTableId = document.getElementById('poolTableSelectUpdate').value;
 
     fetch('http://localhost:7332/booking', {
         method: 'PUT',
@@ -300,11 +304,11 @@ function UpdateBooking() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            bookingId: bookingId,
+            bookingId: bookingIdUpdate,
             startDate: startDate,
             endDate: endDate,
-            customerId: customerId,
-            tableId: poolTableId
+            customerId: selectedCustomerId,
+            tableId: selectedTableId
         })
     })
         .then(data => {
@@ -317,7 +321,6 @@ function UpdateBooking() {
 
     document.getElementById('updateBooking').style.display = 'none';
 }
-
 function formatDate(date) {
     let d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -341,24 +344,27 @@ function formatDate(date) {
 
 //PoolTables
 //#region PoolTables
+let poolTableIdUpdate = 0;
 function displayPoolTables() {
-    document.getElementById('bookingwindow').style.display = 'none'; // Hide bookingwindow
-    document.getElementById('pooltablewindow').style.display = 'flex'; // Hide pooltablewindow
-    document.getElementById('customerwindow').style.display = 'none'; // Show customerwindow
+    document.getElementById('bookingwindow').style.display = 'none';
+    document.getElementById('pooltablewindow').style.display = 'flex';
+    document.getElementById('customerwindow').style.display = 'none';
+    document.getElementById('updateCustomer').style.display = 'none';
+    document.getElementById('updateBooking').style.display = 'none';
+    document.getElementById('updatePoolTable').style.display = 'none';
 
     return getPoolTables().then(() => {
 
         document.getElementById('pooltables').innerHTML = "";
         pooltables.forEach(t => {
             document.getElementById('pooltables').innerHTML +=
-                `<tr><td><input type="radio" name="selectPoolTableRadio" onclick="showUpdatePoolTable()"></input></td>` +
+                `<tr><td><input type="radio" name="selectPoolTableRadio" onclick='showUpdatePoolTable("${t.tableId}","${t.t_kind}")'></input></td>` +
                 "</td><td>" + t.tableId +
                 "</td><td>" + t.t_kind +
                 `</td><td><button type="button" onclick='removePoolTable(${t.tableId})'>Delete</button></td></tr>`;;
         })
     });
 }
-
 function addPoolTable() {
 
     fetch('http://localhost:7332/pooltable', {
@@ -397,7 +403,6 @@ function addSnookerTable() {
             console.error('Error:', error);
         });
 }
-
 async function removePoolTable(id) {
     await fetch('http://localhost:7332/pooltable/' + id, {
         method: 'DELETE',
@@ -412,9 +417,35 @@ async function removePoolTable(id) {
             console.error('Error:', error);
         });
 }
-
-function showUpdatePoolTable() {
+function showUpdatePoolTable(id, type) {
     document.getElementById('updatePoolTable').style.display = 'flex';
+    document.getElementById('typeUpdate').value = type;
+    poolTableIdUpdate = id;
+}
+function updatePoolTable() {
+    let type = document.getElementById('typeUpdate').value;
 
+    fetch('http://localhost:7332/pooltable', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            tableId: poolTableIdUpdate,
+            t_kind: type
+        })
+    })
+        .then(data => {
+            console.log(data);
+            return getPoolTables();
+        })
+        .then(() => {
+            displayPoolTables();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+    document.getElementById('updatePoolTable').style.display = 'none';
 }
 //#endregion

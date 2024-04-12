@@ -41,3 +41,9 @@ button{
     display: none;
     flex-direction:column;
 }
+td, label, select, input{
+    font-family: Arial, sans-serif;
+}
+button{
+    font-family: 'Segoe UI';
+}

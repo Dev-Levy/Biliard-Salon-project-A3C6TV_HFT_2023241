@@ -37,7 +37,6 @@
 
             <div class="editor">
                 <h4>Add customer</h4>
-
                 <label for="name">Name</label>
                 <input type="text" id="name" required>
                 <label for="phone">Phone</label>
@@ -47,6 +46,7 @@
                 <button onclick="addCustomer()">Add</button>
 
                 <div id="updateCustomer">
+                    <h4>Update customer</h4>
                     <label for="name">Name</label>
                     <input type="text" id="nameUpdate" required>
                     <label for="phone">Phone</label>
@@ -89,6 +89,7 @@
                 <button onclick="addBooking()">Add</button>
 
                 <div id="updateBooking">
+                    <h4>Update booking</h4>
                     <label for="customer">Customer</label>
                     <select id="customerSelectUpdate"> </select>
                     <label for="start">Start</label>
@@ -124,7 +125,13 @@
                 <button onclick="addSnookerTable()">Add snooker table</button>
 
                 <div id="updatePoolTable">
-                    <h4>BRUH</h4>
+                    <h4>Update table</h4>
+                    <label for="type">Type</label>
+                    <select id="typeUpdate">
+                        <option value="Pool">Pool</option>
+                        <option value="Snooker">Snooker</option>
+                    </select>
+                    <button onclick="updatePoolTable()">Update</button>
                 </div>
             </div>
         </div>
