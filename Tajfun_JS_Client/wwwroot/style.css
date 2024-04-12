@@ -29,7 +29,7 @@ button{
     display: flex;
     flex-direction: column;
     flex-shrink: 2;
-    margin: 1em;
+    margin-left: 3em;
 }
 .table button{
     width: auto;
@@ -38,12 +38,29 @@ button{
     background-color: #080707;
 }
 #updateCustomer, #updateBooking, #updatePoolTable{
+    margin-top: 2em;
     display: none;
     flex-direction:column;
 }
-td, label, select, input{
+td, th, label, select, input{
     font-family: Arial, sans-serif;
 }
 button{
     font-family: 'Segoe UI';
+}
+#bokingsHeader{
+    display: flex;
+    align-content: center;
+    background-color: #ffffff20;
+    border-radius: 20px;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+#datePicker{
+    width: 50%;
+    margin-right: 2em;
+}
+#stats input{
+    width: 10em;
+    height: 2em;
 }

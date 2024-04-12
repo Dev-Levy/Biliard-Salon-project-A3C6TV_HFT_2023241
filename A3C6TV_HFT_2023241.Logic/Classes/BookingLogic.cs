@@ -96,7 +96,7 @@ namespace A3C6TV_HFT_2023241.Logic
         public IEnumerable<PoolTable> MostUsedTable()
         {
             //groupby nem mindig működik linq 
-            var poolTable = repo.ReadAll().ToList()
+            var poolTable = repo.ReadAll().AsEnumerable()
                                 .GroupBy(t => t.TableId)
                                 .OrderByDescending(t => t.Count())
                                 .First()

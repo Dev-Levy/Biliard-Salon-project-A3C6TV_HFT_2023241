@@ -9,8 +9,9 @@
 
 </head>
 <body>
-    <main onload="">
-        <h1>Welcome to Tájfun Biliard!</h1>
+    <main>
+        <h1>Tajfun Biliard!</h1>
+
         <h3>
             <button onclick="displayCustomers()">Customers</button>
             <button onclick="displayBookings()">Bookings</button>
@@ -19,7 +20,7 @@
 
         <div class="tablewindow" id="customerwindow">
             <div class="table">
-                <h3>Customers</h3>
+                <h2>Customers</h2>
                 <table>
                     <thead>
                         <tr>
@@ -60,7 +61,30 @@
 
         <div class="tablewindow" id="bookingwindow">
             <div class="table">
-                <h3>Bookings</h3>
+                <h2>Bookings</h2>
+                <div id="bokingsHeader">
+
+                    <div id="datePicker">
+                        <h4>Date Picker</h4>
+                        <label for="queryStart">Start</label>
+                        <input type="date" id="queryStart" />
+                        <label for="queryEnd">End</label>
+                        <input type="date" id="queryEnd" />
+                        <button onclick="displayBookingsBetweenDates()">Search</button>
+                    </div>
+
+                    <div id="stats">
+                        <h4>Statistics</h4>
+
+                        <label for="countBookings">Number of bookings:</label>
+                        <input type="text" id="countBookings" readonly>
+                        <label for="mostUsedTable">Most used table:</label>
+                        <input type="text" id="mostUsedTable" readonly>
+                        <label for="tableRates">Table rates:</label>
+                        <input type="text" id="tableRates" readonly>
+                    </div>
+                </div>
+
                 <table>
                     <thead>
                         <tr>
@@ -105,7 +129,7 @@
 
         <div class="tablewindow" id="pooltablewindow">
             <div class="table">
-                <h3>Pool Tables</h3>
+                <h2>Pool Tables</h2>
                 <table>
                     <thead>
                         <tr>

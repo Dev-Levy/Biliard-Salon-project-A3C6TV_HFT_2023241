@@ -2,6 +2,10 @@ let customers = [];
 let bookings = [];
 let pooltables = [];
 
+let numberOfBookings = 0;
+let mostUsedTable;
+let tableRates;
+
 //API
 //#region API
 async function getCustomers() {
@@ -28,6 +32,48 @@ async function getPoolTables() {
             console.log("pooltables GET done");
         });
 }
+
+
+async function getMostFrequentCustomers(num) {
+    await fetch('http://localhost:7332/NonCrud/MostFrequentCustomers/' + num)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+}
+async function getHowManyBookingsBetweenTwoDates(start, end) {
+    await fetch('http://localhost:7332/NonCrud/HowManyBookingsBetweenTwoDates/'+ start + ',' + end)
+        .then(response => response.json())
+        .then(data => {
+            numberOfBookings = data;
+            console.log(data);
+        });
+}
+async function getBookingsBetweenTwoDates(start, end) {
+    await fetch('http://localhost:7332/NonCrud/BookingsBetweenTwoDates/' + start + ',' + end)
+        .then(response => response.json())
+        .then(data => {
+            bookings = data;
+            console.log(data);
+        });
+}
+async function getMostUsedTable() {
+    await fetch('http://localhost:7332/NonCrud/MostUsedTable')
+        .then(response => response.json())
+        .then(data => {
+            mostUsedTable = data;
+            console.log(data);
+        });
+}
+async function getTablekindsBooked(start, end) {
+    await fetch(`http://localhost:7332/NonCrud/TablekindsBooked/`)
+        .then(response => response.json())
+        .then(data => {
+            tableRates = data;
+            console.log(data);
+        });
+}
+
 //#endregion
 
 //signalR
@@ -105,6 +151,7 @@ function displayCustomers() {
     document.getElementById('bookingwindow').style.display = 'none'; 
     document.getElementById('pooltablewindow').style.display = 'none';
     document.getElementById('customerwindow').style.display = 'flex';
+
     document.getElementById('updateCustomer').style.display = 'none';
     document.getElementById('updateBooking').style.display = 'none';
     document.getElementById('updatePoolTable').style.display = 'none';
@@ -210,7 +257,7 @@ async function displayBookings() {
     document.getElementById('updateBooking').style.display = 'none';
     document.getElementById('updatePoolTable').style.display = 'none';
 
-    await Promise.all([getCustomers(), getPoolTables(), getBookings()]);
+    await Promise.all([getCustomers(), getPoolTables(), getBookings(), getMostUsedTable(), getTablekindsBooked()]);
 
     document.getElementById('bookings').innerHTML = "";
     bookings.forEach(t => {
@@ -242,7 +289,53 @@ async function displayBookings() {
         document.getElementById('poolTableSelectUpdate').innerHTML +=
             "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
     })
-    
+    document.getElementById('mostUsedTable').value = mostUsedTable[0].t_kind + ' - ' + mostUsedTable[0].tableId;
+    }
+async function displayBookingsBetweenDates() {
+    document.getElementById('bookingwindow').style.display = 'flex';
+    document.getElementById('pooltablewindow').style.display = 'none';
+    document.getElementById('customerwindow').style.display = 'none';
+    document.getElementById('updateCustomer').style.display = 'none';
+    document.getElementById('updateBooking').style.display = 'none';
+    document.getElementById('updatePoolTable').style.display = 'none';
+
+    let start = document.getElementById('queryStart').value;
+    let end = document.getElementById('queryEnd').value;
+
+    await Promise.all([getBookingsBetweenTwoDates(start, end), getPoolTables(), getCustomers(), getHowManyBookingsBetweenTwoDates(start, end)]);
+
+    document.getElementById('bookings').innerHTML = "";
+    bookings.forEach(t => {
+        document.getElementById('bookings').innerHTML +=
+            `<tr><td><input type="radio" name="selectBookingRadio" onclick='showUpdateBooking("${t.bookingId}","${t.startDate}","${t.endDate}","${t.customer.customerId}","${t.poolTable.tableId}")'></input></td>` +
+            "</td><td>" + t.customer.name +
+            "</td><td>" + formatDate(t.startDate) +
+            "</td><td>" + formatDate(t.endDate) +
+            "</td><td>" + t.poolTable.t_kind + " - " + t.poolTable.tableId + "" +
+            `</td><td><button type="button" onclick='removeBooking(${t.bookingId})'>Delete</button></td></tr>`;;
+    })
+
+    document.getElementById('customerSelect').innerHTML = "";
+    document.getElementById('customerSelectUpdate').innerHTML = "";
+    customers.forEach(c => {
+
+        document.getElementById('customerSelect').innerHTML +=
+            "<option value='" + c.customerId + "'>" + c.name + "</option>";
+
+        document.getElementById('customerSelectUpdate').innerHTML +=
+            "<option value='" + c.customerId + "'>" + c.name + "</option>";
+    })
+
+    document.getElementById('poolTableSelect').innerHTML = "";
+    document.getElementById('poolTableSelectUpdate').innerHTML = "";
+    pooltables.forEach(t => {
+        document.getElementById('poolTableSelect').innerHTML +=
+            "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
+        document.getElementById('poolTableSelectUpdate').innerHTML +=
+            "<option value='" + t.tableId + "'> ID: " + t.tableId + "  Type: " + t.t_kind + "</option>";
+    })
+
+    document.getElementById('countBookings').value = numberOfBookings;
 }
 function addBooking() {
     let customer = document.getElementById('customerSelect').value;
