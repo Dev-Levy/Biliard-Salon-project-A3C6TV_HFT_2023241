@@ -88,7 +88,7 @@ namespace Tajfun_WPF_Client.ViewModels
                     IsSomethingSelected = false;
                 }
                 (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                //(UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
