@@ -33,5 +33,12 @@ namespace A3C6TV_HFT_2023241.Models
         {
             return $"Id: {TableId} type: {T_kind}";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is PoolTable table &&
+                   TableId == table.TableId &&
+                   T_kind == table.T_kind;
+        }
     }
 }

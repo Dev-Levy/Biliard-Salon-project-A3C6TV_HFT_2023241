@@ -100,8 +100,7 @@
                 DisplayMemberPath="Name"
                 FontWeight="Bold"
                 ItemsSource="{Binding Customers}"
-                SelectedValue="{Binding SelectedBooking.Customer.Name}"
-                SelectedValuePath="Name" />
+                SelectedValue="{Binding SelectedBooking.Customer}" />
 
             <TextBlock
                 Grid.Row="2"

@@ -36,9 +36,9 @@ namespace Tajfun_WPF_Client
         {
             if (!IsInDesignMode)
             {
-                customers = new RestCollection<Customer>("http://localhost:7332/", "Customer", "hub");
                 bookings = new RestCollection<Booking>("http://localhost:7332/", "Booking", "hub");
-                poolTables = new RestCollection<PoolTable>("http://localhost:7332/", "PoolTable", "hub");
+                customers = new RestCollection<Customer>("http://localhost:7332/", "Customer", "hub", new List<RestCollection> { bookings });
+                poolTables = new RestCollection<PoolTable>("http://localhost:7332/", "PoolTable", "hub", new List<RestCollection> { bookings });
 
 
                 customerService = Ioc.Default.GetRequiredService<ICustomerService>();

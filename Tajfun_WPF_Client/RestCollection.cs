@@ -270,8 +270,11 @@ namespace Tajfun_WPF_Client
         }
 
     }
-
-    public class RestCollection<T> : INotifyCollectionChanged, IEnumerable<T>
+    public abstract class RestCollection
+    {
+        abstract public Task Refresh();
+    }
+    public class RestCollection<T> : RestCollection, INotifyCollectionChanged, IEnumerable<T>
     {
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
@@ -281,7 +284,9 @@ namespace Tajfun_WPF_Client
         bool hasSignalR;
         Type type = typeof(T);
 
-        public RestCollection(string baseurl, string endpoint, string hub = null)
+        public IList<RestCollection> DependentCollections { get; }
+
+        public RestCollection(string baseurl, string endpoint, string hub = null, IList<RestCollection> dependentCollections = null)
         {
             hasSignalR = hub != null;
             rest = new RestService(baseurl, endpoint);
@@ -295,19 +300,21 @@ namespace Tajfun_WPF_Client
                     CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 });
 
-                notify.AddHandler(type.Name + "Deleted", (T item) =>
+                notify.AddHandler(type.Name + "Deleted", async (T item) =>
                 {
                     var element = items.FirstOrDefault(t => t.Equals(item));
                     if (element != null)
                     {
                         items.Remove(item);
-                        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                    }
-                    else
-                    {
                         Init();
+                        if (DependentCollections != null)
+                        {
+                            foreach (var restcoll in DependentCollections)
+                            {
+                                await restcoll.Refresh();
+                            }
+                        }
                     }
-
                 });
 
                 notify.AddHandler(type.Name + "Updated", (T item) =>
@@ -318,6 +325,7 @@ namespace Tajfun_WPF_Client
                 notify.Init();
             }
             Init();
+            DependentCollections = dependentCollections;
         }
 
         private async Task Init()
@@ -402,7 +410,7 @@ namespace Tajfun_WPF_Client
             }
 
         }
-        public async Task Refresh()
+        public override async Task Refresh()
         {
             await Init();
         }

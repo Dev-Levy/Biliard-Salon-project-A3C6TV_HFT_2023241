@@ -37,5 +37,14 @@ namespace A3C6TV_HFT_2023241.Models
         {
             return $"Id: {CustomerId} - {Name} - {Phone} - {Email}";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Customer customer &&
+                   CustomerId == customer.CustomerId &&
+                   Name == customer.Name &&
+                   Phone == customer.Phone &&
+                   Email == customer.Email;
+        }
     }
 }

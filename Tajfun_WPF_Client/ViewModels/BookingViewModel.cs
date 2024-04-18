@@ -9,6 +9,14 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class BookingViewModel : ObservableRecipient
     {
+        private int customerId;
+
+        public int CustomerId
+        {
+            get { return customerId; }
+            set { SetProperty(ref customerId, value); }
+        }
+
         private int year; public int Year
         {
             get { return year; }
@@ -62,13 +70,13 @@ namespace Tajfun_WPF_Client.ViewModels
             {
                 if (value != null)
                 {
+                    UpdateDatabse();
                     selectedBooking = new Booking()
                     {
                         BookingId = value.BookingId,
                         TableId = value.TableId,
                         PoolTable = value.PoolTable,
                         Customer = value.Customer,
-                        CustomerId = value.CustomerId,
                     };
                     Year = value.StartDate.Year;
                     Month = value.StartDate.Month;
@@ -140,13 +148,30 @@ namespace Tajfun_WPF_Client.ViewModels
                 UpdateBookingCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
-                        SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
-
-                        Bookings.Update(SelectedBooking);
+                        UpdateDatabse();
                     },
                     () => IsSomethingSelected == true
                     );
+            }
+        }
+
+        private void UpdateDatabse()
+        {
+            if (SelectedBooking == null)
+            {
+                return;
+            }
+
+            SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
+            SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
+            SelectedBooking.CustomerId = SelectedBooking.Customer.CustomerId;
+            try
+            {
+                Bookings.Update(SelectedBooking);
+            }
+            catch (System.Exception)
+            {
+                ; // Log error
             }
         }
     }

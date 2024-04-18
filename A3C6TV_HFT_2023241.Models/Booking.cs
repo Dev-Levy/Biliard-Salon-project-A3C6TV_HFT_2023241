@@ -57,5 +57,15 @@ namespace A3C6TV_HFT_2023241.Models
         {
             return $"Id: {BookingId} - Date:{StartDate} - {EndDate} - CustomerId: {CustomerId} - TableId: {TableId}";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Booking booking &&
+                   BookingId == booking.BookingId &&
+                   StartDate == booking.StartDate &&
+                   EndDate == booking.EndDate &&
+                   TableId == booking.TableId &&
+                   CustomerId == booking.CustomerId;
+        }
     }
 }
