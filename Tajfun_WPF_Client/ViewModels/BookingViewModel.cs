@@ -9,14 +9,6 @@ namespace Tajfun_WPF_Client.ViewModels
 {
     class BookingViewModel : ObservableRecipient
     {
-        private int customerId;
-
-        public int CustomerId
-        {
-            get { return customerId; }
-            set { SetProperty(ref customerId, value); }
-        }
-
         private int year; public int Year
         {
             get { return year; }
@@ -59,7 +51,7 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
-        public RestCollection<Customer> Customers { get; set; }
+        public List<Customer> Customers { get; set; }
         public RestCollection<PoolTable> PoolTables { get; set; }
 
         private Booking selectedBooking;
@@ -70,7 +62,6 @@ namespace Tajfun_WPF_Client.ViewModels
             {
                 if (value != null)
                 {
-                    UpdateDatabse();
                     selectedBooking = new Booking()
                     {
                         BookingId = value.BookingId,
@@ -96,7 +87,7 @@ namespace Tajfun_WPF_Client.ViewModels
                     IsSomethingSelected = false;
                 }
                 (DeleteBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                //(UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateBookingCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
@@ -122,7 +113,7 @@ namespace Tajfun_WPF_Client.ViewModels
             if (!IsInDesignMode)
             {
                 Bookings = bookings;
-                Customers = customers;
+                Customers = customers.ToList();
                 PoolTables = poolTables;
 
                 CreateBookingCommand = new RelayCommand(
@@ -148,30 +139,14 @@ namespace Tajfun_WPF_Client.ViewModels
                 UpdateBookingCommand = new RelayCommand(
                     () =>
                     {
-                        UpdateDatabse();
+                        SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
+                        SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
+                        SelectedBooking.CustomerId = SelectedBooking.Customer.CustomerId;
+                        //SelectedBooking.TableId = SelectedBooking.PoolTable.TableId;
+                        Bookings.Update(SelectedBooking);
                     },
                     () => IsSomethingSelected == true
                     );
-            }
-        }
-
-        private void UpdateDatabse()
-        {
-            if (SelectedBooking == null)
-            {
-                return;
-            }
-
-            SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
-            SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
-            SelectedBooking.CustomerId = SelectedBooking.Customer.CustomerId;
-            try
-            {
-                Bookings.Update(SelectedBooking);
-            }
-            catch (System.Exception)
-            {
-                ; // Log error
             }
         }
     }

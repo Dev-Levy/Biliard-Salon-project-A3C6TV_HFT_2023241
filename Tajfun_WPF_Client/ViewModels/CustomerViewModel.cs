@@ -67,12 +67,12 @@ namespace Tajfun_WPF_Client.ViewModels
                 Bookings = bookings;
 
                 CreateCustomerCommand = new RelayCommand(
-                    () => Customers.Add(new Customer()
-                    {
-                        Name = SelectedCustomer.Name,
-                        Email = SelectedCustomer.Email,
-                        Phone = SelectedCustomer.Phone
-                    }));
+                () => Customers.Add(new Customer()
+                {
+                    Name = SelectedCustomer.Name,
+                    Email = SelectedCustomer.Email,
+                    Phone = SelectedCustomer.Phone
+                }));
 
                 DeleteCustomerCommand = new RelayCommand(
                     async () =>
@@ -89,7 +89,7 @@ namespace Tajfun_WPF_Client.ViewModels
                     () => IsSomethingSelected == true
                     );
             }
-
         }
+
     }
 }

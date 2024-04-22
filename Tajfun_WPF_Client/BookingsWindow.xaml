@@ -288,11 +288,11 @@
                 Margin="20"
                 Command="{Binding DeleteBookingCommand}"
                 Content="Delete" />
-            <!--<Button
+            <Button
                 Grid.Row="2"
                 Margin="20"
                 Command="{Binding UpdateBookingCommand}"
-                Content="Update" />-->
+                Content="Update" />
         </Grid>
     </Grid>
 </Window>
