@@ -51,7 +51,7 @@ namespace Tajfun_WPF_Client.ViewModels
 
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
-        public List<Customer> Customers { get; set; }
+        public RestCollection<Customer> Customers { get; set; }
         public RestCollection<PoolTable> PoolTables { get; set; }
 
         private Booking selectedBooking;
@@ -113,7 +113,7 @@ namespace Tajfun_WPF_Client.ViewModels
             if (!IsInDesignMode)
             {
                 Bookings = bookings;
-                Customers = customers.ToList();
+                Customers = customers;
                 PoolTables = poolTables;
 
                 CreateBookingCommand = new RelayCommand(
@@ -121,10 +121,8 @@ namespace Tajfun_WPF_Client.ViewModels
                     {
                         StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0),
                         EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0),
-                        TableId = SelectedBooking.TableId,
-                        PoolTable = SelectedBooking.PoolTable,
-                        CustomerId = SelectedBooking.CustomerId,
-                        Customer = SelectedBooking.Customer
+                        CustomerId = SelectedBooking.Customer.CustomerId,
+                        TableId = SelectedBooking.PoolTable.TableId,
                     }));
 
                 DeleteBookingCommand = new RelayCommand(
@@ -142,7 +140,7 @@ namespace Tajfun_WPF_Client.ViewModels
                         SelectedBooking.StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0);
                         SelectedBooking.EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0);
                         SelectedBooking.CustomerId = SelectedBooking.Customer.CustomerId;
-                        //SelectedBooking.TableId = SelectedBooking.PoolTable.TableId;
+                        SelectedBooking.TableId = SelectedBooking.PoolTable.TableId;
                         Bookings.Update(SelectedBooking);
                     },
                     () => IsSomethingSelected == true

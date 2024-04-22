@@ -33,6 +33,13 @@ namespace A3C6TV_HFT_2023241.Models
 
         }
 
+        public Booking(DateTime start, DateTime end, int tableid, int customerid)
+        {
+            StartDate = start;
+            EndDate = end;
+            TableId = tableid;
+            CustomerId = customerid;
+        }
         public Booking(int id, string startDate, string endDate, int t_id, int cust_id)
         {
             BookingId = id;

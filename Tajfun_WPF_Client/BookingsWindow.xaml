@@ -260,8 +260,7 @@
                     DisplayMemberPath="TableId"
                     FontWeight="Bold"
                     ItemsSource="{Binding PoolTables}"
-                    SelectedValue="{Binding SelectedBooking.TableId}"
-                    SelectedValuePath="TableId" />
+                    SelectedValue="{Binding SelectedBooking.PoolTable}" />
             </Grid>
         </Grid>
 

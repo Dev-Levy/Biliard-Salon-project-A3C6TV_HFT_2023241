@@ -297,7 +297,7 @@ namespace Tajfun_WPF_Client
                 notify.AddHandler(type.Name + "Created", (T item) =>
                 {
                     items.Add(item);
-                    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    Init();
                 });
 
                 notify.AddHandler(type.Name + "Deleted", async (T item) =>
@@ -317,9 +317,16 @@ namespace Tajfun_WPF_Client
                     }
                 });
 
-                notify.AddHandler(type.Name + "Updated", (T item) =>
+                notify.AddHandler(type.Name + "Updated", async (T item) =>
                 {
                     Init();
+                    if (DependentCollections != null)
+                    {
+                        foreach (var restcoll in DependentCollections)
+                        {
+                            await restcoll.Refresh();
+                        }
+                    }
                 });
 
                 notify.Init();

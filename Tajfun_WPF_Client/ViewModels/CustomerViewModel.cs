@@ -61,18 +61,19 @@ namespace Tajfun_WPF_Client.ViewModels
         }
         public CustomerViewModel(RestCollection<Customer> customers, RestCollection<Booking> bookings)
         {
+            SelectedCustomer = new Customer();
             if (!IsInDesignMode)
             {
                 Customers = customers;
                 Bookings = bookings;
 
                 CreateCustomerCommand = new RelayCommand(
-                () => Customers.Add(new Customer()
-                {
-                    Name = SelectedCustomer.Name,
-                    Email = SelectedCustomer.Email,
-                    Phone = SelectedCustomer.Phone
-                }));
+                    () => Customers.Add(new Customer()
+                    {
+                        Name = SelectedCustomer.Name,
+                        Email = SelectedCustomer.Email,
+                        Phone = SelectedCustomer.Phone
+                    }));
 
                 DeleteCustomerCommand = new RelayCommand(
                     async () =>
