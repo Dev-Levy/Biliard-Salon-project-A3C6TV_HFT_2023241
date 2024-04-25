@@ -20,20 +20,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" MinWidth="300" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="{Binding UpdateColWidth}" MinWidth="300" />
-            <ColumnDefinition Width="{Binding AddColWidth}"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" MinWidth="100" />
         </Grid.ColumnDefinitions>
 
         <ListBox
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             HorizontalContentAlignment="Stretch"
             Background="Transparent"
             ItemsSource="{Binding Bookings}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            SelectedIndex="{Binding SelectedBookingIndex}"
             SelectedItem="{Binding SelectedBooking}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -73,10 +73,9 @@
             Grid.Column="1"
             Width="5"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Background="Black" />
 
-        <Grid Grid.Column="2" Margin="10">
+        <Grid Grid.Column="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -265,10 +264,7 @@
             </Grid>
         </Grid>
 
-        <Grid
-            Grid.Column="3"
-            Margin="10"
-            Visibility="Collapsed">
+        <Grid Grid.Column="3" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -458,10 +454,9 @@
         </Grid>
 
         <GridSplitter
-            Grid.Column="3"
+            Grid.Column="4"
             Width="5"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Background="Black" />
 
         <Grid Grid.Column="5">

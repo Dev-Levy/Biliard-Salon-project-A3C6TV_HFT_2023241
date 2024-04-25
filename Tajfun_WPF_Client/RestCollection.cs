@@ -283,6 +283,7 @@ namespace Tajfun_WPF_Client
         List<T> items;
         bool hasSignalR;
         Type type = typeof(T);
+        private Action invokeAfterInit;
 
         public IList<RestCollection> DependentCollections { get; }
 
@@ -306,7 +307,7 @@ namespace Tajfun_WPF_Client
                     if (element != null)
                     {
                         items.Remove(item);
-                        Init();
+                        await Init();
                         if (DependentCollections != null)
                         {
                             foreach (var restcoll in DependentCollections)
@@ -335,12 +336,21 @@ namespace Tajfun_WPF_Client
             DependentCollections = dependentCollections;
         }
 
+        public void SetupActionAfterInit(Action actionAfterInit)
+        {
+            invokeAfterInit = actionAfterInit;
+        }
+
         private async Task Init()
         {
             items = await rest.GetAsync<T>(typeof(T).Name);
             Application.Current.Dispatcher.Invoke(() =>
             {
                 CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            });
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                invokeAfterInit?.Invoke();
             });
         }
 

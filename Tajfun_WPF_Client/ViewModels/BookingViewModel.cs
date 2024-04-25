@@ -47,17 +47,14 @@ namespace Tajfun_WPF_Client.ViewModels
             set { SetProperty(ref endminute, value); }
         }
 
-        private int addColWidth; public int AddColWidth
+        private int selectedBookingIndex;
+        public int SelectedBookingIndex
         {
-            get { return addColWidth; }
-            set { SetProperty(ref addColWidth, value); }
+            get { return selectedBookingIndex; }
+            set { SetProperty(ref selectedBookingIndex, value); }
         }
 
-        private int updateColWidth; public int UpdateColWidth
-        {
-            get { return updateColWidth; }
-            set { SetProperty(ref updateColWidth, value); }
-        }
+
 
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
@@ -120,6 +117,12 @@ namespace Tajfun_WPF_Client.ViewModels
         }
         public BookingViewModel(RestCollection<Booking> bookings, RestCollection<Customer> customers, RestCollection<PoolTable> poolTables)
         {
+            selectedBooking = new Booking();
+            selectedBooking.Customer = new Customer();
+            selectedBooking.PoolTable = new PoolTable();
+
+            bookings.SetupActionAfterInit(() => SelectedBookingIndex = 0);
+
             if (!IsInDesignMode)
             {
                 Bookings = bookings;
@@ -127,22 +130,35 @@ namespace Tajfun_WPF_Client.ViewModels
                 PoolTables = poolTables;
 
                 CreateBookingCommand = new RelayCommand(
-                    () => Bookings.Add(new Booking()
+                    () =>
                     {
-                        StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0),
-                        EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0),
-                        CustomerId = SelectedBooking.Customer.CustomerId,
-                        TableId = SelectedBooking.PoolTable.TableId,
-                    }));
+                        try
+                        {
+                            Bookings.Add(new Booking()
+                            {
+                                StartDate = new DateTime(Year, Month, Day, Starthour, Startminute, 0),
+                                EndDate = new DateTime(Year, Month, Day, Endhour, Endminute, 0),
+                                CustomerId = SelectedBooking.Customer.CustomerId,
+                                TableId = SelectedBooking.PoolTable.TableId
+                            });
+                        }
+                        catch (Exception e) { }
+                    });
 
                 DeleteBookingCommand = new RelayCommand(
                     async () =>
                     {
-                        await Bookings.Delete(SelectedBooking.BookingId);
-                        IsSomethingSelected = false;
+                        try
+                        {
+                            await Bookings.Delete(SelectedBooking.BookingId);
+                            IsSomethingSelected = false;
+                            //SelectedBookingIndex = 0;
+                        }
+                        catch (Exception e) { }
                     },
                     () => IsSomethingSelected == true
                     );
+
 
                 UpdateBookingCommand = new RelayCommand(
                     () =>
