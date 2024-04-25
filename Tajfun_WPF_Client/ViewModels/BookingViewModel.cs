@@ -47,7 +47,17 @@ namespace Tajfun_WPF_Client.ViewModels
             set { SetProperty(ref endminute, value); }
         }
 
+        private int addColWidth; public int AddColWidth
+        {
+            get { return addColWidth; }
+            set { SetProperty(ref addColWidth, value); }
+        }
 
+        private int updateColWidth; public int UpdateColWidth
+        {
+            get { return updateColWidth; }
+            set { SetProperty(ref updateColWidth, value); }
+        }
 
         public bool IsSomethingSelected { get; set; } = false;
         public RestCollection<Booking> Bookings { get; set; }
