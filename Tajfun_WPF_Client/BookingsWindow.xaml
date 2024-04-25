@@ -20,8 +20,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" MinWidth="300" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" MinWidth="300" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="{Binding UpdateColWidth}" MinWidth="300" />
+            <ColumnDefinition Width="{Binding AddColWidth}"/>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" MinWidth="100" />
         </Grid.ColumnDefinitions>
