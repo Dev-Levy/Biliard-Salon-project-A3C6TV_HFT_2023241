@@ -85,8 +85,6 @@ namespace A3C6TV_HFT_2023241.Repository
                 new Booking(38, "2023-11-17 11:00", "2023-11-17 14:30", 5, 1),
                 new Booking(39, "2023-11-17 15:30", "2023-11-17 18:00", 19, 1),
                 new Booking(40, "2023-11-17 19:00", "2023-11-17 21:30", 12, 1),
-
-
             }); ;
 
             modelBuilder.Entity<Customer>().HasData(new Customer[]
