@@ -150,10 +150,6 @@ async function start() {
 //#region Customers
 let customerIdUpdate = 0;
 function displayCustomers() {
-
-    if (document.getElementById('bookingwindow').style.display == 'flex' || document.getElementById('pooltablewindow').style.display == 'flex')
-        return;
-
     document.getElementById('bookingwindow').style.display = 'none';
     document.getElementById('pooltablewindow').style.display = 'none';
     document.getElementById('customerwindow').style.display = 'flex';
@@ -237,16 +233,16 @@ function updateCustomer() {
             email: email
         })
     })
-        .then(data => {
-            console.log(data);
-            return getCustomers();
-        })
-        .then(() => {
-            displayCustomers();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    .then(data => {
+        console.log(data);
+        return getCustomers();
+    })
+    .then(() => {
+        displayCustomers();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 
     document.getElementById('updateCustomer').style.display = 'none';
 }
